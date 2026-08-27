@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NDIS Practice Academy — written evidence your workers can stand behind</title>
+<meta name="description" content="Scenario-based practice training for NDIS support workers. Every worker writes a game plan for a real support situation and gets AI coaching on it — leaving you a dated, written work sample per worker for your training register.">
+<style>
+:root{
+  --ink:#1c2733; --ink-soft:#4a5a6a; --paper:#f6f4ef; --line:#dcd7cc;
+  --teal:#0e7c7b; --teal-dark:#0a5d5c; --teal-soft:#e2f1f0;
+  --gold:#c9a227; --gold-soft:#faf3dd;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 1.4rem}
+h1,h2,h3{line-height:1.2;letter-spacing:-.01em;margin:0 0 .6rem}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:800}
+h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:750;margin-top:0}
+h3{font-size:1.06rem;font-weight:700}
+p{margin:0 0 1rem}
+a{color:var(--teal-dark)}
+.lede{font-size:clamp(1.05rem,2vw,1.28rem);color:var(--ink-soft);max-width:60ch}
+
+/* header */
+.top{border-bottom:1px solid var(--line);background:#fff}
+.top .wrap{display:flex;align-items:center;gap:.7rem;padding-top:.9rem;padding-bottom:.9rem;flex-wrap:wrap}
+.mark{color:var(--gold);font-size:1.5rem;line-height:1}
+.brand{font-weight:800;letter-spacing:.01em}
+.top nav{margin-left:auto;display:flex;gap:1.1rem;font-size:.9rem;flex-wrap:wrap}
+.top nav a{color:var(--ink-soft);text-decoration:none;font-weight:600}
+.top nav a:hover{color:var(--teal)}
+
+/* hero */
+.hero{background:#fff;border-bottom:1px solid var(--line);padding:3.4rem 0 3rem}
+.eyebrow{display:inline-block;background:var(--gold-soft);border:1px solid #e6d9a8;
+  color:#6b5510;font-size:.8rem;font-weight:700;padding:.3rem .7rem;border-radius:99px;margin-bottom:1rem}
+.cta-row{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem}
+.btn{display:inline-block;padding:.72rem 1.3rem;border-radius:8px;border:1.5px solid var(--line);
+  background:#fff;color:var(--ink);font-weight:700;text-decoration:none;font-size:.95rem}
+.btn:hover{border-color:var(--teal);color:var(--teal)}
+.btn-primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+.hero-note{font-size:.83rem;color:var(--ink-soft);margin-top:.9rem}
+
+/* sections */
+section{padding:3rem 0;border-bottom:1px solid var(--line)}
+.grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));margin-top:1.6rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.3rem}
+.card h3{color:var(--teal-dark)}
+.card p{margin:0;font-size:.94rem;color:var(--ink-soft)}
+.num{font-size:1.9rem;font-weight:800;color:var(--teal);line-height:1}
+.stats{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:1.4rem}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.1rem;text-align:center}
+.stat .lbl{font-size:.82rem;color:var(--ink-soft);margin-top:.2rem}
+
+/* the flow */
+.flow{counter-reset:step;margin-top:1.6rem;display:grid;gap:1rem}
+.step{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);
+  border-radius:10px;padding:1.1rem 1.3rem;position:relative}
+.step h3{margin-bottom:.25rem}
+.step p{margin:0;color:var(--ink-soft);font-size:.95rem}
+
+/* evidence highlight */
+.feature{background:var(--teal-soft);border:1px solid #bcdedd;border-radius:14px;padding:1.6rem}
+.feature ul{margin:.8rem 0 0;padding-left:1.15rem}
+.feature li{margin-bottom:.45rem}
+
+/* honesty box */
+.honest{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:1.3rem 1.4rem}
+.honest p:last-child{margin-bottom:0}
+.honest strong{color:var(--ink)}
+
+/* streams */
+.mods{margin-top:1.4rem;display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.stream{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.3rem}
+.stream h3{color:var(--teal-dark);border-bottom:2px solid var(--teal-soft);padding-bottom:.5rem}
+.stream ol{margin:.8rem 0 0;padding-left:1.2rem;font-size:.92rem;color:var(--ink-soft)}
+.stream li{margin-bottom:.3rem}
+
+/* pilot */
+.pilot{background:#fff;border:2px solid var(--teal);border-radius:14px;padding:1.8rem}
+.pilot ul{padding-left:1.15rem;margin:.9rem 0}
+.pilot li{margin-bottom:.4rem}
+
+footer{padding:2.4rem 0 3rem;font-size:.85rem;color:var(--ink-soft)}
+footer p{max-width:75ch}
+@media (max-width:640px){ .top nav{width:100%;margin-left:0} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="mark">◈</span>
+    <span class="brand">NDIS Practice Academy</span>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#evidence">The evidence pack</a>
+      <a href="#inside">What's inside</a>
+      <a href="#pilot">Pilot</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Built for the 2026 SIL registration wave</span>
+    <h1>Your training register says they attended.<br>An auditor wants to know they can think.</h1>
+    <p class="lede">The NDIS Practice Academy puts your workers in real support situations and asks
+      them to write what they would actually do. An AI coach responds to what they wrote — supportively,
+      never pass/fail. You are left with a dated, written work sample from every worker.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="./NDIS-Practice-Academy.html">Try it now — no sign-up</a>
+      <a class="btn" href="mailto:NdisAcademy@outlook.com?subject=NDIS%20Practice%20Academy%20pilot">Ask about a free 60-day pilot</a>
+    </div>
+    <p class="hero-note">The demo runs entirely in your browser. Nothing you type leaves your device.</p>
+  </div>
+</div>
+
+<section id="problem">
+  <div class="wrap">
+    <h2>Every training vendor hands the hard half back to you</h2>
+    <p class="lede">The SIL Practice Standards expect relevant workers to be trained <em>and</em>, in key
+      areas, assessed as competent. Read the fine print on any online course and you will find the same
+      sentence: completion does not equal competency, and the provider remains responsible for
+      supervision and competency assessment.</p>
+    <p>That is correct, and it is also the whole problem. A completion certificate proves someone
+      clicked through fourteen modules. It is not evidence that the person can reason through a
+      safeguarding decision at 9pm on a Sunday — and when a quality auditor asks how you know your
+      workers can, a spreadsheet of tick-boxes is a thin answer.</p>
+    <p><strong>We don't assess competence either — that decision is yours to make, and it should be.</strong>
+      What we do is give you something to make it with: what each worker actually wrote, when they wrote
+      it, and what the scenario was testing.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>What a worker actually does</h2>
+    <div class="flow">
+      <div class="step">
+        <h3>1. Read the situation</h3>
+        <p>A short study guide, then a real support scenario — a participant wants to spend their money
+          on something risky; a colleague's notes don't match what you saw; someone discloses something
+          on shift.</p>
+      </div>
+      <div class="step">
+        <h3>2. Write the game plan</h3>
+        <p>Not multiple choice. Not a memory test. In their own words: what would you do, in what order,
+          and who would you tell?</p>
+      </div>
+      <div class="step">
+        <h3>3. The coach responds</h3>
+        <p>Strengths first, then the questions that make the plan stronger — plus a supportive safety note
+          if the plan drifts somewhere risky. <strong>There is no pass, no fail, and no score shown to
+          the worker, ever.</strong> People who are being graded write for the grader; people who are
+          being coached think about the participant.</p>
+      </div>
+      <div class="step">
+        <h3>4. It's recorded</h3>
+        <p>The submission, its date, and how much of what the scenario was testing they covered. Finish
+          all six scenarios in a module and a <strong>Certificate of Completion</strong> is issued —
+          a factual record of what they did, not a verdict on who they are. That is the artefact, and
+          it's yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="evidence">
+  <div class="wrap">
+    <h2>The document you hand the auditor</h2>
+    <div class="feature">
+      <p><strong>Admin → Evidence</strong> produces a printable pack for one worker or your whole
+        organisation, with your name and logo on the cover:</p>
+      <ul>
+        <li>Who completed what, and when — module by module, scenario by scenario</li>
+        <li>What each scenario was assessing, and how much of it they demonstrated</li>
+        <li>Certificate of Completion titles, serial numbers and award dates</li>
+        <li>Workers with no activity listed as such, rather than quietly left out</li>
+        <li>A CSV alongside it, for the people who live in spreadsheets</li>
+      </ul>
+      <p style="margin-top:1rem"><strong>And not one word a worker wrote about a real person.</strong>
+        The pack structurally cannot contain answer text — not by a rendering convention we promise to
+        keep, but because the data never reaches the page that builds it, whoever generates it. Answers
+        may contain personal reflections about real participants; they are treated as sensitive, and
+        reading a single submission is a separate, deliberate action that is always recorded in the
+        audit log.</p>
+    </div>
+  </div>
+</section>
+
+<section id="inside">
+  <div class="wrap">
+    <h2>What's inside</h2>
+    <div class="stats">
+      <div class="stat"><div class="num">14</div><div class="lbl">modules</div></div>
+      <div class="stat"><div class="num">84</div><div class="lbl">coached scenarios</div></div>
+      <div class="stat"><div class="num">16</div><div class="lbl">certificates on offer</div></div>
+      <div class="stat"><div class="num">2</div><div class="lbl">practice streams</div></div>
+    </div>
+    <div class="mods">
+      <div class="stream">
+        <h3>Core Practice</h3>
+        <ol>
+          <li>NDIS Foundations &amp; the Code of Conduct</li>
+          <li>Person-Centred Practice: Choice, Control &amp; Dignity of Risk</li>
+          <li>Safeguarding: Abuse, Incidents &amp; Restrictive Practices</li>
+          <li>Communication &amp; Working with Diverse Participants</li>
+          <li>Health, Safety &amp; Daily Personal Supports</li>
+          <li>Professional Boundaries, Privacy &amp; Documentation</li>
+          <li>Psychosocial Disability &amp; Recovery-Oriented Practice</li>
+          <li>Supporting Children, Young People &amp; Families</li>
+        </ol>
+      </div>
+      <div class="stream">
+        <h3>Mental Health Practice</h3>
+        <ol>
+          <li>Psychosis &amp; Schizophrenia Spectrum Conditions</li>
+          <li>Depression, Bipolar &amp; Mood Conditions</li>
+          <li>Anxiety, Panic &amp; Obsessive-Compulsive Conditions</li>
+          <li>Trauma, PTSD &amp; Complex Trauma</li>
+          <li>Personality Disorder, Emotional Dysregulation &amp; Self-Harm</li>
+          <li>Co-occurring Substance Use, Eating Disorders &amp; Physical Health</li>
+        </ol>
+        <p style="font-size:.86rem;margin-top:.9rem">Written against current published guidance —
+          the NDIA's Psychosocial Disability Recovery-Oriented Framework, the National Suicide
+          Prevention Strategy 2025–2035, Phoenix Australia, Project Air, NEDC/ANZAED and Equally Well.
+          Every module makes the worker's lane explicit: not diagnosing, not delivering therapy, not
+          adjusting medication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="honest">
+  <div class="wrap">
+    <h2>What this is, plainly</h2>
+    <div class="honest">
+      <p><strong>This is non-accredited professional development.</strong> It is not nationally
+        recognised training, it is not a qualification, and it does not make anyone a clinician. It is
+        designed to <em>complement</em> the NDIS Quality and Safeguards Commission's free mandatory
+        Worker Orientation Module — not to replace it. Every certificate says so on its face.</p>
+      <p><strong>Workers are never scored, ranked, or marked pass/fail</strong>, and there are no
+        attempt limits. Coverage statistics exist, but they are yours as a manager — a worker never
+        sees a score.</p>
+      <p><strong>Competence is your call.</strong> We give you dated written evidence and the audit
+        trail around it. Deciding whether a worker is competent to work a shift is a supervision
+        decision, and it stays with you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pilot">
+  <div class="wrap">
+    <h2>The offer</h2>
+    <div class="pilot">
+      <h3 style="font-size:1.3rem">A free 60-day pilot</h3>
+      <p>No cost, and no obligation to buy anything at the end.</p>
+      <ul>
+        <li>Worker accounts on a private site, with your organisation's name and logo throughout</li>
+        <li>All 14 modules and 84 coached scenarios, across both streams</li>
+        <li>Certificates, the audit evidence pack, and role-based access for your team leaders</li>
+        <li>Support for the duration, and any fixes that come out of the pilot</li>
+      </ul>
+      <p>In return: honest feedback — especially the parts that didn't work — and, if your view at the
+        end is genuinely positive, a short quote we can use and an introduction or two.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:NdisAcademy@outlook.com?subject=NDIS%20Practice%20Academy%20pilot">Email about a pilot</a>
+        <a class="btn" href="./NDIS-Practice-Academy.html">Try the demo first</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>NDIS Practice Academy</strong> · Australia · ABN 34 127 610 850 ·
+      <a href="mailto:NdisAcademy@outlook.com">NdisAcademy@outlook.com</a></p>
+    <p>Non-accredited professional development. Not nationally recognised training. Complements, and
+      does not replace, the NDIS Quality and Safeguards Commission's mandatory Worker Orientation
+      Module. Nothing on this page is legal advice; providers remain responsible for their own
+      registration, supervision and competency decisions.</p>
+  </div>
+</footer>
+
+</body>
+</html>
