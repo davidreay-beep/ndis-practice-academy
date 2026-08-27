@@ -216,6 +216,61 @@ h1,h2,h3{line-height:1.25}
   font-size:.78rem;font-weight:700;padding:.25rem .7rem;border-radius:8px;text-align:center;
 }
 
+/* ---------- company noticeboard (Card S11) ----------
+   Two side rails flanking the dashboard: events & team meetings on one side,
+   important information on the other. A side with no posts contributes no
+   markup, so with an unused board the dashboard is exactly its old
+   full-width self. Below 1150px the rails drop under the modules (order),
+   because a phone has no "side of the page". */
+.dash-layout{display:flex;flex-direction:column;gap:1.6rem}
+.dash-layout .dash-main{min-width:0}
+/* Stacked: boards drop BELOW the modules — a phone has no side of the page.
+   Scoped to narrow screens only: `order` also binds in the wide grid, and an
+   unscoped version put the main column into the 230px events rail (caught by
+   the witness capture, not the suite — the harness loads no stylesheet). */
+@media(max-width:1149.98px){
+  .dash-layout .dash-main{order:0}
+  .dash-layout .noticeboard{order:1}
+}
+@media(min-width:1150px){
+  .dash-layout{display:grid;align-items:start}
+  .dash-layout.has-events.has-info{grid-template-columns:230px minmax(0,1fr) 230px}
+  .dash-layout.has-events:not(.has-info){grid-template-columns:230px minmax(0,1fr)}
+  .dash-layout.has-info:not(.has-events){grid-template-columns:minmax(0,1fr) 230px}
+  .dash-layout .noticeboard{position:sticky;top:1.2rem}
+}
+/* Three columns need more room than the standard 1080px column; :has() is
+   progressive enhancement — without it the rails just sit a little tighter. */
+@media(min-width:1150px){
+  .main-view:has(.dash-layout.has-events),
+  .main-view:has(.dash-layout.has-info){max-width:1400px}
+}
+.noticeboard{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:1rem 1.1rem;
+}
+.board-events{border-top:5px solid var(--teal)}
+.board-info{border-top:5px solid var(--gold)}
+.board-h{
+  display:flex;align-items:center;gap:.45rem;
+  font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);
+  padding-bottom:.55rem;border-bottom:1px solid var(--line);
+}
+.board-h .icon{width:1.05rem;height:1.05rem;flex:none}
+.board-events .board-h{color:var(--teal-dark)}
+.board-info .board-h{color:#7a621a}
+.board-post{padding:.75rem 0;border-bottom:1px solid var(--line)}
+.board-post:last-child{border-bottom:0;padding-bottom:.15rem}
+.board-post h4{font-size:.92rem;line-height:1.35}
+.board-when{
+  font-size:.78rem;font-weight:700;color:var(--teal);margin-top:.15rem;
+}
+.board-info .board-when{color:#7a621a}
+.board-body{font-size:.83rem;color:var(--ink-soft);margin-top:.25rem;white-space:pre-line;overflow-wrap:break-word}
+.board-post h4{overflow-wrap:break-word}
+.board-author{font-size:.74rem;color:var(--ink-soft);margin-top:.3rem;text-align:right}
+.board-cell{max-width:26ch;overflow-wrap:break-word}
+
 /* ---------- module view ---------- */
 .crumb{font-size:.85rem;color:var(--ink-soft);margin-bottom:1rem}
 .crumb a{color:var(--teal);cursor:pointer;text-decoration:none;font-weight:600}
@@ -767,7 +822,7 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.2.2";
+const ACADEMY_VERSION = "0.2.3";
 
 </script>
 <script>
@@ -827,7 +882,11 @@ const Icons = (() => {
     tick:       '<path d="m5 12.5 4.5 4.5L19 7"/>',
     server:     '<rect x="3" y="4" width="18" height="7" rx="1.6"/><rect x="3" y="13" width="18" height="7" rx="1.6"/><path d="M7 7.5h.01M7 16.5h.01"/>',
     compass:    '<circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5.2-5.2 2 2-5.2z"/>',
-    evidence:   '<path d="M13.5 3H7a1.8 1.8 0 0 0-1.8 1.8v14.4A1.8 1.8 0 0 0 7 21h10a1.8 1.8 0 0 0 1.8-1.8V8.3z"/><path d="M13.5 3v5.3h5.3"/><path d="m8.8 14.2 2 2 4-4.2"/>'
+    evidence:   '<path d="M13.5 3H7a1.8 1.8 0 0 0-1.8 1.8v14.4A1.8 1.8 0 0 0 7 21h10a1.8 1.8 0 0 0 1.8-1.8V8.3z"/><path d="M13.5 3v5.3h5.3"/><path d="m8.8 14.2 2 2 4-4.2"/>',
+
+    /* --- company noticeboard (Card S11) --- */
+    calendar:   '<rect x="3.5" y="5" width="17" height="15.5" rx="1.8"/><path d="M3.5 9.5h17"/><path d="M8 3v4M16 3v4"/>',
+    board:      '<rect x="4" y="3.5" width="16" height="13.5" rx="1.6"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/><path d="M8 7.5h8M8 10.5h5"/>'
   });
 
   /* Returns an inline SVG string. `cls` lets a caller size it in CSS. */
@@ -3560,6 +3619,7 @@ const Store = (() => {
   const LS_TOKEN    = "ndisAcademy.token";
   const LS_CREDS    = "ndisAcademy.creds.";     // + username, per-device credentials
   const LS_BRANDING = "ndisAcademy.branding";   // Card B1, local mode only
+  const LS_BOARD    = "ndisAcademy.board";      // Card S11, local mode only
   const SS_ADMIN_TOKEN = "ndisAcademy.adminToken";
 
   let mode = "local";
@@ -3582,6 +3642,11 @@ const Store = (() => {
          skipped it, which is exactly how the bundle would have shipped
          unbranded while the served build looked fine. */
       await loadBranding();
+      /* Card S11: local mode's board needs no token, so load it here and the
+         first dashboard paint already has it. Remote mode CANNOT load it here
+         — there is no token before sign-in — so app.js loads it on entering
+         the portal, and admin.js when its tab opens. */
+      if (mode !== "remote") await loadBoard();
     })();
     return initPromise;
   }
@@ -3646,6 +3711,86 @@ const Store = (() => {
     localStorage.setItem(LS_BRANDING, JSON.stringify(clean));
     branding = clean;
     return branding;
+  }
+
+  /* ================= company noticeboard (Card S11) =================
+     Org-authored events and notices, rendered beside the dashboard. Unlike
+     branding this is NOT loaded at init: the server serves it to signed-in
+     accounts only (meeting times are internal information, and branding is
+     the documented single pre-auth surface), so app.js loads it when a
+     worker enters the portal and admin.js when the tab opens. Local mode
+     keeps it on the device — the single-file build gets the feature with no
+     server, same as white-label branding. */
+  const BOARD_MAX_POSTS = 30;
+  const BOARD_LIMITS = { title: 100, body: 600, when: 60, author: 60 };
+  const BOARD_KINDS = ["event", "notice"];
+  let board = { posts: [], updated: "" };
+
+  /* Same discipline as cleanBranding: applied on the way OUT as well as in,
+     because local mode's copy sits in hand-editable localStorage and every
+     field ends up in the student-facing dashboard. Rebuilds each post from
+     its known fields only. The server runs its own copy of this rule. */
+  function cleanBoard(b){
+    const src = b && typeof b === "object" ? b : {};
+    const posts = Array.isArray(src.posts) ? src.posts : [];
+    const out = [];
+    for (const p of posts){
+      if (out.length >= BOARD_MAX_POSTS) break;
+      if (!p || typeof p !== "object") continue;
+      const title = typeof p.title === "string" ? p.title.slice(0, BOARD_LIMITS.title).trim() : "";
+      const body  = typeof p.body  === "string" ? p.body.slice(0, BOARD_LIMITS.body).trim()  : "";
+      if (!title && !body) continue;
+      out.push({
+        id:      typeof p.id === "string" ? p.id.slice(0, 40) : "",
+        kind:    BOARD_KINDS.includes(p.kind) ? p.kind : "notice",
+        title, body,
+        when:    typeof p.when    === "string" ? p.when.slice(0, BOARD_LIMITS.when).trim()     : "",
+        author:  typeof p.author  === "string" ? p.author.slice(0, BOARD_LIMITS.author).trim() : "",
+        created: typeof p.created === "string" ? p.created.slice(0, 40) : ""
+      });
+    }
+    return { posts: out, updated: typeof src.updated === "string" ? src.updated : "" };
+  }
+
+  async function loadBoard(){
+    try{
+      if (mode === "remote"){
+        /* A worker reads with their own token; the admin panel (PIN, or a
+           manager signed into it) holds its token in the admin slot. */
+        const r = await api("/board", { token: studentToken() || adminToken() });
+        board = r.error ? { posts: [], updated: "" } : cleanBoard(r);
+      } else {
+        board = cleanBoard(JSON.parse(localStorage.getItem(LS_BOARD) || "{}"));
+      }
+    } catch(e){ board = { posts: [], updated: "" }; }
+    return board;
+  }
+
+  async function setBoard(posts){
+    const clean = cleanBoard({ posts });
+    /* Courtesy caps, mirrored from the server (the gate): refuse HERE with a
+       message naming the limit rather than as a 400 after the round trip.
+       Refused, not truncated — silently cutting a manager's notice short is
+       worse than telling them the limit. cleanBoard's slicing still guards
+       the paths that never come through here (hand-edited localStorage). */
+    if (Array.isArray(posts) && posts.length > BOARD_MAX_POSTS)
+      return { error: "the noticeboard holds up to " + BOARD_MAX_POSTS + " posts — remove one first" };
+    for (const p of (Array.isArray(posts) ? posts : [])){
+      if (!p || typeof p !== "object") continue;
+      for (const [f, max] of Object.entries(BOARD_LIMITS)){
+        if (typeof p[f] === "string" && p[f].length > max)
+          return { error: "the " + f + " can be up to " + max + " characters" };
+      }
+    }
+    if (mode === "remote"){
+      const r = await api("/admin/board", { method: "PUT", token: adminToken(), body: { posts: clean.posts } });
+      if (r.error) return r;
+      board = cleanBoard(r);
+      return board;
+    }
+    board = { posts: clean.posts, updated: new Date().toISOString() };
+    localStorage.setItem(LS_BOARD, JSON.stringify(board));
+    return board;
   }
 
   /* ================= shared helpers ================= */
@@ -3813,6 +3958,13 @@ const Store = (() => {
        unbranded academy is `{orgName:"", logo:""}`, never null. */
     get branding(){ return branding; },
     loadBranding, setBranding,
+
+    /* Card S11. Same synchronous-cache pattern as branding: goHome() and the
+       admin tab render from `Store.board`; loadBoard() fills it. Always a
+       shape — an unused board is `{posts:[], updated:""}`, never null. */
+    get board(){ return board; },
+    get boardLimits(){ return { maxPosts: BOARD_MAX_POSTS, ...BOARD_LIMITS }; },
+    loadBoard, setBoard,
 
     /* student data */
     register: (fields)        => call("register", fields),
@@ -4695,10 +4847,12 @@ const Admin = (() => {
        account's role off it and gates every route at that rank. */
     Store.setAdminToken(r.token);
     viewerRole = r.role;
+    viewerName = (r.account && r.account.name) || "";
     await refreshData();
     renderPanel("overview");
   }
   let viewerRole = "owner";      // PIN sign-in is owner; a supervisor sets their own
+  let viewerName = "";           // Card S11: signs noticeboard posts; PIN admin posts unsigned
   async function loginSubmit(ev){
     ev.preventDefault();
     const err = $("admLoginErr");
@@ -4767,7 +4921,10 @@ const Admin = (() => {
     submission: (b) => viewSubmission(b.dataset.user, b.dataset.case),
     print:      (b) => printSerial(b.dataset.serial),
     evidence:    (b) => openEvidencePack(b.dataset.user),
-    evidencecsv: (b) => exportEvidenceCSV(b.dataset.user)
+    evidencecsv: (b) => exportEvidenceCSV(b.dataset.user),
+    /* Card S11: the index is positional, not student-supplied, but it rides
+       the same delegated dispatch as everything else in this panel. */
+    boardremove: (b) => removeBoardPost(b.dataset.idx)
   });
   let rowActionsBound = false;
   function bindRowActions(){
@@ -4805,6 +4962,9 @@ const Admin = (() => {
     const tabs = [
       ["overview", "Overview", "overview"], ["students", "Students", "students"],
       ["certs", "Certificates", "certificate"], ["evidence", "Evidence", "evidence"],
+      /* Card S11: manager-and-above — the board is the roster-runner's daily
+         tool, and everyone who can open this panel is at least a manager. */
+      ["board", "Noticeboard", "board"],
       ["data", "Data & backup", "backup"], ["security", "Security", "security"]
     ];
     /* Owner-only surfaces are hidden from a manager for tidiness — the server
@@ -4821,6 +4981,7 @@ const Admin = (() => {
     else if (tab === "studentDetail") body = viewStudentDetail(detailUser);
     else if (tab === "certs") body = viewCerts("");
     else if (tab === "evidence") body = viewEvidence();
+    else if (tab === "board") body = viewBoard();
     else if (tab === "data") body = viewData();
     else if (tab === "branding") body = viewBranding();
     else if (tab === "security") body = viewSecurity();
@@ -4852,7 +5013,7 @@ const Admin = (() => {
     "student.import":"Data imported", "student.wipe":"All students wiped",
     "student.export":"Student data exported", "student.list":"Viewed the student list",
     "submission.view":"Submission viewed", "certificate.issue":"Certificate issued",
-    "audit.view":"Viewed the audit trail"
+    "audit.view":"Viewed the audit trail", "board.set":"Noticeboard updated"
   });
   function viewAudit(){
     loadAudit();
@@ -5048,6 +5209,101 @@ const Admin = (() => {
   const LOGO_TYPES = ["image/png", "image/jpeg", "image/webp"];
   let pendingLogo = null;          // data URI chosen but not yet saved
 
+  /* ================= company noticeboard (Card S11) =================
+     Two-sided board on the worker's dashboard: events & team meetings down
+     one side, important information down the other. Everything goes through
+     Store (Law 5); the server gates writes at manager-and-above and audits
+     the COUNT, never the text. Posts are plain text and every field renders
+     through esc() — here and on the dashboard. */
+  function viewBoard(){
+    loadBoardAdmin();
+    const lim = Store.boardLimits;
+    return `
+      <h2>Company noticeboard</h2>
+      <p class="hint" style="max-width:74ch">Posts appear beside every worker's dashboard the
+        next time they open it — <strong>events &amp; team meetings</strong> down one side,
+        <strong>important information</strong> down the other. Plain text only, up to
+        ${lim.maxPosts} posts; with no posts the dashboard stays full-width. Don't put
+        anything about a participant or a worker's progress here — it is visible to everyone
+        who signs in.</p>
+      <form onsubmit="Admin.addBoardPost(event)" style="max-width:560px">
+        <label>Where it goes
+          <select id="bpKind">
+            <option value="event">Events &amp; team meetings</option>
+            <option value="notice">Important information</option>
+          </select></label>
+        <label>Title
+          <input type="text" id="bpTitle" required maxlength="${lim.title}"
+                 placeholder="e.g. Team meeting"></label>
+        <label>When / where <span class="hint">(optional — e.g. Tue 3 Sep, 10:00 — staff room)</span>
+          <input type="text" id="bpWhen" maxlength="${lim.when}"></label>
+        <label>Details <span class="hint">(optional, up to ${lim.body} characters)</span>
+          <textarea id="bpBody" maxlength="${lim.body}" rows="3"></textarea></label>
+        <p id="boardErr" class="auth-error hidden"></p>
+        <div class="admin-actions">
+          <button type="submit" class="btn btn-primary">Post to the board</button>
+        </div>
+      </form>
+      <h3 class="admin-h3">On the board now</h3>
+      <div id="boardAdminBody"><p class="hint">Loading…</p></div>`;
+  }
+
+  async function loadBoardAdmin(){
+    await Store.loadBoard();
+    const box = $("boardAdminBody");
+    if (!box) return;
+    const posts = (Store.board || {}).posts || [];
+    if (!posts.length){
+      box.innerHTML = `<p class="hint">Nothing on the board — workers see their normal full-width dashboard.</p>`;
+      return;
+    }
+    box.innerHTML = `
+      <div class="admin-tablewrap"><table class="admin-table">
+      <thead><tr><th>Side</th><th>Title</th><th>When / where</th><th>Details</th><th>Posted by</th><th></th></tr></thead><tbody>
+      ${posts.map((p, i) => `<tr>
+        <td>${p.kind === "event" ? "Events &amp; meetings" : "Important info"}</td>
+        <td>${esc(p.title)}</td>
+        <td>${esc(p.when || "—")}</td>
+        <td class="board-cell">${esc(p.body || "—")}</td>
+        <td>${esc(p.author || "—")}</td>
+        <td><button class="btn btn-small" data-act="boardremove" data-idx="${i}">${Icons.icon("trash")}Remove</button></td>
+      </tr>`).join("")}
+      </tbody></table></div>`;
+  }
+
+  async function addBoardPost(ev){
+    ev.preventDefault();
+    const err = $("boardErr");
+    const post = {
+      id: "p" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+      kind: $("bpKind").value === "event" ? "event" : "notice",
+      title: $("bpTitle").value.trim(),
+      when: $("bpWhen").value.trim(),
+      body: $("bpBody").value.trim(),
+      author: viewerName,
+      created: new Date().toISOString()
+    };
+    if (!post.title){ err.textContent = "A post needs a title."; err.classList.remove("hidden"); return; }
+    const r = await Store.setBoard([post, ...((Store.board || {}).posts || [])]);
+    if (r && r.error){
+      err.textContent = "Couldn't post: " + r.error;
+      err.classList.remove("hidden");
+      return;
+    }
+    err.classList.add("hidden");
+    $("bpTitle").value = ""; $("bpWhen").value = ""; $("bpBody").value = "";
+    note("Posted — workers see it next time they open their dashboard.");
+    loadBoardAdmin();
+  }
+
+  async function removeBoardPost(idx){
+    const posts = ((Store.board || {}).posts || []).filter((p, i) => i !== Number(idx));
+    const r = await Store.setBoard(posts);
+    if (r && r.error){ note("Couldn't remove the post: " + r.error); return; }
+    note(posts.length ? "Post removed." : "Post removed — the board is empty, so workers see their normal dashboard.");
+    loadBoardAdmin();
+  }
+
   function viewBranding(){
     const b = Store.branding || {};
     const preview = b.logo
@@ -5191,6 +5447,7 @@ const Admin = (() => {
            evidenceForAccount, evidenceScope, evidencePackHTML, evidenceWorkerHTML, buildEvidenceCSV,
            viewEvidence, openEvidencePack, exportEvidenceCSV,
            viewBranding, pickLogo, saveBranding, clearBranding,
+           viewBoard, addBoardPost, removeBoardPost, loadBoardAdmin,
            printSerial, filterCerts, changePinSubmit };
 })();
 
@@ -5365,6 +5622,16 @@ const App = (() => {
       (Store.mode === "remote" ? ` <span class="chip-sep">·</span>${Icons.icon("server")} server` : "");
     updateMailBadge();
     goHome();
+    /* Card S11: in server mode the noticeboard needs a signed-in token, so
+       unlike branding it cannot load at Store.init(). Fetch it now; repaint
+       only if the content actually changed and the worker is still looking
+       at the dashboard. (Local mode loaded it at init, so this is a no-op
+       refresh there.) */
+    const before = JSON.stringify((Store.board || {}).posts || []);
+    Store.loadBoard().then(() => {
+      if (JSON.stringify((Store.board || {}).posts || []) !== before
+          && document.querySelector("#mainView .dash-hero")) goHome();
+    });
   }
 
   function logout(){
@@ -5399,6 +5666,33 @@ const App = (() => {
 
   /* ================= views ================= */
   function view(html){ $("mainView").innerHTML = html; window.scrollTo(0,0); }
+
+  /* ---- company noticeboard (Card S11) ----
+     Org-authored posts flanking the modules: events & team meetings down ONE
+     side of the dashboard, important details & information down the OTHER.
+     A side with no posts renders NOTHING — an organisation that never uses
+     the board never sees it, and the dashboard keeps its full width. Every
+     field is org-supplied free text and goes through esc(); posts carry no
+     HTML by design. */
+  function boardAside(kind){
+    const posts = ((Store.board || {}).posts || []).filter(p =>
+      kind === "event" ? p.kind === "event" : p.kind !== "event");
+    if (!posts.length) return "";
+    const item = p => `
+      <div class="board-post">
+        <h4>${esc(p.title)}</h4>
+        ${p.when ? `<p class="board-when">${esc(p.when)}</p>` : ""}
+        ${p.body ? `<p class="board-body">${esc(p.body)}</p>` : ""}
+        ${p.author ? `<p class="board-author">— ${esc(p.author)}</p>` : ""}
+      </div>`;
+    const icon  = kind === "event" ? "calendar" : "board";
+    const title = kind === "event" ? "Events & team meetings" : "Important information";
+    return `
+      <aside class="noticeboard board-${kind === "event" ? "events" : "info"}" aria-label="${title}">
+        <h3 class="board-h">${Icons.icon(icon)} ${esc(title)}</h3>
+        ${posts.map(item).join("")}
+      </aside>`;
+  }
 
   /* ---- dashboard ---- */
   function goHome(){
@@ -5443,7 +5737,15 @@ const App = (() => {
         </section>`;
     }
 
+    /* The two board sides are grid siblings of the main column, so on wide
+       screens events sit down one side and important information down the
+       other; on narrow screens CSS drops them below the modules. An empty
+       side contributes no markup and its grid track collapses. */
+    const evAside = boardAside("event"), infoAside = boardAside("notice");
     view(`
+      <div class="dash-layout${evAside ? " has-events" : ""}${infoAside ? " has-info" : ""}">
+      ${evAside}
+      <div class="dash-main">
       <div class="dash-hero">
         <h2>G'day, ${esc(user.name.split(" ")[0])} 👋</h2>
         <p>Each module teaches the theory, then hands you six real support scenarios. You write the game plan — your AI coach tells you why your plan works and what could make it even stronger — no pass or fail, ever. Complete all six to earn that module's Certificate of Completion, emailed to <strong>${esc(user.email)}</strong>. Finish every module in a stream and its stream certificate is issued too.</p>
@@ -5454,6 +5756,9 @@ const App = (() => {
         </div>
       </div>
       ${sections}
+      </div>
+      ${infoAside}
+      </div>
     `);
   }
 
