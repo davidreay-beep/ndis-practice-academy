@@ -130,6 +130,31 @@ h1,h2,h3{line-height:1.25}
   background:var(--coral);color:#fff;border-radius:999px;font-size:.7rem;
   padding:.05rem .45rem;margin-left:.3rem;
 }
+/* two nav buttons carry a long and a short label; wide screens show the long
+   one (desktop stays exactly as it was), the phone grid below swaps them */
+.nav-short{display:none}
+/* ---- phone topbar (Card S13, v0.2.6) --------------------------------------
+   At phone width the six controls run HORIZONTAL, wrapping into two rows of
+   three — never a vertical tower. The topbar becomes a 3-column grid;
+   display:contents promotes the nav's five buttons and the user block's
+   chip + Sign out into that grid in DOM order, and the chip is ordered after
+   them onto its own full-width row, so Sign out lands in cell 6. Every rule
+   stays inside this media block and selects under .topbar only: an unscoped
+   narrow-screen `order` once bound in the wide grid too (Card S11), and the
+   admin overlay borrows .topbar-logo. build-single-file.ps1 enforces both
+   (block present; contents/order never unscoped) so this cannot regress
+   silently — the harness loads no stylesheet and cannot see any of it. ---- */
+@media(max-width:700px){
+  .topbar{display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;gap:.45rem .35rem;padding:.6rem .7rem}
+  .topbar-left{grid-column:1/-1;justify-content:center}
+  .topbar-nav,.topbar-user{display:contents}
+  .topbar .nav-btn{padding:.45rem .25rem;font-size:.8rem;text-align:center;background:rgba(255,255,255,.07);min-height:44px}
+  .topbar .nav-btn:hover{background:rgba(255,255,255,.16)}
+  .topbar .nav-long{display:none}
+  .topbar .nav-short{display:inline}
+  .topbar .user-chip{order:10;grid-column:1/-1;text-align:center;font-size:.8rem;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
 
 /* ============ MAIN ============ */
 .main-view{flex:1;width:100%;max-width:1080px;margin:0 auto;padding:2rem 1.2rem 3rem}
@@ -269,6 +294,7 @@ h1,h2,h3{line-height:1.25}
 .board-body{font-size:.83rem;color:var(--ink-soft);margin-top:.25rem;white-space:pre-line;overflow-wrap:break-word}
 .board-post h4{overflow-wrap:break-word}
 .board-author{font-size:.74rem;color:var(--ink-soft);margin-top:.3rem;text-align:right}
+.board-empty{font-size:.82rem;color:var(--ink-soft);padding:.75rem 0 .3rem;font-style:italic}
 .board-cell{max-width:26ch;overflow-wrap:break-word}
 
 /* ---------- module view ---------- */
@@ -641,6 +667,20 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
   .certificate{padding:1.2rem}
 }
 
+/* ---- capability framework view (Card F1, v0.2.5) ---- */
+.fw-chip{display:inline-block;font-size:.74rem;font-weight:600;padding:.14rem .6rem;
+  border-radius:999px;margin:.1rem .15rem .1rem 0;white-space:nowrap}
+.fw-core{background:var(--teal-soft);color:var(--teal-dark)}
+.fw-extra{background:var(--purple-soft);color:var(--purple)}
+.fw-caps{margin-bottom:.7rem}
+.fw-code{font-weight:700;color:var(--teal-dark);margin-right:.3rem}
+.fw-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.fw-table th{text-align:left;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--ink-soft);padding:.3rem .5rem;border-bottom:2px solid var(--line)}
+.fw-table td{padding:.42rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+.fw-num{color:var(--ink-soft);width:1.6rem}
+.fw-source{margin:1.2rem 0 .4rem;max-width:70ch}
+
 </style>
 </head>
 <body>
@@ -738,7 +778,8 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
     </div>
     <nav class="topbar-nav">
       <button class="nav-btn" id="navDash" onclick="App.goHome()">Dashboard</button>
-      <button class="nav-btn" id="navCerts" onclick="App.showCertificates()">My certificates</button>
+      <button class="nav-btn" id="navCerts" onclick="App.showCertificates()"><span class="nav-long">My certificates</span><span class="nav-short">Certificates</span></button>
+      <button class="nav-btn" id="navFramework" onclick="App.showFramework()"><span class="nav-long">Capability framework</span><span class="nav-short">Framework</span></button>
       <button class="nav-btn" id="navMail" onclick="App.showMail()">Email centre <span id="mailBadge" class="badge hidden">0</span></button>
       <button class="nav-btn" onclick="App.showSettings()"><span data-icon="settings"></span>Settings</button>
     </nav>
@@ -773,6 +814,12 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
     </label>
     <label id="apiKeyRow" class="hidden">Anthropic API key
       <input type="password" id="apiKeyInput" placeholder="sk-ant-...">
+    </label>
+
+    <h3 class="modal-section"><span data-icon="board"></span>Dashboard</h3>
+    <label class="radio-row">
+      <input type="checkbox" id="showBoardChk" checked>
+      <div><strong>Show the company noticeboard on my dashboard</strong><br><span class="hint">Events &amp; team meetings and important information from your organisation, beside your modules. Untick to hide it.</span></div>
     </label>
 
     <h3 class="modal-section"><span data-icon="mail"></span>Real certificate emails (optional)</h3>
@@ -822,7 +869,7 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.2.3";
+const ACADEMY_VERSION = "0.2.6";
 
 </script>
 <script>
@@ -3248,6 +3295,169 @@ MODULES.push(
 </script>
 <script>
 /* ============================================================
+   NDIS Practice Academy — NDIS Workforce Capability Framework map
+   Maps every module (and every case study) to the capabilities of
+   the NDIS Commission's NDIS Workforce Capability Framework.
+
+   THE MAP IS DESCRIPTIVE, NOT AN ASSESSMENT GATE (Law 1). It says
+   which Framework capabilities a module gives a worker written,
+   coached practice in — it never scores anyone against them, and
+   nothing here gates progression or certificates.
+
+   LAW 3 APPLIES to every string in this file: alignment wording is
+   "practises / builds toward", never "meets / demonstrates" a
+   capability, and the view that renders this carries the standing
+   non-accreditation line. The Framework itself is not an
+   accreditation scheme and using it requires none — but the words
+   still must not imply the Commission endorsed this product.
+
+   Source of the capability names (verbatim):
+     NDIS Workforce Capability Framework,
+     © Commonwealth of Australia (NDIS Quality and Safeguards
+     Commission) 2021 — workforcecapability.ndiscommission.gov.au
+     (framework PDF, published 2022; capability names verified
+     against the site August 2026).
+   Attribution note (Creative Commons BY 4.0): this map is based on
+   the Commonwealth of Australia (NDIS Quality and Safeguards
+   Commission) NDIS Workforce Capability Framework.
+
+   The short codes (or1, bp2, ss-med …) are THIS PROJECT'S reference
+   keys — the Framework names capabilities, it does not number them.
+
+   Module→capability lists are DERIVED from the case-level map at
+   load time (FrameworkMap.moduleCaps), so the two can never drift.
+   New case or module? Add its entry to CASE_CAPS below — the
+   harness fails if any module or case is missing from the map.
+   ============================================================ */
+
+const FrameworkMap = (() => {
+
+  const SOURCE = {
+    name: "NDIS Workforce Capability Framework",
+    owner: "NDIS Quality and Safeguards Commission",
+    url:  "workforcecapability.ndiscommission.gov.au",
+    edition: "© Commonwealth of Australia (NDIS Quality and Safeguards Commission) 2021; capability names verified against the Commission's site, August 2026",
+    level: "Capabilities are cited at the General Support Work level — the level that covers most support-worker roles. The Mental Health Practice stream additionally practises the specialised support capabilities noted on its modules."
+  };
+
+  /* The five objectives and the fifteen core capabilities, names verbatim. */
+  const OBJECTIVES = [
+    { key:"or", name:"Our Relationship", tagline:"Set up our relationship for success", caps:[
+      { key:"or1", name:"Uphold my rights" },
+      { key:"or2", name:"Communicate effectively" },
+      { key:"or3", name:"Build trusted relationships" },
+      { key:"or4", name:"Work collaboratively" }
+    ]},
+    { key:"yi", name:"Your Impact", tagline:"Know your capabilities, role and impact", caps:[
+      { key:"yi1", name:"Show self-awareness" },
+      { key:"yi2", name:"Work within your capabilities" },
+      { key:"yi3", name:"Look after yourself" }
+    ]},
+    { key:"sm", name:"Support Me", tagline:"Support me to pursue what’s important to me", caps:[
+      { key:"sm1", name:"Understand what a good life means to me" },
+      { key:"sm2", name:"Support me to make my own choices" },
+      { key:"sm3", name:"Build my capacity to participate" }
+    ]},
+    { key:"bp", name:"Be Present", tagline:"Be present and provide the support I need", caps:[
+      { key:"bp1", name:"Observe and respond flexibly to my changing needs" },
+      { key:"bp2", name:"Manage health and safety" },
+      { key:"bp3", name:"Engage and motivate me" }
+    ]},
+    { key:"ci", name:"Check In", tagline:"Work with me to evaluate and act on what is working and what is not", caps:[
+      { key:"ci1", name:"Review quality of support and service" },
+      { key:"ci2", name:"Support me to speak up" }
+    ]}
+  ];
+
+  /* Additional (identity + specialised support) capabilities the academy's
+     content actually reaches. Names verbatim from the Framework. */
+  const ADDITIONAL = [
+    { key:"id-atsi",    group:"Identity",            name:"Be responsive to my Aboriginal and/or Torres Strait Islander identity" },
+    { key:"id-cald",    group:"Identity",            name:"Be responsive to my culturally and linguistically diverse identity" },
+    { key:"ss-health",  group:"Specialised support", name:"Support me to implement my health and allied health support plans" },
+    { key:"ss-meal",    group:"Specialised support", name:"Support me to implement my mealtime plan" },
+    { key:"ss-med",     group:"Specialised support", name:"Support me to implement my medication plan" },
+    { key:"ss-pbs",     group:"Specialised support", name:"Support me to implement my positive behaviour support plan" },
+    { key:"ss-child",   group:"Specialised support", name:"Support me and my family in my childhood" },
+    { key:"ss-psy",     group:"Specialised support", name:"Support me with my psychosocial disability" },
+    { key:"ss-trauma",  group:"Specialised support", name:"Support me with my experience of trauma" },
+    { key:"ss-complex", group:"Specialised support", name:"Support me with my complex, challenging or changing social circumstances" }
+  ];
+
+  /* Case → capabilities. The 2–3 capabilities each case gives the strongest
+     written practice in, judged from the case's own rubric concepts. */
+  const CASE_CAPS = {
+    /* m1 — NDIS-101 Foundations & the Code of Conduct */
+    m1c1:["or3","yi1","or1"],  m1c2:["or1","or4"],        m1c3:["sm2","or1","or4"],
+    m1c4:["or1","or3"],        m1c5:["or3","yi1"],        m1c6:["or1","yi2","bp2"],
+    /* m2 — NDIS-102 Person-Centred Practice */
+    m2c1:["sm2","bp2","or4"],  m2c2:["sm2","or2","sm3"],  m2c3:["sm1","sm2","ci1"],
+    m2c4:["or2","sm2","or3"],  m2c5:["sm2","or1"],        m2c6:["sm1","id-cald","ci2"],
+    /* m3 — NDIS-103 Safeguarding */
+    m3c1:["or1","bp2","or4"],  m3c2:["or1","ss-pbs"],     m3c3:["ss-pbs","ss-med","or1"],
+    m3c4:["bp2","ss-pbs","bp1"], m3c5:["or1","bp2","or4"], m3c6:["sm2","bp2","or3"],
+    /* m4 — NDIS-104 Communication & Diversity */
+    m4c1:["or2","sm3"],        m4c2:["or2","sm2","or1"],  m4c3:["or2","id-cald","or1"],
+    m4c4:["id-atsi","or3","sm1"], m4c5:["yi1","ss-trauma","or2"], m4c6:["bp1","or4","or2"],
+    /* m5 — NDIS-105 Health, Safety & Daily Personal Supports */
+    m5c1:["bp2","yi2","yi3"],  m5c2:["ss-med","bp2","yi2"], m5c3:["ss-meal","bp2","or3"],
+    m5c4:["ss-med","bp2","bp1"], m5c5:["yi3","bp2","yi1"], m5c6:["bp1","bp2","ss-health"],
+    /* m6 — NDIS-106 Boundaries, Privacy & Documentation */
+    m6c1:["or3","bp2","yi1"],  m6c2:["yi1","yi3","or3"],  m6c3:["or1","or3"],
+    m6c4:["or3","or1","yi1"],  m6c5:["or1","sm2"],        m6c6:["yi1","yi2","or3"],
+    /* m7 — NDIS-107 Mental Health, Psychosocial Disability & Recovery */
+    m7c1:["bp2","or2","yi2"],  m7c2:["sm2","bp1","ss-psy"], m7c3:["sm2","yi2","or4"],
+    m7c4:["bp1","sm2","ss-psy"], m7c5:["bp3","sm1","ss-psy"], m7c6:["or3","bp2","ss-psy"],
+    /* m8 — NDIS-108 Children, Young People & Families */
+    m8c1:["ss-child","or3","sm3"], m8c2:["ci2","sm2","ss-child"], m8c3:["yi2","bp2","ss-child"],
+    m8c4:["bp2","or1","ss-child"], m8c5:["or3","or4","ss-child"], m8c6:["or3","yi1","ss-child"],
+    /* m9 — NDIS-201 Psychosis & Schizophrenia Spectrum */
+    m9c1:["or2","bp1","ss-psy"], m9c2:["bp1","bp3","ss-psy"], m9c3:["bp2","yi2","ss-med"],
+    m9c4:["sm2","yi2","ss-med"], m9c5:["ss-pbs","or1","ss-med"], m9c6:["sm3","sm2","bp3"],
+    /* m10 — NDIS-202 Depression, Bipolar & Mood */
+    m10c1:["bp2","bp1","ss-psy"], m10c2:["bp1","sm2","ss-psy"], m10c3:["sm2","or3","ci1"],
+    m10c4:["ci1","sm1","ss-psy"], m10c5:["or2","bp2","yi3"],   m10c6:["ci2","sm2","ci1"],
+    /* m11 — NDIS-203 Anxiety, Panic & OCD */
+    m11c1:["sm1","bp3","ci1"],  m11c2:["bp1","or4","ss-psy"], m11c3:["bp1","bp2","or2"],
+    m11c4:["or1","ss-pbs","yi2"], m11c5:["sm3","bp3","ci1"],  m11c6:["bp2","or3","ss-psy"],
+    /* m12 — NDIS-204 Trauma, PTSD & Complex Trauma */
+    m12c1:["bp1","ss-trauma","sm2"], m12c2:["or1","ci2","ss-trauma"], m12c3:["bp1","sm2","ss-trauma"],
+    m12c4:["or3","ci1","ss-trauma"], m12c5:["id-atsi","sm1","yi1"],   m12c6:["or3","yi1","ss-trauma"],
+    /* m13 — NDIS-205 Personality Disorder, Emotional Dysregulation & Self-Harm */
+    m13c1:["or1","yi1"],        m13c2:["bp2","or3","yi3"],  m13c3:["yi1","or4","or3"],
+    m13c4:["or4","or3","ci1"],  m13c5:["or1","ci2","ss-complex"], m13c6:["or1","or3","or4"],
+    /* m14 — NDIS-206 Co-occurring Conditions */
+    m14c1:["bp2","yi2","or3"],  m14c2:["yi2","or3","ss-complex"], m14c3:["bp2","bp1"],
+    m14c4:["bp1","yi2","ss-health"], m14c5:["bp2","ci2","ss-health"], m14c6:["ss-health","bp2","or4"]
+  };
+
+  /* ---- lookups ---- */
+  const CAP_INDEX = Object.create(null);
+  for (const o of OBJECTIVES) for (const c of o.caps)
+    CAP_INDEX[c.key] = { key:c.key, name:c.name, objective:o.name, objectiveKey:o.key, core:true };
+  for (const a of ADDITIONAL)
+    CAP_INDEX[a.key] = { key:a.key, name:a.name, objective:a.group + " (additional)", objectiveKey:a.key.slice(0,2), core:false };
+
+  const has = (obj, k) => Object.prototype.hasOwnProperty.call(obj, k);
+  function cap(key){ return has(CAP_INDEX, key) ? CAP_INDEX[key] : null; }
+  function caseCaps(cid){ return has(CASE_CAPS, cid) ? CASE_CAPS[cid].slice() : []; }
+
+  /* Module capabilities, derived from its cases — single source of truth. */
+  function moduleCaps(mod){
+    const seen = Object.create(null), list = [];
+    for (const c of mod.cases) for (const k of caseCaps(c.id))
+      if (!seen[k]){ seen[k] = 1; list.push(k); }
+    /* Stable order: framework order (core by objective, then additional). */
+    const order = Object.keys(CAP_INDEX);
+    return list.sort((a,b) => order.indexOf(a) - order.indexOf(b));
+  }
+
+  return { SOURCE, OBJECTIVES, ADDITIONAL, CASE_CAPS, cap, caseCaps, moduleCaps };
+})();
+
+</script>
+<script>
+/* ============================================================
    NDIS Practice Academy — certificate rules
    Single source of truth for WHEN a certificate is earned and
    WHAT it says. Used by BOTH:
@@ -5223,7 +5433,8 @@ const Admin = (() => {
       <p class="hint" style="max-width:74ch">Posts appear beside every worker's dashboard the
         next time they open it — <strong>events &amp; team meetings</strong> down one side,
         <strong>important information</strong> down the other. Plain text only, up to
-        ${lim.maxPosts} posts; with no posts the dashboard stays full-width. Don't put
+        ${lim.maxPosts} posts. The rails are always on the wall (an empty side shows an
+        invitation); a worker can hide them for themselves in Settings. Don't put
         anything about a participant or a worker's progress here — it is visible to everyone
         who signs in.</p>
       <form onsubmit="Admin.addBoardPost(event)" style="max-width:560px">
@@ -5254,7 +5465,7 @@ const Admin = (() => {
     if (!box) return;
     const posts = (Store.board || {}).posts || [];
     if (!posts.length){
-      box.innerHTML = `<p class="hint">Nothing on the board — workers see their normal full-width dashboard.</p>`;
+      box.innerHTML = `<p class="hint">Nothing on the board yet — workers see the empty rails with an invitation, so post the first item above.</p>`;
       return;
     }
     box.innerHTML = `
@@ -5667,17 +5878,19 @@ const App = (() => {
   /* ================= views ================= */
   function view(html){ $("mainView").innerHTML = html; window.scrollTo(0,0); }
 
-  /* ---- company noticeboard (Card S11) ----
+  /* ---- company noticeboard (Cards S11 + S12) ----
      Org-authored posts flanking the modules: events & team meetings down ONE
      side of the dashboard, important details & information down the OTHER.
-     A side with no posts renders NOTHING — an organisation that never uses
-     the board never sees it, and the dashboard keeps its full width. Every
+     The rails render ALWAYS (Card S12 directive: "have them always showing to
+     encourage usage") — an empty side shows its heading and one line saying
+     what will appear there, because an invisible noticeboard reads as a
+     broken one. The off-switch is the worker's own, in Settings
+     (settings.showBoard, default on) — checked in goHome, not here. Every
      field is org-supplied free text and goes through esc(); posts carry no
      HTML by design. */
   function boardAside(kind){
     const posts = ((Store.board || {}).posts || []).filter(p =>
       kind === "event" ? p.kind === "event" : p.kind !== "event");
-    if (!posts.length) return "";
     const item = p => `
       <div class="board-post">
         <h4>${esc(p.title)}</h4>
@@ -5687,12 +5900,19 @@ const App = (() => {
       </div>`;
     const icon  = kind === "event" ? "calendar" : "board";
     const title = kind === "event" ? "Events & team meetings" : "Important information";
+    const empty = kind === "event"
+      ? "Nothing scheduled yet — your organisation's meetings and events will appear here."
+      : "Nothing posted yet — updates from your organisation will appear here.";
     return `
       <aside class="noticeboard board-${kind === "event" ? "events" : "info"}" aria-label="${title}">
         <h3 class="board-h">${Icons.icon(icon)} ${esc(title)}</h3>
-        ${posts.map(item).join("")}
+        ${posts.length ? posts.map(item).join("") : `<p class="board-empty">${esc(empty)}</p>`}
       </aside>`;
   }
+
+  /* Absent means ON: the flag arrived in v0.2.4, so every account created
+     before it has no field — those workers must keep seeing the board. */
+  const boardHidden = () => !!(user && user.settings && user.settings.showBoard === false);
 
   /* ---- dashboard ---- */
   function goHome(){
@@ -5739,9 +5959,11 @@ const App = (() => {
 
     /* The two board sides are grid siblings of the main column, so on wide
        screens events sit down one side and important information down the
-       other; on narrow screens CSS drops them below the modules. An empty
-       side contributes no markup and its grid track collapses. */
-    const evAside = boardAside("event"), infoAside = boardAside("notice");
+       other; on narrow screens CSS drops them below the modules. Both rails
+       always render (empty sides carry an invitation) unless this worker has
+       turned the board off in Settings — then the dashboard is full-width. */
+    const evAside = boardHidden() ? "" : boardAside("event");
+    const infoAside = boardHidden() ? "" : boardAside("notice");
     view(`
       <div class="dash-layout${evAside ? " has-events" : ""}${infoAside ? " has-info" : ""}">
       ${evAside}
@@ -6116,7 +6338,9 @@ const App = (() => {
         <h2>My certificates</h2>
         <p>${count
           ? `You've earned <strong>${count}</strong> certificate${count === 1 ? "" : "s"}. Each one is issued the moment you finish a module's last case study and a copy goes to <strong>${esc(user.email)}</strong>.`
-          : `Your certificates appear here. Each is issued the moment you finish a module's last case study, and a copy goes to <strong>${esc(user.email)}</strong>.`}</p>
+          : `Your certificates appear here. Each is issued the moment you finish a module's last case study, and a copy goes to <strong>${esc(user.email)}</strong>.`}
+          Each module also gives written practice in named capabilities from the NDIS Workforce
+          Capability Framework — <a onclick="App.showFramework()">see the Capability framework page</a>.</p>
       </div>
       ${count ? `<div class="cert-earned">${earned.join("")}</div>` : ""}
       ${remaining.length ? `
@@ -6139,6 +6363,71 @@ const App = (() => {
       </div>
       ${certificateHTML(user.name, title, desc, c.date, c.serial)}`;
     pc.classList.remove("hidden");
+  }
+
+  /* ---- capability framework view (Card F1) ----
+     Publishes the academy's map to the NDIS Commission's NDIS Workforce
+     Capability Framework (FrameworkMap in framework.js). DESCRIPTIVE ONLY:
+     it says where each module gives written, coached practice in a named
+     capability. Law 1: no scores, nothing here reads a student's progress
+     as a judgement, nothing gates. Law 3: alignment wording is "practises",
+     never a claim the learner has met a capability, and the standing
+     non-accreditation line rides at the top and bottom of the page. The
+     view is inside the Law 1 and Law 3 chrome scans in test-harness.html —
+     keep every string here through esc() and inside those laws. */
+  function showFramework(){
+    const src = FrameworkMap.SOURCE;
+    const chip = k => {
+      const c = FrameworkMap.cap(k);
+      return c ? `<span class="fw-chip ${c.core ? "fw-core" : "fw-extra"}" title="${esc(c.objective)}">${esc(c.name)}</span>` : "";
+    };
+    const legend = FrameworkMap.OBJECTIVES.map(o => `
+      <details class="learn-card">
+        <summary>${esc(o.name)} — ${esc(o.tagline)}</summary>
+        <div class="learn-body"><ul>${o.caps.map(c => `<li><strong>${esc(c.name)}</strong></li>`).join("")}</ul></div>
+      </details>`).join("");
+    const extras = `
+      <details class="learn-card">
+        <summary>Additional capabilities this curriculum also practises</summary>
+        <div class="learn-body"><ul>${FrameworkMap.ADDITIONAL.map(a =>
+          `<li><strong>${esc(a.name)}</strong> <span class="hint">(${esc(a.group)})</span></li>`).join("")}</ul></div>
+      </details>`;
+    const modBlocks = MODULES.map(m => {
+      const caps = FrameworkMap.moduleCaps(m);
+      const rows = m.cases.map((c, i) => `
+        <tr><td class="fw-num">${i + 1}</td><td>${esc(c.title)}</td>
+        <td>${FrameworkMap.caseCaps(c.id).map(chip).join(" ")}</td></tr>`).join("");
+      return `
+        <details class="learn-card fw-module">
+          <summary><span class="fw-code">${esc(m.code)}</span> ${esc(m.title)}
+            <span class="hint">· ${caps.length} capabilities</span></summary>
+          <div class="learn-body">
+            <p class="fw-caps">${caps.map(chip).join(" ")}</p>
+            <table class="fw-table">
+              <thead><tr><th></th><th>Case study</th><th>Framework capabilities practised</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </details>`;
+    }).join("");
+    view(`
+      <div class="dash-hero">
+        <h2>Capability framework</h2>
+        <p>Every module maps to named capabilities from the <strong>${esc(src.name)}</strong> —
+        the ${esc(src.owner)}'s shared language for what good support looks like
+        (${esc(src.url)}). This page is descriptive: it shows where each module and case study
+        gives you written, coached practice in a capability. It is not a score, it never affects
+        your progress or certificates, and there is no pass or fail, ever.</p>
+        <p class="hint">${esc(src.level)} The academy remains non-accredited professional
+        development — not nationally recognised training — and this map does not imply any
+        endorsement by the NDIS Commission.</p>
+      </div>
+      <div class="learn-section"><h3>The Framework's five objectives</h3>${legend}${extras}</div>
+      <div class="learn-section"><h3>What each module practises</h3>${modBlocks}</div>
+      <p class="hint fw-source">Capability names quoted from the ${esc(src.name)},
+      ${esc(src.edition)}. Based on the Commonwealth of Australia (NDIS Quality and Safeguards
+      Commission) NDIS Workforce Capability Framework.</p>
+    `);
   }
 
   /* ---- email centre ---- */
@@ -6205,6 +6494,8 @@ const App = (() => {
     });
     $("apiKeyInput").value = user.settings.apiKey || "";
     $("apiKeyRow").classList.toggle("hidden", mode!=="claude");
+    /* Card S12: absent = on, so only an explicit false unticks it. */
+    if ($("showBoardChk")) $("showBoardChk").checked = user.settings.showBoard !== false;
     const e = user.settings.ejs || {};
     $("ejsPublic").value = e.pub || "";
     $("ejsService").value = e.svc || "";
@@ -6219,8 +6510,12 @@ const App = (() => {
       svc: $("ejsService").value.trim(),
       tpl: $("ejsTemplate").value.trim()
     };
+    if ($("showBoardChk")) user.settings.showBoard = $("showBoardChk").checked;
     await persist();
     closeSettings();
+    /* Card S12: the toggle must bite immediately — if the dashboard is the
+       current view, repaint it so the rails appear or vanish on Save. */
+    if (document.querySelector("#mainView .dash-hero")) goHome();
     const bits = [mode==="claude" ? "AI coach: Claude (live), built-in as backup" : "AI coach: built-in"];
     bits.push(ejsConfig() ? "real email delivery: ON" : "email delivery: in-app only");
     toast("Saved — " + bits.join(" · ") + ".");
@@ -6303,6 +6598,7 @@ const App = (() => {
     if (r && r.account){
       enterAccount(r.account);
       if (location.hash === "#certificates") showCertificates();
+      else if (location.hash === "#framework") showFramework();
       else if (location.hash === "#mail") showMail();
       else if (location.hash === "#settings") showSettings();
       else if (/^#m\d$/.test(location.hash)){
@@ -6314,7 +6610,7 @@ const App = (() => {
   document.addEventListener("DOMContentLoaded", init);
 
   return { showAuthTab, register, login, logout, submitNewPassword, goHome, openModule, openCase,
-           updateWordCount, submitAnswer, showCertificates, printCert, showMail,
+           updateWordCount, submitAnswer, showCertificates, printCert, showMail, showFramework,
            showSettings, saveSettings, closeSettings, resendMail, sendTestEmail,
            applyBranding,        // Card B1: admin.js repaints the live page after a change
            certificateHTML };
