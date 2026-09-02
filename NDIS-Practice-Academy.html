@@ -9,26 +9,69 @@
    NDIS Practice Academy — styles
    ============================================================ */
 :root{
-  --ink:#1c2733;
-  --ink-soft:#4a5a6a;
-  --paper:#f6f4ef;
-  --card:#ffffff;
-  --line:#e3ded4;
+  /* Card P-1 (C-05): every colour in the product resolves to a token here —
+     0 hex literals live outside this block, and a gate counts them. Token
+     NAMES are frozen (app.js/admin.js reference var(--teal)/var(--coral)
+     inline); VALUES carry the identity: warm cream ground, deep pine chrome,
+     the unchanged #0e7c7b brand teal in a three-step role ladder
+     (interactive / display / small label), wattle-gold for achievement,
+     clay for attention, eucalypt green reserved for pass states, heath for
+     the specialised/Mental-Health family. Every text token's contrast ratio
+     against its grounds is quoted in the v0.3.4 changelog entry — AA is the
+     floor, not the target. */
+  --white:#fff;
+  /* neutrals — warmed */
+  --ink:#232f2b;
+  --ink-soft:#51605c;
+  --paper:#f6f2e9;
+  --paper-deep:#efe9db;
+  --card:#fffdf9;
+  --card-dim:#fbf8f1;
+  --line:#ddd5c4;
+  /* brand greens */
+  --pine:#0f2e2b;
+  --pine-2:#14403c;
   --teal:#0e7c7b;
+  --teal-high:#1d9a8a;
   --teal-dark:#0a5d5c;
-  --teal-soft:#e2f1f0;
+  --teal-text:#0b6b67;
+  --teal-soft:#e0efec;
+  --teal-mist:#eef6f3;
+  --teal-line:#c2ded7;
+  --foam:#9ec8bf;
+  /* wattle gold — achievement & warmth */
   --gold:#c9a227;
-  --gold-soft:#faf3dd;
-  --coral:#d4593b;
-  --coral-soft:#fbe9e3;
+  --gold-deep:#8a6d15;
+  --gold-text:#77590e;
+  --gold-ink:#2b2413;
+  --gold-soft:#f9f1da;
+  --gold-line:#e6d5a3;
+  /* clay — attention, safety notes, revise */
+  --coral:#c14f2e;
+  --coral-deep:#a53c1c;
+  --coral-text:#a03a1a;
+  --coral-soft:#f9e8e0;
+  --coral-line:#eec8b8;
+  /* eucalypt — pass state only */
   --green:#3d7a3f;
-  --green-soft:#e8f2e6;
-  --blue:#33608a;
-  --blue-soft:#e6eef6;
-  --purple:#6b4f8a;
+  --green-text:#2f6a33;
+  --green-soft:#e7f1e3;
+  --green-line:#bfd9b8;
+  /* heath — the specialised / Mental Health family */
+  --purple:#5f4a7d;
+  --purple-text:#54416f;
   --purple-soft:#efe9f6;
+  /* certificate parchment */
+  --parchment:#fffdf6;
+  --parchment-line:#d8c98a;
+  /* admin chrome — deliberately distinct slate */
+  --admin-dark:#1c2733;
+  --admin-nav:#26333f;
   --radius:14px;
-  --shadow:0 2px 10px rgba(28,39,51,.08);
+  --radius-lg:20px;
+  --radius-sm:10px;
+  --radius-xs:4px;
+  --shadow:0 2px 10px rgba(19,34,30,.08);
   font-size:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -59,15 +102,16 @@ h1,h2,h3{line-height:1.25}
 /* ---------- buttons ---------- */
 .btn{
   border:1.5px solid var(--line);
-  background:#fff;color:var(--ink);
+  background:var(--white);color:var(--ink);
   padding:.55rem 1.1rem;border-radius:999px;
-  font-weight:600;transition:all .15s;
+  font-weight:600;transition:border-color .15s,color .15s,background-color .15s,transform .1s;
 }
+.btn:active{transform:translateY(1px)}
 .btn:hover{border-color:var(--teal);color:var(--teal)}
-.btn-primary{background:var(--teal);border-color:var(--teal);color:#fff}
-.btn-primary:hover{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
-.btn-gold{background:var(--gold);border-color:var(--gold);color:#3a2f05}
-.btn-gold:hover{filter:brightness(1.06);color:#3a2f05}
+.btn-primary{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.btn-primary:hover{background:var(--teal-dark);border-color:var(--teal-dark);color:var(--white)}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+.btn-gold:hover{filter:brightness(1.06);color:var(--gold-ink)}
 .btn-block{width:100%}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 
@@ -75,20 +119,20 @@ h1,h2,h3{line-height:1.25}
 .auth-screen{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   padding:2rem 1rem;
-  background:linear-gradient(160deg,#0a5d5c 0%,#0e7c7b 45%,#1d9a8a 100%);
+  background:linear-gradient(160deg,var(--teal-dark) 0%,var(--teal) 45%,var(--teal-high) 100%);
 }
 .auth-card{
   width:100%;max-width:880px;background:var(--card);
-  border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.28);
+  border-radius:var(--radius-lg);box-shadow:0 20px 60px rgba(0,0,0,.28);
   display:grid;grid-template-columns:1fr 1fr;overflow:hidden;
 }
 .auth-brand{
-  background:linear-gradient(170deg,#10312f,#0e4b49);
-  color:#fff;padding:2.6rem 2.2rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;
+  background:linear-gradient(170deg,var(--pine),var(--pine-2));
+  color:var(--white);padding:2.6rem 2.2rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;
 }
 .auth-logo{font-size:2.6rem;color:var(--gold)}
 .auth-brand h1{font-size:1.7rem}
-.auth-tag{color:#cfe6e2;font-size:.95rem}
+.auth-tag{color:var(--foam);font-size:.95rem}
 .auth-forms{padding:2.4rem 2.2rem}
 .auth-tabs{display:flex;gap:.5rem;margin-bottom:1.4rem}
 .auth-tab{
@@ -99,7 +143,7 @@ h1,h2,h3{line-height:1.25}
 .auth-form{display:flex;flex-direction:column;gap:1rem}
 .auth-form label{display:flex;flex-direction:column;gap:.3rem;font-weight:600;font-size:.92rem}
 .auth-form input{
-  padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:10px;background:#fbfaf7;
+  padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:var(--card-dim);
 }
 .auth-form input:focus{outline:none;border-color:var(--teal)}
 .auth-fine{font-size:.78rem;color:var(--ink-soft);text-align:center}
@@ -109,7 +153,7 @@ h1,h2,h3{line-height:1.25}
 /* ============ TOPBAR ============ */
 .portal{min-height:100vh;display:flex;flex-direction:column}
 .topbar{
-  background:#10312f;color:#fff;
+  background:var(--pine);color:var(--white);
   display:flex;align-items:center;gap:1.4rem;
   padding:.7rem 1.4rem;flex-wrap:wrap;position:sticky;top:0;z-index:20;
 }
@@ -118,16 +162,18 @@ h1,h2,h3{line-height:1.25}
 .topbar-title{font-weight:700;letter-spacing:.02em}
 .topbar-nav{display:flex;gap:.3rem;flex:1;flex-wrap:wrap}
 .nav-btn{
-  background:none;border:none;color:#cfe6e2;padding:.45rem .8rem;border-radius:8px;font-weight:600;
+  background:none;border:none;color:var(--foam);padding:.45rem .8rem;border-radius:var(--radius-sm);font-weight:600;
 }
-.nav-btn:hover{background:rgba(255,255,255,.12);color:#fff}
-.nav-btn.subtle{color:#8fb5ae;font-weight:400}
+.nav-btn:hover{background:rgba(255,255,255,.12);color:var(--white)}
+/* Card P-5: the current view's tab stays lit — wash plus a gold keel line */
+.nav-btn.active{background:rgba(255,255,255,.14);color:var(--white);box-shadow:inset 0 -2px 0 var(--gold)}
+.nav-btn.subtle{color:var(--foam);font-weight:400}
 .topbar-user{display:flex;align-items:center;gap:.6rem}
 .user-chip{
   background:rgba(255,255,255,.12);padding:.3rem .8rem;border-radius:999px;font-size:.85rem;
 }
 .badge{
-  background:var(--coral);color:#fff;border-radius:999px;font-size:.7rem;
+  background:var(--coral-deep);color:var(--white);border-radius:999px;font-size:.7rem;
   padding:.05rem .45rem;margin-left:.3rem;
 }
 /* two nav buttons carry a long and a short label; wide screens show the long
@@ -158,9 +204,13 @@ h1,h2,h3{line-height:1.25}
 
 /* ============ MAIN ============ */
 .main-view{flex:1;width:100%;max-width:1080px;margin:0 auto;padding:2rem 1.2rem 3rem}
+/* Card P-4 (C-05): a view arrives, it doesn't snap — 220ms settle on the
+   ease-out curve, applied to the view's top-level blocks as they attach. */
+@keyframes viewin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.main-view>*{animation:viewin .22s cubic-bezier(.16,1,.3,1)}
 .footer{border-top:1px solid var(--line);padding:1.2rem;text-align:center;color:var(--ink-soft);font-size:.78rem}
-.footer-ver{margin-top:.5rem;opacity:.6;font-size:.72rem;letter-spacing:.03em}
-.auth-ver{margin-top:.6rem;text-align:center;opacity:.5;font-size:.7rem;letter-spacing:.03em}
+.footer-ver{margin-top:.5rem;color:var(--ink-soft);font-size:.72rem;letter-spacing:.03em}
+.auth-ver{margin-top:.6rem;text-align:center;color:var(--ink-soft);font-size:.7rem;letter-spacing:.03em}
 .admin-readsub{padding:.15rem .6rem;font-size:.72rem;vertical-align:middle}
 .answer-privacy{margin-top:.5rem;font-size:.76rem;opacity:.75}
 
@@ -179,7 +229,7 @@ h1,h2,h3{line-height:1.25}
 [data-icon]{display:inline-flex;margin-right:.4em}
 /* Inline status icons (ribbons, chips, list marks) need the same optical gap. */
 .cert-ribbon .icon,.case-status .icon,.admin-back .icon,.hint .icon{margin-right:.35em}
-.admin-submission{white-space:pre-wrap;background:var(--paper,#f7f6f2);border:1px solid var(--line);border-radius:8px;padding:1rem;max-height:50vh;overflow:auto;font-size:.85rem;line-height:1.55}
+.admin-submission{white-space:pre-wrap;background:var(--paper,var(--card-dim));border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem;max-height:50vh;overflow:auto;font-size:.85rem;line-height:1.55}
 
 /* ---------- dashboard ---------- */
 .dash-hero{margin-bottom:1.8rem}
@@ -188,28 +238,58 @@ h1,h2,h3{line-height:1.25}
 .progress-strip{
   display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0 0;
 }
+/* Card P-3 (C-05): supporting surfaces sit FLAT — stat chips and the board
+   rails keep their borders but lose the resting shadow, so the module cards
+   (the things a worker acts on) carry the page's only elevation and the eye
+   lands there first. UX-6: the strip fills its row instead of leaving a
+   ragged right edge. */
 .stat-card{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  padding:.8rem 1.2rem;min-width:150px;box-shadow:var(--shadow);
+  padding:.8rem 1.2rem;min-width:150px;flex:1 1 0;
 }
-.stat-card .num{font-size:1.5rem;font-weight:800;color:var(--teal)}
+/* the fill is a DESKTOP nicety; at phone width the chips keep their original
+   content-driven wrap (Referee catch: flex-fill reflowed the 375px strip,
+   and the mobile layout is protected by the client's brief) */
+@media(max-width:700px){.stat-card{flex:0 1 auto}}
+.stat-card .num{font-size:1.5rem;font-weight:800;color:var(--teal-dark)}
 .stat-card .lbl{font-size:.8rem;color:var(--ink-soft)}
 
 /* ---- streams ----
    A stream is a named group of modules with its own certificate. At fourteen
    modules an undifferentiated grid reads as a wall, so the dashboard leads
    with the stream name and lets the cards sit underneath it. */
-.stream{margin-top:2.2rem}
+/* Card P-2 (C-05): each stream carries one accent family on a STABLE class
+   hook appended in goHome() (`stream-<key>` — never nth-of-type, which would
+   shuffle accents if streams reorder). Core = brand teal (the default,
+   unchanged), Mental Health = heath, the org's policy section = wattle-gold
+   (the board-info/organisation colour it already answers to). The accent
+   rides the card top border, the stream underline, the count pill and the
+   progress fill; text-on-soft pairs are AA-quoted in the changelog. */
+.stream{
+  margin-top:2.2rem;
+  --accent:var(--teal);--accent-deep:var(--teal-dark);
+  --accent-soft:var(--teal-soft);--accent-text:var(--teal-text);
+}
+.stream-mh{
+  --accent:var(--purple);--accent-deep:var(--purple-text);
+  --accent-soft:var(--purple-soft);--accent-text:var(--purple-text);
+}
+.policy-stream{
+  /* deep gold, not bright: the 5px accent border must clear 3:1 on the card
+     (bright #c9a227 sits at 2.38:1 and reads as ornament, not identity) */
+  --accent:var(--gold-deep);--accent-deep:var(--gold-text);
+  --accent-soft:var(--gold-soft);--accent-text:var(--gold-text);
+}
 .stream:first-of-type{margin-top:1.6rem}
 .stream-head{
   display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  border-bottom:2px solid var(--teal-soft);padding-bottom:.6rem;
+  border-bottom:2px solid var(--accent-soft);padding-bottom:.6rem;
 }
-.stream-name{font-size:1.15rem;color:var(--teal-dark);letter-spacing:.01em}
+.stream-name{font-size:1.15rem;color:var(--accent-deep);letter-spacing:.01em}
 .stream-blurb{color:var(--ink-soft);font-size:.85rem;max-width:70ch;margin-top:.2rem}
 .stream-count{
-  white-space:nowrap;font-size:.78rem;font-weight:700;color:var(--teal);
-  background:var(--teal-soft);border-radius:999px;padding:.25rem .8rem;
+  white-space:nowrap;font-size:.78rem;font-weight:700;color:var(--accent-text);
+  background:var(--accent-soft);border-radius:999px;padding:.25rem .8rem;
 }
 .stream .cert-ribbon{margin-top:.9rem}
 .stream .module-grid{margin-top:1.1rem}
@@ -224,7 +304,7 @@ h1,h2,h3{line-height:1.25}
 .module-card{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   box-shadow:var(--shadow);padding:1.3rem;display:flex;flex-direction:column;gap:.7rem;
-  border-top:5px solid var(--teal);transition:transform .15s;
+  border-top:5px solid var(--accent,var(--teal));transition:transform .15s;
 }
 .module-card:hover{transform:translateY(-3px)}
 .module-card .mod-head{display:flex;align-items:center;gap:.7rem}
@@ -233,12 +313,17 @@ h1,h2,h3{line-height:1.25}
 .module-card h3{font-size:1.05rem}
 .module-card .blurb{font-size:.88rem;color:var(--ink-soft);flex:1}
 .mod-progress{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--ink-soft)}
-.prog-bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
-.prog-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .3s}
-.mod-done .prog-fill{background:var(--gold)}
+/* Card P-2: the meter is legible in every state — an inset ring marks the
+   track against the card even at 0%, the fill takes the stream accent, and a
+   finished module fills DEEP gold (3.36:1 on the track; the old bright-gold
+   fill sat at 1.80:1 and vanished). */
+.prog-bar{flex:1;height:8px;background:var(--line);border-radius:999px;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(35,47,43,.45)}
+.prog-fill{height:100%;background:var(--accent,var(--teal));border-radius:999px;transition:width .3s}
+.mod-done .prog-fill{background:var(--gold-deep)}
 .cert-ribbon{
-  background:var(--gold-soft);color:#7a621a;border:1px solid #e8d9a4;
-  font-size:.78rem;font-weight:700;padding:.25rem .7rem;border-radius:8px;text-align:center;
+  background:var(--gold-soft);color:var(--gold-text);border:1px solid var(--gold-line);
+  font-size:.78rem;font-weight:700;padding:.25rem .7rem;border-radius:var(--radius-sm);text-align:center;
 }
 
 /* ---------- company noticeboard (Card S11) ----------
@@ -272,7 +357,7 @@ h1,h2,h3{line-height:1.25}
 }
 .noticeboard{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:1rem 1.1rem;
+  padding:1rem 1.1rem;
 }
 .board-events{border-top:5px solid var(--teal)}
 .board-info{border-top:5px solid var(--gold)}
@@ -283,14 +368,14 @@ h1,h2,h3{line-height:1.25}
 }
 .board-h .icon{width:1.05rem;height:1.05rem;flex:none}
 .board-events .board-h{color:var(--teal-dark)}
-.board-info .board-h{color:#7a621a}
+.board-info .board-h{color:var(--gold-text)}
 .board-post{padding:.75rem 0;border-bottom:1px solid var(--line)}
 .board-post:last-child{border-bottom:0;padding-bottom:.15rem}
 .board-post h4{font-size:.92rem;line-height:1.35}
 .board-when{
-  font-size:.78rem;font-weight:700;color:var(--teal);margin-top:.15rem;
+  font-size:.78rem;font-weight:700;color:var(--teal-text);margin-top:.15rem;
 }
-.board-info .board-when{color:#7a621a}
+.board-info .board-when{color:var(--gold-text)}
 .board-body{font-size:.83rem;color:var(--ink-soft);margin-top:.25rem;white-space:pre-line;overflow-wrap:break-word}
 .board-post h4{overflow-wrap:break-word}
 .board-author{font-size:.74rem;color:var(--ink-soft);margin-top:.3rem;text-align:right}
@@ -313,7 +398,7 @@ h1,h2,h3{line-height:1.25}
   border-bottom:2px solid var(--teal-soft);padding-bottom:.35rem;
 }
 details.learn-card{
-  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
   margin-bottom:.6rem;overflow:hidden;
 }
 details.learn-card summary{
@@ -322,14 +407,14 @@ details.learn-card summary{
 }
 details.learn-card summary::after{content:"+";color:var(--teal);font-size:1.2rem}
 details.learn-card[open] summary::after{content:"–"}
-details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.93rem}
+details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:var(--ink);font-size:.93rem}
 .learn-body ul{margin:.5rem 0 .5rem 1.2rem}
 .learn-body p{margin:.45rem 0}
 .learn-body strong{color:var(--teal-dark)}
 
 .case-list{display:flex;flex-direction:column;gap:.7rem}
 .case-row{
-  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
   padding:.9rem 1.2rem;display:flex;align-items:center;gap:1rem;cursor:pointer;
   transition:border-color .15s;
 }
@@ -341,27 +426,27 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 .case-row.passed .case-num{background:var(--green-soft);color:var(--green)}
 .case-row .case-title{flex:1;font-weight:600}
 .case-status{font-size:.78rem;font-weight:700;padding:.2rem .7rem;border-radius:999px}
-.st-new{background:var(--blue-soft);color:var(--blue)}
-.st-progress{background:var(--gold-soft);color:#7a621a}
+.st-new{background:var(--teal-soft);color:var(--teal-text)}
+.st-progress{background:var(--gold-soft);color:var(--gold-text)}
 .st-passed{background:var(--green-soft);color:var(--green)}
 
 /* ---------- case study view ---------- */
 .case-wrap{max-width:820px;margin:0 auto}
 .scenario-card{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:1.5rem;margin-bottom:1.2rem;border-left:6px solid var(--blue);
+  box-shadow:var(--shadow);padding:1.5rem;margin-bottom:1.2rem;border-left:6px solid var(--teal-dark);
 }
 .scenario-card h2{font-size:1.25rem;margin-bottom:.6rem}
-.scenario-label{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--blue);margin-bottom:.3rem}
-.scenario-text{font-size:.97rem;color:#2c3a47}
+.scenario-label{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--teal-text);margin-bottom:.3rem}
+.scenario-text{font-size:.97rem;color:var(--ink)}
 .task-card{
-  background:var(--teal-soft);border:1px solid #c6e2e0;border-radius:12px;
+  background:var(--teal-soft);border:1px solid var(--teal-line);border-radius:var(--radius-sm);
   padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:.95rem;
 }
 .task-card strong{color:var(--teal-dark)}
 .answer-area textarea{
-  width:100%;min-height:220px;padding:1rem;border:1.5px solid var(--line);border-radius:12px;
-  background:#fff;resize:vertical;font-size:.95rem;line-height:1.6;
+  width:100%;min-height:220px;padding:1rem;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--white);resize:vertical;font-size:.95rem;line-height:1.6;
 }
 .answer-area textarea:focus{outline:none;border-color:var(--teal)}
 .answer-meta{display:flex;justify-content:space-between;align-items:center;margin:.5rem 0 1rem;font-size:.82rem;color:var(--ink-soft)}
@@ -378,24 +463,54 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
   border:1.5px solid;animation:fadein .3s;
 }
 @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.fb-pass{background:var(--green-soft);border-color:#bcd8b8}
-.fb-develop{background:var(--gold-soft);border-color:#e8d9a4}
-.fb-revise{background:var(--coral-soft);border-color:#eec4b6}
+.fb-pass{background:var(--green-soft);border-color:var(--green-line)}
+.fb-develop{background:var(--gold-soft);border-color:var(--gold-line)}
+.fb-revise{background:var(--coral-soft);border-color:var(--coral-line)}
 .feedback h3{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;font-size:1.05rem}
-.feedback h4{margin:.9rem 0 .3rem;font-size:.9rem}
+/* Card P-3: coaching sections have visible structure — headings one step
+   above the body they head, a hairline between sections (first one exempt),
+   so the strengths / safety / growth blocks read as blocks without leaning
+   on the emoji. */
+.feedback h4{
+  margin:1.05rem 0 .35rem;font-size:.98rem;
+  padding-top:.75rem;border-top:1px solid rgba(35,47,43,.12);
+}
+.feedback h4:first-of-type{border-top:none;padding-top:0}
 .feedback ul{margin:.2rem 0 .2rem 1.2rem;font-size:.92rem}
 .feedback li{margin:.25rem 0}
-.fb-flag{color:#9c3a1f;font-weight:600}
+.fb-flag{color:var(--coral-text);font-weight:600}
 .fb-score{
   float:right;font-size:.8rem;font-weight:800;background:rgba(255,255,255,.7);
   padding:.2rem .7rem;border-radius:999px;
 }
 .model-answer{
-  margin-top:1rem;background:#fff;border:1px dashed var(--line);border-radius:10px;
-  padding:1rem;font-size:.9rem;color:#2c3a47;
+  margin-top:1rem;background:var(--white);border:1px dashed var(--line);border-radius:var(--radius-sm);
+  padding:1rem;font-size:.9rem;color:var(--ink);
 }
-.model-answer strong{color:var(--teal-dark)}
 .fb-note{font-size:.78rem;color:var(--ink-soft);margin-top:.8rem}
+/* Card C-06: the coach has a face. An avatar + name + one status line open
+   the box, strengths read as chips, the worked example folds. Tokens only. */
+.coach-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
+.coach-avatar{
+  flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:var(--teal);
+  color:var(--white);display:flex;align-items:center;justify-content:center;
+}
+.coach-avatar .icon{width:22px;height:22px}
+.coach-name{font-weight:800;font-size:1rem;color:var(--ink)}
+.coach-status{font-size:.82rem;color:var(--ink-soft)}
+.feedback .fb-chips{list-style:none;margin:.35rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem}
+.feedback .fb-chips li{
+  margin:0;background:var(--white);border:1px solid var(--green-line);border-radius:999px;
+  padding:.25rem .75rem;font-size:.88rem;font-weight:600;color:var(--green-text);
+}
+.fb-chips li::before{content:"✓ ";color:var(--green)}
+.fb-depth{font-size:.85rem;color:var(--ink-soft);margin-top:.9rem}
+.fb-revisit{font-size:.9rem;margin-bottom:.4rem}
+details.model-answer summary{cursor:pointer;font-weight:700;color:var(--teal-dark);list-style:none}
+details.model-answer summary::-webkit-details-marker{display:none}
+details.model-answer summary::before{content:"▸ ";color:var(--teal)}
+details.model-answer[open] summary::before{content:"▾ "}
+details.model-answer[open] summary{margin-bottom:.5rem}
 
 /* ---------- certificates gallery ---------- */
 /* ---------- certificates ----------
@@ -407,7 +522,7 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
   margin:0;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);
   box-shadow:var(--shadow);overflow:hidden;
 }
-.cert-capstone{grid-column:1/-1;border-color:var(--gold,#b8912f)}
+.cert-capstone{grid-column:1/-1;border-color:var(--gold,var(--gold))}
 .cert-thumb .thumb-actions{
   padding:.75rem 1rem;display:flex;gap:.8rem;align-items:center;
   justify-content:space-between;border-top:1px solid var(--line);
@@ -429,41 +544,41 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 .cert-todo-text{flex:1;display:flex;flex-direction:column;gap:.1rem;min-width:0}
 .cert-todo-text strong{font-weight:600}
 .cert-todo-text .hint{font-size:.78rem}
-.cert-todo-bar{flex:none;width:5.5rem;height:5px;border-radius:3px;background:var(--line);overflow:hidden}
-.cert-todo-bar i{display:block;height:100%;background:var(--accent,#0f5d55);border-radius:3px}
+.cert-todo-bar{flex:none;width:5.5rem;height:5px;border-radius:var(--radius-xs);background:var(--line);overflow:hidden}
+.cert-todo-bar i{display:block;height:100%;background:var(--accent,var(--teal-dark));border-radius:var(--radius-xs)}
 .cert-todo-capstone{background:linear-gradient(90deg,rgba(184,145,47,.07),transparent)}
 .lock-mark{display:flex;justify-content:center;font-size:1.5rem;color:var(--ink-soft)}
 .chip-sep{opacity:.5;margin:0 .15rem}
 
 /* the certificate itself */
 .certificate{
-  background:#fffdf6;padding:2.2rem;position:relative;
-  border:1px solid #e8e0c8;
-  font-family:Georgia,"Times New Roman",serif;color:#2b2413;
+  background:var(--parchment);padding:2.2rem;position:relative;
+  border:1px solid var(--parchment-line);
+  font-family:Georgia,"Times New Roman",serif;color:var(--gold-ink);
 }
 .certificate::before{
   content:"";position:absolute;inset:10px;border:2px solid var(--gold);border-radius:4px;pointer-events:none;
 }
 .certificate::after{
-  content:"";position:absolute;inset:16px;border:1px solid #d8c98a;border-radius:2px;pointer-events:none;
+  content:"";position:absolute;inset:16px;border:1px solid var(--parchment-line);border-radius:2px;pointer-events:none;
 }
 .cert-inner{position:relative;text-align:center;padding:.6rem}
-.cert-org{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:#8a7a3c}
+.cert-org{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-text)}
 .cert-seal{font-size:2rem;color:var(--gold);margin:.4rem 0}
 .cert-heading{font-size:1.28rem;font-variant:small-caps;letter-spacing:.06em;margin:.2rem 0}
-.cert-presented{font-size:.8rem;font-style:italic;color:#6b5f33;margin-top:.7rem}
+.cert-presented{font-size:.8rem;font-style:italic;color:var(--gold-text);margin-top:.7rem}
 .cert-name{
   font-size:1.55rem;font-weight:700;margin:.35rem 0;
   border-bottom:1.5px solid var(--gold);display:inline-block;padding:0 1.4rem .2rem;
 }
-.cert-course{font-size:1rem;font-weight:700;color:#0e5c5b;margin:.6rem 0 .2rem}
-.cert-desc{font-size:.8rem;color:#57503a;max-width:46ch;margin:0 auto}
+.cert-course{font-size:1rem;font-weight:700;color:var(--teal-dark);margin:.6rem 0 .2rem}
+.cert-desc{font-size:.8rem;color:var(--gold-text);max-width:46ch;margin:0 auto}
 .cert-meta{
   display:flex;justify-content:space-between;margin-top:1.5rem;
-  font-size:.72rem;color:#6b5f33;padding:0 1rem;
+  font-size:.72rem;color:var(--gold-text);padding:0 1rem;
   flex-wrap:wrap;gap:.6rem;row-gap:.5rem;
 }
-.cert-meta .sig{border-top:1px solid #9c8c50;padding-top:.25rem;min-width:110px}
+.cert-meta .sig{border-top:1px solid var(--parchment-line);padding-top:.25rem;min-width:110px}
 /* The certificate is the artefact, not a preview of one — give it room. */
 .cert-thumb .certificate{padding:2rem 1.6rem}
 .cert-thumb .cert-meta{justify-content:center;padding:0}
@@ -477,23 +592,23 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 }
 .mail-head{
   padding:.9rem 1.2rem;display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;
-  border-bottom:1px solid var(--line);font-size:.85rem;background:#fbfaf7;
+  border-bottom:1px solid var(--line);font-size:.85rem;background:var(--card-dim);
 }
 .mail-head .mh-subject{font-weight:800;width:100%;font-size:.95rem}
 .mail-head .mh-kv{color:var(--ink-soft)}
 .mail-body{padding:1.4rem}
 .mail-note{
-  background:var(--blue-soft);border:1px solid #c8d8e8;border-radius:10px;
-  padding:.8rem 1rem;font-size:.83rem;color:#2c4a66;margin-top:1.2rem;
+  background:var(--teal-mist);border:1px solid var(--teal-line);border-radius:var(--radius-sm);
+  padding:.8rem 1rem;font-size:.83rem;color:var(--teal-text);margin-top:1.2rem;
 }
-.email-frame{max-width:560px;margin:0 auto;border:1px solid #eee;border-radius:8px;overflow:hidden;font-family:"Segoe UI",sans-serif}
-.email-band{background:#10312f;color:#fff;padding:1.1rem 1.4rem}
+.email-frame{max-width:560px;margin:0 auto;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.email-band{background:var(--pine);color:var(--white);padding:1.1rem 1.4rem}
 .email-band .eb-logo{color:var(--gold);font-size:1.2rem}
 .email-band h3{font-size:1.05rem;margin-top:.2rem}
-.email-content{padding:1.4rem;font-size:.92rem;color:#333}
+.email-content{padding:1.4rem;font-size:.92rem;color:var(--ink)}
 .email-content p{margin:.5rem 0}
-.email-cert-box{margin:1.2rem 0;border-radius:6px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.12)}
-.email-foot{background:#f4f2ec;padding:.9rem 1.4rem;font-size:.72rem;color:#8a8676}
+.email-cert-box{margin:1.2rem 0;border-radius:var(--radius-xs);overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.email-foot{background:var(--paper-deep);padding:.9rem 1.4rem;font-size:.72rem;color:var(--ink-soft)}
 
 /* ---------- modal ---------- */
 .modal-backdrop{
@@ -501,7 +616,7 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
   display:flex;align-items:center;justify-content:center;padding:1rem;
 }
 .modal{
-  background:#fff;border-radius:16px;max-width:520px;width:100%;padding:1.8rem;
+  background:var(--white);border-radius:var(--radius-lg);max-width:520px;width:100%;padding:1.8rem;
   box-shadow:0 20px 60px rgba(0,0,0,.3);
   max-height:90vh;overflow-y:auto;
 }
@@ -512,17 +627,17 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 }
 .modal-section:first-of-type{margin-top:.6rem}
 .modal input[type=text]{
-  width:100%;padding:.55rem .8rem;border:1.5px solid var(--line);border-radius:10px;margin:.3rem 0 .7rem;
+  width:100%;padding:.55rem .8rem;border:1.5px solid var(--line);border-radius:var(--radius-sm);margin:.3rem 0 .7rem;
 }
 .modal-sub{color:var(--ink-soft);font-size:.9rem;margin-bottom:1rem}
 .radio-row{
   display:flex;gap:.7rem;align-items:flex-start;padding:.8rem;border:1.5px solid var(--line);
-  border-radius:12px;margin-bottom:.7rem;cursor:pointer;font-size:.92rem;
+  border-radius:var(--radius-sm);margin-bottom:.7rem;cursor:pointer;font-size:.92rem;
 }
 .radio-row input{margin-top:.3rem}
 .modal label{display:block;font-weight:600;font-size:.9rem}
 .modal input[type=password]{
-  width:100%;padding:.55rem .8rem;border:1.5px solid var(--line);border-radius:10px;margin-top:.3rem;
+  width:100%;padding:.55rem .8rem;border:1.5px solid var(--line);border-radius:var(--radius-sm);margin-top:.3rem;
 }
 .modal-actions{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem}
 
@@ -532,58 +647,58 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 .admin-entry a:hover{color:var(--teal)}
 .admin-panel{position:fixed;inset:0;background:var(--paper);z-index:40;overflow-y:auto}
 .admin-chip{
-  display:inline-block;background:var(--gold);color:#2b2205;font-size:.68rem;font-weight:800;
-  letter-spacing:.14em;padding:.2rem .65rem;border-radius:6px;
+  display:inline-block;background:var(--gold);color:var(--gold-ink);font-size:.68rem;font-weight:800;
+  letter-spacing:.14em;padding:.2rem .65rem;border-radius:var(--radius-xs);
 }
 .admin-gate{min-height:100vh;display:flex;align-items:center;justify-content:center;
-  padding:2rem 1rem;background:linear-gradient(160deg,#1c2733 0%,#2b3a49 60%,#3a4b5c 100%)}
+  padding:2rem 1rem;background:linear-gradient(160deg,var(--admin-dark) 0%,var(--admin-dark) 60%,var(--admin-nav) 100%)}
 .admin-gate-card{
-  background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.4);
+  background:var(--white);border-radius:var(--radius-lg);box-shadow:0 20px 60px rgba(0,0,0,.4);
   max-width:420px;width:100%;padding:2.2rem;
 }
 .admin-gate-logo{font-size:2rem;color:var(--gold)}
 .admin-gate-card h2{font-size:1.25rem;margin:.6rem 0 .2rem}
 .admin-gate-card form{display:flex;flex-direction:column;gap:.8rem;margin-top:.6rem}
 .admin-gate-card label{display:flex;flex-direction:column;gap:.3rem;font-weight:600;font-size:.9rem}
-.admin-gate-card input{padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:10px}
+.admin-gate-card input{padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:var(--radius-sm)}
 .admin-gate-card input:focus{outline:none;border-color:var(--teal)}
 .admin-top{
-  background:#1c2733;color:#fff;display:flex;align-items:center;justify-content:space-between;
+  background:var(--admin-dark);color:var(--white);display:flex;align-items:center;justify-content:space-between;
   gap:1rem;padding:.7rem 1.4rem;position:sticky;top:0;z-index:5;flex-wrap:wrap;
 }
 .admin-top-left{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.admin-exit{background:transparent;color:#cfd8e0;border-color:#4a5a6a}
-.admin-exit:hover{color:#fff;border-color:#fff}
+.admin-exit{background:transparent;color:var(--foam);border-color:var(--ink-soft)}
+.admin-exit:hover{color:var(--white);border-color:var(--white)}
 .admin-nav{
-  background:#26333f;padding:.4rem 1.4rem;display:flex;gap:.3rem;flex-wrap:wrap;
+  background:var(--admin-nav);padding:.4rem 1.4rem;display:flex;gap:.3rem;flex-wrap:wrap;
   position:sticky;top:54px;z-index:4;
 }
 .admin-tab{
-  background:none;border:none;color:#aebac5;font-weight:600;padding:.5rem .9rem;border-radius:8px;font-size:.9rem;
+  background:none;border:none;color:var(--foam);font-weight:600;padding:.5rem .9rem;border-radius:var(--radius-sm);font-size:.9rem;
 }
-.admin-tab:hover{background:rgba(255,255,255,.08);color:#fff}
-.admin-tab.active{background:var(--gold);color:#2b2205}
+.admin-tab:hover{background:rgba(255,255,255,.08);color:var(--white)}
+.admin-tab.active{background:var(--gold);color:var(--gold-ink)}
 .admin-main{max-width:1080px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
 .admin-main h2{font-size:1.35rem;margin-bottom:.5rem}
 .admin-h3{font-size:1rem;color:var(--teal-dark);margin:1.6rem 0 .6rem;border-bottom:2px solid var(--teal-soft);padding-bottom:.3rem}
 .admin-tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
 .admin-table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:640px}
 .admin-table th{
-  text-align:left;padding:.7rem 1rem;background:#f0ede5;color:var(--ink-soft);
+  text-align:left;padding:.7rem 1rem;background:var(--paper-deep);color:var(--ink-soft);
   font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;
 }
 .admin-table td{padding:.7rem 1rem;border-top:1px solid var(--line);vertical-align:top}
 .admin-actions{white-space:nowrap}
 .admin-actions .btn{padding:.3rem .8rem;font-size:.8rem}
-.admin-serial{font-family:Consolas,monospace;font-size:.82rem}
+.admin-serial{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem}
 .admin-search{
-  width:100%;max-width:420px;padding:.6rem .9rem;border:1.5px solid var(--line);border-radius:10px;
-  margin:.6rem 0 1rem;background:#fff;
+  width:100%;max-width:420px;padding:.6rem .9rem;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  margin:.6rem 0 1rem;background:var(--white);
 }
 .admin-search:focus{outline:none;border-color:var(--teal)}
 .admin-back{color:var(--teal);cursor:pointer;font-weight:600}
 .admin-modrow{
-  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
   padding:.9rem 1.1rem;margin-bottom:.7rem;display:flex;flex-direction:column;gap:.45rem;
 }
 .admin-chips{display:flex;flex-wrap:wrap;gap:.35rem}
@@ -591,12 +706,16 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 /* ---------- toast ---------- */
 .toast{
   position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
-  background:#10312f;color:#fff;padding:.8rem 1.4rem;border-radius:999px;
-  box-shadow:0 8px 30px rgba(0,0,0,.3);z-index:99;font-size:.9rem;animation:fadein .25s;
+  background:var(--pine);color:var(--white);padding:.8rem 1.4rem;border-radius:999px;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);z-index:99;font-size:.9rem;
+  /* in at .25s; out over .3s timed to finish ~50ms before the 4200ms
+     JS removal (Card P-4) — it fades instead of blinking out */
+  animation:fadein .25s,toastout .3s ease 3.85s forwards;
 }
+@keyframes toastout{to{opacity:0;transform:translateX(-50%) translateY(6px)}}
 
 /* ---------- print ---------- */
-.print-cert{position:fixed;inset:0;background:#fff;z-index:100;padding:2rem;overflow:auto}
+.print-cert{position:fixed;inset:0;background:var(--white);z-index:100;padding:2rem;overflow:auto}
 .print-cert .print-actions{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.4rem}
 .print-cert .certificate{max-width:760px;margin:0 auto}
 /* ---------- org branding (Card B1) ----------
@@ -671,7 +790,7 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 .fw-chip{display:inline-block;font-size:.74rem;font-weight:600;padding:.14rem .6rem;
   border-radius:999px;margin:.1rem .15rem .1rem 0;white-space:nowrap}
 .fw-core{background:var(--teal-soft);color:var(--teal-dark)}
-.fw-extra{background:var(--purple-soft);color:var(--purple)}
+.fw-extra{background:var(--purple-soft);color:var(--purple-text)}
 .fw-caps{margin-bottom:.7rem}
 .fw-code{font-weight:700;color:var(--teal-dark);margin-right:.3rem}
 .fw-table{width:100%;border-collapse:collapse;font-size:.88rem}
@@ -680,6 +799,43 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
 .fw-table td{padding:.42rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
 .fw-num{color:var(--ink-soft);width:1.6rem}
 .fw-source{margin:1.2rem 0 .4rem;max-width:70ch}
+
+/* ---- org policy library (Card C-01) ----
+   The tenant layer's few own rules: the section and cards reuse the stream /
+   module-card look on purpose (the felt criterion is "as though the course
+   was always built that way"), so all that is needed is the folder mark's
+   size on a card and reading comfort in the document view. */
+.policy-card .mod-icon .icon{width:1.4rem;height:1.4rem;color:var(--accent, currentColor)}
+.policy-body p{margin:0 0 .8em}
+.policy-body p:last-child{margin-bottom:0}
+.tenant-row{max-width:560px;margin:.6rem 0 1rem}
+.tenant-row code{font-size:.85em}
+
+/* ---- per-criterion assessment lines in the admin student detail (C-02) ---- */
+.admin-assessed-block{margin:.35rem 0 .2rem}
+.admin-assessed{margin:.15rem 0;font-size:.78rem;color:var(--ink-soft)}
+.admin-assessed-stamp{opacity:.75;white-space:nowrap}
+
+/* Card C-04: concept-name rows in the evidence pack, growth lines, caveats */
+.ev-crit td{font-size:.72rem;color:var(--ink-soft);padding:.15rem .5rem .5rem;border-top:none}
+.ev-growth{color:var(--teal-text);font-weight:600}
+.admin-growth{font-weight:600;color:var(--teal,var(--teal-text))}
+.admin-caveat{font-size:.75rem;font-style:italic;margin:.4rem 0 .8rem}
+.admin-sub-h{margin:.9rem 0 .3rem;font-size:.95rem}
+
+
+/* Card P-4 (C-05): the product had zero prefers-reduced-motion coverage — for
+   an audience that includes vestibular-sensitive users that is the wrong
+   default. One guard covers every animation and transition, including the
+   spinner and the meter fill. Timed exits (the toast) still END, because the
+   delay is preserved and the JS removal runs regardless. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
 
 </style>
 </head>
@@ -869,7 +1025,7 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:#2c3a47;font-size:.
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.2.6";
+const ACADEMY_VERSION = "0.3.9";
 
 </script>
 <script>
@@ -933,7 +1089,8 @@ const Icons = (() => {
 
     /* --- company noticeboard (Card S11) --- */
     calendar:   '<rect x="3.5" y="5" width="17" height="15.5" rx="1.8"/><path d="M3.5 9.5h17"/><path d="M8 3v4M16 3v4"/>',
-    board:      '<rect x="4" y="3.5" width="16" height="13.5" rx="1.6"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/><path d="M8 7.5h8M8 10.5h5"/>'
+    board:      '<rect x="4" y="3.5" width="16" height="13.5" rx="1.6"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/><path d="M8 7.5h8M8 10.5h5"/>',
+    folder:     '<path d="M3.5 6.5A1.5 1.5 0 0 1 5 5h4.4l2.1 2.6H19a1.5 1.5 0 0 1 1.5 1.5V18A1.5 1.5 0 0 1 19 19.5H5A1.5 1.5 0 0 1 3.5 18z"/><path d="M3.5 10.5h17"/>'
   });
 
   /* Returns an inline SVG string. `cls` lets a caller size it in CSS. */
@@ -3608,6 +3765,171 @@ const CertRules = {
 </script>
 <script>
 /* ============================================================
+   NDIS Practice Academy — shared policy ingestion library (Card C-01)
+
+   Content lives in two layers:
+     core          — the generic NDIS curriculum and requirements corpus.
+                     Every tenant sees it.
+     tenant:<id>   — one provider's own procedures, policies and workplace
+                     methods. Theirs. Only they see it.
+
+   This file is the INGESTION SERVICE, not an Academy feature: pure,
+   dependency-free functions over arrays of policy docs. It deliberately
+   knows nothing about Store, App, Admin, HTTP or storage — the Academy is
+   its FIRST consumer (via store.js and server/server.js), and a second
+   product (a field-reference app reading the same tenant library) must be
+   addable without touching this file. A test asserts this source contains
+   no reference to the Academy's globals; keep it that way.
+
+   Used by BOTH:
+     - the browser (store.js — local mode keeps the library in localStorage)
+     - the Node server (server/server.js — the library lives in the
+       academy.policies.json sidecar, loaded via vm so this file stays
+       browser-plain)
+
+   A policy doc is PLAIN TEXT, always: unlike the curriculum's `learn[].html`
+   (authored by us, trusted by design), tenant docs are third-party input.
+   Every field is rebuilt by cleanDoc and rendered through esc() by
+   consumers; no HTML path exists. The caps are load-bearing: they bound the
+   sidecar and every response that carries the library.
+
+   Doc shape: { id, scope, title, tag, body, updated }
+     scope  "core" or "tenant:<id>"  (id: lowercase letters/digits/hyphens)
+     tag    optional grouping label ("Medication", "Incident reporting"…)
+   ============================================================ */
+
+const PolicyLib = {
+
+  SCOPE_CORE: "core",
+  TENANT_RE: /^[a-z0-9][a-z0-9-]{0,31}$/,
+  ID_RE: /^[a-z0-9][a-z0-9-]{0,39}$/,
+  LIMITS: { maxDocs: 200, title: 120, tag: 40, body: 8000 },
+
+  /* ---- scopes ---- */
+  scopeFor(tenantId){
+    return PolicyLib.TENANT_RE.test(tenantId) ? "tenant:" + tenantId : null;
+  },
+  isCore(scope){ return scope === PolicyLib.SCOPE_CORE; },
+  /* The tenant id inside a scope, or null for core / anything malformed. */
+  tenantOf(scope){
+    if (typeof scope !== "string" || scope.slice(0, 7) !== "tenant:") return null;
+    const id = scope.slice(7);
+    return PolicyLib.TENANT_RE.test(id) ? id : null;
+  },
+  validScope(scope){
+    return PolicyLib.isCore(scope) || PolicyLib.tenantOf(scope) !== null;
+  },
+  validTenantId(id){ return typeof id === "string" && PolicyLib.TENANT_RE.test(id); },
+
+  makeId(){
+    return "p" + Date.now().toString(36) + Math.floor(Math.random() * 1679616).toString(36);
+  },
+
+  /* Rebuild one doc from its known fields only — never store a wire or
+     localStorage shape as-is. Returns null for anything that is not an
+     honest doc (no title, no body, or — when no `scope` argument forces
+     one — a scope that is not core or a well-formed tenant). */
+  cleanDoc(raw, scope){
+    if (!raw || typeof raw !== "object") return null;
+    const L = PolicyLib.LIMITS;
+    const title = typeof raw.title === "string" ? raw.title.slice(0, L.title).trim() : "";
+    const body  = typeof raw.body  === "string" ? raw.body.slice(0, L.body).trim()  : "";
+    if (!title || !body) return null;
+    const sc = scope !== undefined ? scope : raw.scope;
+    if (!PolicyLib.validScope(sc)) return null;
+    const id = typeof raw.id === "string" && PolicyLib.ID_RE.test(raw.id) ? raw.id : PolicyLib.makeId();
+    return {
+      id, scope: sc, title,
+      tag:     typeof raw.tag     === "string" ? raw.tag.slice(0, L.tag).trim() : "",
+      body,
+      updated: typeof raw.updated === "string" ? raw.updated.slice(0, 40) : ""
+    };
+  },
+
+  /* The whole library, cleaned: bad docs dropped, per-scope cap enforced.
+     Run on every boot and every read of a hand-editable store — an imported
+     backup or a planted localStorage record cannot smuggle fields, scripts
+     or an unbounded payload in. */
+  cleanLibrary(raw){
+    const src = raw && typeof raw === "object" ? raw : {};
+    const docs = Array.isArray(src.docs) ? src.docs : [];
+    const perScope = Object.create(null);
+    const out = [];
+    for (const d of docs){
+      const doc = PolicyLib.cleanDoc(d);
+      if (!doc) continue;
+      const n = perScope[doc.scope] || 0;
+      if (n >= PolicyLib.LIMITS.maxDocs) continue;
+      perScope[doc.scope] = n + 1;
+      out.push(doc);
+    }
+    return { docs: out, updated: typeof src.updated === "string" ? src.updated.slice(0, 40) : "" };
+  },
+
+  /* What one tenant may see: core plus THEIR OWN docs, never another
+     tenant's. An empty / invalid tenant id sees core only — that is the
+     public demo, and it must leak nothing. */
+  visibleTo(docs, tenantId){
+    const list = Array.isArray(docs) ? docs : [];
+    const own = PolicyLib.validTenantId(tenantId) ? "tenant:" + tenantId : null;
+    return list.filter(d => d && (d.scope === PolicyLib.SCOPE_CORE || (own !== null && d.scope === own)));
+  },
+
+  /* Replace ONE scope's docs, leaving every other scope untouched. The
+     scope is stamped onto every incoming doc — a doc claiming "core" or
+     another tenant's scope is re-stamped, never believed. This is the
+     single write path consumers use, which is what makes the stamp a rule
+     rather than a convention. */
+  replaceScope(docs, scope, incoming){
+    if (!PolicyLib.validScope(scope)) return Array.isArray(docs) ? docs.filter(Boolean) : [];
+    const others = (Array.isArray(docs) ? docs : []).filter(d => d && d.scope !== scope);
+    const mine = [];
+    for (const d of (Array.isArray(incoming) ? incoming : [])){
+      if (mine.length >= PolicyLib.LIMITS.maxDocs) break;
+      const doc = PolicyLib.cleanDoc(d, scope);
+      if (doc) mine.push(doc);
+    }
+    return others.concat(mine);
+  },
+
+  /* Tenant offboarding: their content goes, core and every other scope
+     stay. The pilot agreement's "their content stays theirs" clause is
+     this function plus the consumer's export. */
+  dropTenant(docs, tenantId){
+    const scope = PolicyLib.scopeFor(tenantId);
+    if (!scope) return Array.isArray(docs) ? docs.filter(Boolean) : [];
+    return (Array.isArray(docs) ? docs : []).filter(d => d && d.scope !== scope);
+  },
+
+  tenantsIn(docs){
+    const seen = [];
+    for (const d of (Array.isArray(docs) ? docs : [])){
+      const id = d && PolicyLib.tenantOf(d.scope);
+      if (id && seen.indexOf(id) === -1) seen.push(id);
+    }
+    return seen.sort();
+  },
+
+  /* Card C-01: every content record carries an owner scope. The curriculum
+     modules are content records too — stamp them core. */
+  stampCore(mods){
+    for (const m of (Array.isArray(mods) ? mods : [])){
+      if (m && typeof m === "object") m.scope = PolicyLib.SCOPE_CORE;
+    }
+    return mods;
+  }
+};
+
+/* Self-executing, guarded: wherever this file loads AFTER the data files —
+   the browser page, the harnesses, the single-file bundle and the server's
+   vm sandbox alike — the modules are stamped with zero call sites to
+   forget. Where MODULES is not defined (a consumer that has no curriculum,
+   e.g. the future field app) this is a no-op by design. */
+if (typeof MODULES !== "undefined") PolicyLib.stampCore(MODULES);
+
+</script>
+<script>
+/* ============================================================
    NDIS Practice Academy — AI coaching engine
    Two modes:
      1. Built-in coach — rubric analysis, runs fully offline.
@@ -3621,14 +3943,20 @@ const CertRules = {
    concerns are raised as caring guidance, never as a failure.
    Submitting an answer always completes the case.
 
-   Both modes return: { tier:"complete", score, cls, heading, html, attempt }
-   (score is a private rubric-coverage number kept for the admin
-   dashboard's stats — it is never shown to students as a grade.)
+   Both modes return: { tier:"complete", score, cls, heading, html,
+   attempt, assessed }. `score` is a private rubric-coverage number
+   kept for the admin dashboard's stats — never shown to students as
+   a grade. `assessed` (Card C-02) is the per-criterion record the
+   caller persists: {at, v, engine, text, criteria:[{n, hit}]} —
+   manager/evidence material, never rendered to the student.
    ============================================================ */
 
 const Coach = (() => {
 
   const MIN_WORDS = 60;           // gentle depth suggestion only — never a gate
+  /* One source of truth for the Claude model, so the API call and the
+     assessment record (engine: "claude:<model>") cannot drift apart. */
+  const MODEL = "claude-opus-4-8";
 
   function wordCount(text){
     return (text.trim().match(/\S+/g) || []).length;
@@ -3666,7 +3994,32 @@ const Coach = (() => {
 
   const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
-  /* --- built-in coach: turn analysis into human coaching --- */
+  /* The coach's opening line, shared by both coaches. Card C-03: on a
+     revisit (attempt 2 onward) it greets the return — and that is the ONLY
+     thing that changes. The body is the same strengths-first coaching on the
+     new plan's own terms: no comparison with the earlier attempt, no count of
+     gaps closed, no score, no verdict (Law 1 on the loop's own copy).
+     Card C-06: attempt 1 has NO preamble — the box opens at its first
+     heading; the no-pass-or-fail promise moved to the status line under the
+     coach's name (`heading`), where it is read once, not narrated. */
+  function intro(attempt){
+    return attempt > 1
+      ? `<p class="fb-revisit">Thanks for revisiting your plan — fresh coaching on this version, no comparison with the last.</p>`
+      : ``;
+  }
+
+  /* Section headings, shared by both coaches (Card C-06: short enough to
+     scan; the emoji stay — they are the coach's own voice, see icons.js). */
+  const H_WORKS = `<h4>✅ What works</h4>`;
+  const H_SAFETY = `<h4>🚩 A safety note — worth a rethink</h4>`;
+  const H_GROWTH = `<h4>💡 To think about</h4>`;
+
+  /* --- built-in coach: turn analysis into human coaching ---
+     Card C-06 — the coach speaks briefly. Strengths are concept names as
+     chips (the padding sentence that followed every one is gone); the
+     growth questions stand alone (no sub-line, no "one more angle" tail);
+     the depth nudge is one line with no number. Measured on the harness
+     fixtures: 216 → under 110 words for a thin plan. */
   function localFeedback(answer, caseData, attempt){
     const words = wordCount(answer);
     const a = analyse(answer, caseData);
@@ -3676,45 +4029,37 @@ const Coach = (() => {
 
     /* 1. what's working — always leads */
     if (a.covered.length){
-      html += `<h4>✅ Why your plan works</h4><ul>`;
-      for (const c of a.covered) html += `<li><strong>${esc(c.name)}</strong> — good, this is a key part of professional practice here, and you've brought it in.</li>`;
+      html += H_WORKS + `<ul class="fb-chips">`;
+      for (const c of a.covered) html += `<li>${esc(c.name)}</li>`;
       html += `</ul>`;
     } else {
-      html += `<h4>✅ Why your plan works</h4>
-      <ul><li>You've put a first plan on the page — that willingness to commit to an approach and open it up for coaching is exactly how practice grows.</li></ul>`;
+      html += H_WORKS + `<ul><li>You've committed a first plan to the page — that's how practice grows.</li></ul>`;
     }
 
     /* 2. safety guidance — caring, not a verdict */
     if (a.flags.length){
-      html += `<h4>🚩 A safety note — worth a rethink on one part</h4>
-      <p style="font-size:.85rem">Not a mark against you — experienced workers talk these situations through all the time. Have a think about this:</p><ul>`;
+      html += H_SAFETY + `<ul>`;
       for (const f of a.flags) html += `<li class="fb-flag">${esc(f.warn)}</li>`;
       html += `</ul>`;
     }
 
-    /* 3. what could make it even better */
+    /* 3. what could make it even better — three questions, at most */
     if (a.missing.length){
-      const coachOn = a.missing.slice(0, 3);
-      html += `<h4>💡 What could make it even stronger</h4>
-      <p style="font-size:.85rem">Some angles worth thinking about — guiding questions, not corrections:</p><ul>`;
-      for (const c of coachOn) html += `<li>${esc(c.hint)}</li>`;
+      html += H_GROWTH + `<ul>`;
+      for (const c of a.missing.slice(0, 3)) html += `<li>${esc(c.hint)}</li>`;
       html += `</ul>`;
-      if (a.missing.length > coachOn.length){
-        html += `<p style="font-size:.83rem">…and there ${a.missing.length - coachOn.length === 1 ? "is one more angle" : "are " + (a.missing.length - coachOn.length) + " more angles"} you could explore if you choose to revise.</p>`;
-      }
     }
 
     /* 4. gentle depth suggestion — never a requirement */
     if (words < MIN_WORDS){
-      html += `<h4>📏 One more thought</h4>
-      <ul><li>Your plan is ${words} word${words===1?"":"s"} — if you'd like richer coaching, try talking your thinking through in more depth: what you'd do first, who you'd involve, what you'd record, and why. Entirely up to you.</li></ul>`;
+      html += `<p class="fb-depth">A fuller plan gets richer coaching — what you'd do first, who you'd involve, what you'd record, and why.</p>`;
     }
 
     const heading = a.flags.length
-      ? "Reviewed — strong instincts, plus a safety note to think through"
-      : "Reviewed — here's your coaching";
+      ? "Case complete — one safety note to think through, no pass or fail"
+      : "Case complete — no pass or fail, just coaching";
     const cls = a.flags.length ? "fb-develop" : "fb-pass";
-    html = `<p>Thanks for your plan — this case is complete, and there's no pass or fail here. Here's what stood out to your coach, and what you could build on. You're welcome to revise and resubmit any time, purely to sharpen your practice.</p>` + html;
+    html = intro(attempt) + html;
 
     return { tier: "complete", score: pct, cls, heading, html, attempt };
   }
@@ -3737,7 +4082,7 @@ strengths = why their plan works. coaching = guiding questions to make it strong
         "anthropic-dangerous-direct-browser-access":"true"
       },
       body: JSON.stringify({
-        model:"claude-opus-4-8",
+        model: MODEL,
         max_tokens:1200,
         system: sys,
         output_config:{ format:{ type:"json_schema", schema:{
@@ -3759,17 +4104,17 @@ strengths = why their plan works. coaching = guiding questions to make it strong
     const textBlock = (data.content||[]).find(b => b.type === "text");
     const out = JSON.parse(textBlock.text);
 
-    let html = `<p>Thanks for your plan — this case is complete, and there's no pass or fail here. Here's what stood out to your coach, and what you could build on. You're welcome to revise and resubmit any time, purely to sharpen your practice.</p>`;
+    let html = intro(attempt);
     if (out.strengths.length){
-      html += `<h4>✅ Why your plan works</h4><ul>` +
+      html += H_WORKS + `<ul>` +
         out.strengths.map(s=>`<li>${esc(s)}</li>`).join("") + `</ul>`;
     }
     if (out.warnings && out.warnings.length){
-      html += `<h4>🚩 A safety note — worth a rethink on one part</h4><ul>` +
+      html += H_SAFETY + `<ul>` +
         out.warnings.map(w=>`<li class="fb-flag">${esc(w)}</li>`).join("") + `</ul>`;
     }
     if (out.coaching.length){
-      html += `<h4>💡 What could make it even stronger</h4><ul>` +
+      html += H_GROWTH + `<ul>` +
         out.coaching.map(c=>`<li>${esc(c)}</li>`).join("") + `</ul>`;
     }
     const hasWarn = out.warnings && out.warnings.length;
@@ -3777,22 +4122,44 @@ strengths = why their plan works. coaching = guiding questions to make it strong
     const score = Math.round(analyse(answer, caseData).ratio * 100);
     return { tier: "complete", score,
              cls: hasWarn ? "fb-develop" : "fb-pass",
-             heading: (hasWarn ? "Reviewed — strong instincts, plus a safety note to think through"
-                              : "Reviewed — here's your coaching") + " (Claude AI)",
+             heading: (hasWarn ? "Case complete — one safety note to think through, no pass or fail"
+                              : "Case complete — no pass or fail, just coaching") + " · Claude AI",
              html, attempt };
   }
 
   /* --- public entry --- */
   async function review(answer, caseData, settings, attempt){
+    let fb, engine = "builtin";
     if (settings.mode === "claude" && settings.apiKey){
-      try { return await claudeFeedback(answer, caseData, settings.apiKey, attempt); }
-      catch(e){
-        const fb = localFeedback(answer, caseData, attempt);
+      try {
+        fb = await claudeFeedback(answer, caseData, settings.apiKey, attempt);
+        engine = "claude:" + MODEL;
+      } catch(e){
+        /* Law 2: any error falls back to the built-in coach — and the
+           record says so, because the evidence must name the coach the
+           student actually got, not the one they asked for. */
+        fb = localFeedback(answer, caseData, attempt);
         fb.html += `<p class="fb-note">⚠ Claude AI wasn't reachable (${esc(String(e.message||e))}) — the built-in coach reviewed this answer instead.</p>`;
-        return fb;
       }
+    } else {
+      fb = localFeedback(answer, caseData, attempt);
     }
-    return localFeedback(answer, caseData, attempt);
+    /* Card C-02: the per-criterion assessment record. analyse() computed
+       all of this for the coaching anyway — until now it was discarded
+       here at the seam. Concept NAMES are stored verbatim (self-contained
+       evidence: a later curriculum edit cannot re-label what was assessed;
+       `v` says which build's rubric applied), in rubric order. The record
+       always comes from the offline rubric, whichever coach wrote the
+       prose — same rule as `score`. */
+    const a = analyse(answer, caseData);
+    fb.assessed = {
+      at: new Date().toISOString(),
+      v: typeof ACADEMY_VERSION === "string" ? ACADEMY_VERSION : "",
+      engine,
+      text: answer,
+      criteria: caseData.concepts.map(c => ({ n: c.name, hit: a.covered.indexOf(c) !== -1 }))
+    };
+    return fb;
   }
 
   return { review, wordCount, MIN_WORDS };
@@ -3830,6 +4197,8 @@ const Store = (() => {
   const LS_CREDS    = "ndisAcademy.creds.";     // + username, per-device credentials
   const LS_BRANDING = "ndisAcademy.branding";   // Card B1, local mode only
   const LS_BOARD    = "ndisAcademy.board";      // Card S11, local mode only
+  const LS_POLICIES = "ndisAcademy.policies";   // Card C-01, local mode only — the library (all scopes)
+  const LS_TENANT   = "ndisAcademy.tenant";     // Card C-01, local mode only — this device's tenant id
   const SS_ADMIN_TOKEN = "ndisAcademy.adminToken";
 
   let mode = "local";
@@ -3855,8 +4224,9 @@ const Store = (() => {
       /* Card S11: local mode's board needs no token, so load it here and the
          first dashboard paint already has it. Remote mode CANNOT load it here
          — there is no token before sign-in — so app.js loads it on entering
-         the portal, and admin.js when its tab opens. */
-      if (mode !== "remote") await loadBoard();
+         the portal, and admin.js when its tab opens. Card C-01: the policy
+         library follows the same timing for the same reason. */
+      if (mode !== "remote"){ await loadBoard(); await loadPolicies(); }
     })();
     return initPromise;
   }
@@ -4001,6 +4371,117 @@ const Store = (() => {
     board = { posts: clean.posts, updated: new Date().toISOString() };
     localStorage.setItem(LS_BOARD, JSON.stringify(board));
     return board;
+  }
+
+  /* ================= policy library (Card C-01) =================
+     The shared ingestion service's consumer seam. PolicyLib owns the rules
+     (scopes, caps, cleaning); this seam owns only WHERE the library lives —
+     the server's sidecar in remote mode, localStorage in local mode — and
+     what the Academy may see of it: PolicyLib.visibleTo(docs, tenant),
+     i.e. core + this org's own docs, never another tenant's. The cache
+     holds the VISIBLE set; the full library (which may hold other scopes,
+     e.g. an imported fixture) only ever exists at the storage layer. */
+  let policies = { tenant: "", docs: [], updated: "" };
+
+  function localTenant(){
+    const t = localStorage.getItem(LS_TENANT) || "";
+    return PolicyLib.validTenantId(t) ? t : "";
+  }
+  /* The FULL library from device storage, cleaned — hand-editable, so never
+     trusted. Local mode only. */
+  function readPolicyLib(){
+    try { return PolicyLib.cleanLibrary(JSON.parse(localStorage.getItem(LS_POLICIES) || "{}")); }
+    catch(e){ return { docs: [], updated: "" }; }
+  }
+  function writePolicyLib(lib){
+    localStorage.setItem(LS_POLICIES, JSON.stringify(lib));
+  }
+
+  async function loadPolicies(){
+    try{
+      if (mode === "remote"){
+        const r = await api("/policies", { token: studentToken() || adminToken() });
+        policies = r.error ? { tenant: "", docs: [], updated: "" }
+                           : { tenant: PolicyLib.validTenantId(r.tenant) ? r.tenant : "",
+                               docs: PolicyLib.cleanLibrary({ docs: r.docs }).docs,
+                               updated: typeof r.updated === "string" ? r.updated : "" };
+      } else {
+        const tenant = localTenant();
+        const lib = readPolicyLib();
+        policies = { tenant, docs: PolicyLib.visibleTo(lib.docs, tenant), updated: lib.updated };
+      }
+    } catch(e){ policies = { tenant: "", docs: [], updated: "" }; }
+    return policies;
+  }
+
+  /* Replace this org's OWN docs (the tenant slice). Courtesy caps mirrored
+     from the server, refused with the limit named rather than truncated —
+     same manners as setBoard. */
+  async function setPolicies(docs){
+    if (!Array.isArray(docs)) return { error: "docs must be an array" };
+    if (docs.length > PolicyLib.LIMITS.maxDocs)
+      return { error: "the library holds up to " + PolicyLib.LIMITS.maxDocs + " documents per organisation — remove one first" };
+    for (const d of docs){
+      if (!d || typeof d !== "object" || !String(d.title || "").trim() || !String(d.body || "").trim())
+        return { error: "every document needs a title and a body" };
+      for (const f of ["title", "tag", "body"]){
+        if (typeof d[f] === "string" && d[f].length > PolicyLib.LIMITS[f])
+          return { error: "the " + f + " can be up to " + PolicyLib.LIMITS[f] + " characters" };
+      }
+    }
+    if (mode === "remote"){
+      const r = await api("/admin/policies", { method: "PUT", token: adminToken(), body: { docs } });
+      if (r.error) return r;
+      policies = { tenant: PolicyLib.validTenantId(r.tenant) ? r.tenant : "",
+                   docs: PolicyLib.cleanLibrary({ docs: r.docs }).docs,
+                   updated: typeof r.updated === "string" ? r.updated : "" };
+      return policies;
+    }
+    const tenant = localTenant();
+    const scope = PolicyLib.scopeFor(tenant);
+    if (!scope) return { error: "set your organisation id first (Admin → Policies)" };
+    const lib = readPolicyLib();
+    lib.docs = PolicyLib.replaceScope(lib.docs, scope, docs);
+    lib.updated = new Date().toISOString();
+    writePolicyLib(lib);
+    policies = { tenant, docs: PolicyLib.visibleTo(lib.docs, tenant), updated: lib.updated };
+    return policies;
+  }
+
+  /* Tenant offboarding: this org's docs go; core — and, in a library file
+     holding other scopes, every other tenant — stays. */
+  async function clearPolicies(){
+    if (mode === "remote"){
+      const r = await api("/admin/policies", { method: "DELETE", token: adminToken() });
+      if (r.error) return r;
+      policies = { tenant: PolicyLib.validTenantId(r.tenant) ? r.tenant : "",
+                   docs: PolicyLib.cleanLibrary({ docs: r.docs }).docs, updated: "" };
+      return policies;
+    }
+    const tenant = localTenant();
+    if (!tenant) return { error: "no organisation id set" };
+    const lib = readPolicyLib();
+    lib.docs = PolicyLib.dropTenant(lib.docs, tenant);
+    lib.updated = new Date().toISOString();
+    writePolicyLib(lib);
+    policies = { tenant, docs: PolicyLib.visibleTo(lib.docs, tenant), updated: lib.updated };
+    return policies;
+  }
+
+  async function setTenant(id){
+    const tenant = typeof id === "string" ? id.trim().toLowerCase() : "";
+    if (tenant !== "" && !PolicyLib.validTenantId(tenant))
+      return { error: "the organisation id must be 1-32 lowercase letters, digits or hyphens" };
+    if (mode === "remote"){
+      const r = await api("/admin/tenant", { method: "PUT", token: adminToken(), body: { tenant } });
+      if (r.error) return r;
+      await loadPolicies();
+      return { tenant: r.tenant };
+    }
+    if (tenant) localStorage.setItem(LS_TENANT, tenant);
+    else localStorage.removeItem(LS_TENANT);
+    await loadPolicies();
+    return { tenant };
   }
 
   /* ================= shared helpers ================= */
@@ -4175,6 +4656,14 @@ const Store = (() => {
     get board(){ return board; },
     get boardLimits(){ return { maxPosts: BOARD_MAX_POSTS, ...BOARD_LIMITS }; },
     loadBoard, setBoard,
+
+    /* Card C-01. Same synchronous-cache pattern as branding and the board:
+       goHome() renders from `Store.policies` (core + this org's own docs,
+       already scope-filtered); loadPolicies() fills it. Always a shape —
+       an org with no procedures is `{tenant, docs:[], updated:""}`. */
+    get policies(){ return policies; },
+    get policyLimits(){ return { ...PolicyLib.LIMITS }; },
+    loadPolicies, setPolicies, clearPolicies, setTenant,
 
     /* student data */
     register: (fields)        => call("register", fields),
@@ -4547,13 +5036,39 @@ const Admin = (() => {
     const r = await Store.adminSubmission(username, caseId);
     if (r.error){ note("⚠ Couldn't open that submission: " + r.error); return false; }
     const box = $("adminPanel");
+    /* Card C-04: the read shows what was actually ASSESSED — the snapshot
+       record and the retained first attempt, each with its stamp and its
+       criteria — and the live draft only when it has drifted from the
+       assessed text, labelled as unsubmitted editing. One recorded view for
+       all of it; every value through esc(); a record-less case renders the
+       draft exactly as before. */
+    const stampLine = rec =>
+      `assessed ${esc(fmtDate(rec.at))} · v${esc(String(rec.v || "?"))} · ${esc(String(rec.engine || "builtin"))}`;
+    const critLine = rec => {
+      const yes = (rec.criteria || []).filter(x => x && x.hit).map(x => esc(String(x.n)));
+      const no  = (rec.criteria || []).filter(x => x && !x.hit).map(x => esc(String(x.n)));
+      return `Demonstrated: ${yes.length ? yes.join(", ") : "—"}${no.length ? ` · to explore: ${no.join(", ")}` : ""}`;
+    };
+    const recBlock = (rec, label) => rec && typeof rec === "object"
+      ? `<h3 class="admin-sub-h">${label} <span class="admin-assessed-stamp">(${stampLine(rec)})</span></h3>
+         <pre class="admin-submission">${esc(rec.text || "(empty)")}</pre>
+         <p class="admin-assessed">${critLine(rec)}</p>`
+      : "";
+    const drifted = r.assessed && typeof r.assessed === "object" && (r.draft || "") !== (r.assessed.text || "");
+    const body = r.assessed
+      ? recBlock(r.assessed, "Response as assessed")
+        + recBlock(r.original, "First attempt")
+        + (drifted ? `<h3 class="admin-sub-h">Current draft <span class="admin-assessed-stamp">(unsubmitted editing — not what was assessed)</span></h3>
+             <pre class="admin-submission">${esc(r.draft || "(nothing written yet)")}</pre>` : "")
+      : `<pre class="admin-submission">${esc(r.draft || "(nothing written yet)")}</pre>`;
     box.insertAdjacentHTML("afterbegin", `
       <div class="modal-backdrop" onclick="if(event.target===this)this.remove()">
         <div class="modal">
           <h2>${esc((c && c.title) || caseId)}</h2>
           <p class="hint">${esc(username)} · last saved ${esc(r.updated || "—")} · ${r.attempts || 0} submission${r.attempts === 1 ? "" : "s"}<br>
           This view has been recorded in the audit trail.</p>
-          <pre class="admin-submission">${esc(r.draft || "(nothing written yet)")}</pre>
+          ${r.assessed ? `<p class="hint admin-caveat">${esc(RECORD_CAVEAT)}</p>` : ""}
+          ${body}
           <div class="modal-actions"><button class="btn btn-primary" onclick="this.closest('.modal-backdrop').remove()">Close</button></div>
         </div>
       </div>`);
@@ -4654,12 +5169,14 @@ const Admin = (() => {
         In local mode the drafts genuinely are in hand, so the renderer is what
         keeps the promise; the harness proves it with a sentinel draft in both
         modes. If you add a field here, ask first whether it can carry a draft.
-     2. "Concepts demonstrated" is a COUNT, not a list. A submission stores
-        `best` — the rubric coverage percentage — and never which concepts were
-        hit (engine.js discards them after coaching). round(best% x concepts)
+     2. "Concepts demonstrated" is a COUNT, not a list. It derives from `best`
+        — the rubric coverage percentage — via round(best% x concepts), which
         recovers the count exactly at these list sizes, so the number is honest
-        on data collected long before this feature existed. Naming WHICH
-        concepts needs a new field on the student write path: its own card.
+        on data collected long before this feature existed. (From v0.3.1 a
+        submission ALSO stores the per-criterion record — Card C-02,
+        `progress[cid].assessed` — the count still derives from `best`, so it
+        stays right for every pre-record submission; Card C-04 added the
+        NAMES beneath each record-bearing case, from the record only.)
      3. It says what it is. Law 3 in prompt.md — never imply accreditation —
         binds hardest on the one document that goes to an auditor. */
 
@@ -4677,7 +5194,7 @@ const Admin = (() => {
         .map(c => {
           const st = prog[c.id] || {};
           const concepts = (c.concepts || []).length;
-          return {
+          const entry = {
             id: c.id, title: c.title,
             date: st.updated || "",
             attempts: num(st.attempts),
@@ -4687,6 +5204,32 @@ const Admin = (() => {
             demonstrated: clamp(Math.round(num(st.best) / 100 * concepts), 0, concepts),
             concepts
           };
+          /* Card C-04: where a submission carries a per-criterion record, the
+             pack can NAME what the answer demonstrated — concept names are
+             rubric content, never student text (the redacted roster shape is
+             all this needs; in local mode the renderer touches criteria and
+             stamps only). A malformed record contributes nothing. Pre-record
+             submissions keep the honest count above — names are never
+             fabricated from `best`. */
+          const rec = st.assessed;
+          if (rec && typeof rec === "object" && Array.isArray(rec.criteria) && rec.criteria.length){
+            entry.demoNames = rec.criteria.filter(x => x && x.hit).map(x => String(x.n));
+            entry.exploreNames = rec.criteria.filter(x => x && !x.hit).map(x => String(x.n));
+            const orig = st.original;
+            if (orig && typeof orig === "object" && Array.isArray(orig.criteria) && orig.criteria.length){
+              entry.growth = {
+                firstHits: orig.criteria.filter(x => x && x.hit).length,
+                latestHits: rec.criteria.filter(x => x && x.hit).length,
+                /* each end quotes its OWN rubric length — a curriculum edit
+                   between attempts must not re-denominate the first attempt
+                   (Referee finding, closed in-patch) */
+                firstTotal: orig.criteria.length,
+                total: rec.criteria.length,
+                firstAt: orig.at || "", latestAt: rec.at || ""
+              };
+            }
+          }
+          return entry;
         });
       const cert = own(certs, m.id) ? certs[m.id] : null;
       const st = CertRules.streamOf(m.id);
@@ -4732,7 +5275,15 @@ const Admin = (() => {
   const EVIDENCE_BASIS =
     "This pack records completion, dates and rubric coverage. The workers' written " +
     "responses are deliberately not included — they contain personal reflections and " +
-    "are released one at a time, on request, with each access recorded in the audit trail.";
+    "are released one at a time, on request, with each access recorded in the audit trail. " +
+    "Assessment records are computed from each worker's own written submissions by the " +
+    "coaching engine: they are coached practice evidence, not independently verified " +
+    "assessment.";
+  /* The one-line version of that caveat, for the screens that render records
+     (student detail, submission read). Same claim, fewer words — Card C-04. */
+  const RECORD_CAVEAT =
+    "Assessment records are computed from the worker's own written submissions by the " +
+    "coaching engine — coached practice evidence, not independently verified assessment.";
   const EVIDENCE_DISCLAIMER =
     "NDIS Practice Academy is non-accredited professional development. It is not " +
     "nationally recognised training and does not replace the NDIS Quality and Safeguards " +
@@ -4750,7 +5301,14 @@ const Admin = (() => {
           <td>${esc(c.title)}</td>
           <td class="ev-num">${fmtDate(c.date)}</td>
           <td class="ev-num">${c.attempts}</td>
-          <td class="ev-num">${c.demonstrated} of ${c.concepts}</td></tr>`).join("");
+          <td class="ev-num">${c.demonstrated} of ${c.concepts}</td></tr>${
+          /* Card C-04: the record-bearing cases name their concepts, and a
+             revised case shows growth — first attempt to latest, both dated.
+             Every name through esc(); no record, no extra row. */
+          c.demoNames ? `<tr class="ev-crit"><td colspan="4">Demonstrated: ${
+              c.demoNames.length ? c.demoNames.map(esc).join(", ") : "—"}${
+              c.exploreNames.length ? ` · to explore: ${c.exploreNames.map(esc).join(", ")}` : ""}${
+              c.growth ? `<br><span class="ev-growth">Revised — first ${c.growth.firstHits} of ${c.growth.firstTotal} (${fmtDate(c.growth.firstAt)}) → latest ${c.growth.latestHits} of ${c.growth.total} (${fmtDate(c.growth.latestAt)}) concepts demonstrated</span>` : ""}</td></tr>` : ""}`).join("");
       /* Falls back on m.complete, not on the serial alone: an imported or
          hand-edited dataset can hold every case complete with no certificate
          record, and "not yet complete — 6 of 6 done" is self-contradictory on
@@ -4845,19 +5403,30 @@ const Admin = (() => {
       [],
       ["Worker", "Username", "Stream", "Module code", "Module", "Cases completed",
        "Concepts demonstrated (completed cases)", "Concepts assessed (completed cases)",
+       "Concepts demonstrated (names)", "Growth (revised cases)",
        "Module complete", "Certificate serial", "Awarded"]];
     for (const ev of evidenceScope(scope, src)){
       for (const m of ev.modules){
         const dem = m.cases.reduce((n, c) => n + c.demonstrated, 0);
         const tot = m.cases.reduce((n, c) => n + c.concepts, 0);
+        /* Card C-04: distinct demonstrated concept NAMES across the module's
+           record-bearing cases (rubric content, not student text), and a
+           growth aggregate for its revised cases. Pre-record modules leave
+           both cells empty rather than pretending. */
+        const names = [...new Set(m.cases.flatMap(c => c.demoNames || []))].join("; ");
+        const grown = m.cases.filter(c => c.growth);
+        const growthCell = grown.length
+          ? `${grown.length} revised; first ${grown.reduce((n, c) => n + c.growth.firstHits, 0)} → latest ${grown.reduce((n, c) => n + c.growth.latestHits, 0)} concepts`
+          : "";
         rows.push([ev.name, ev.username, m.stream, m.code, m.title,
                    `${m.cases.length}/${m.totalCases}`, dem, tot,
+                   names, growthCell,
                    m.complete ? "yes" : "no", m.serial, m.certDate ? fmtDate(m.certDate) : ""]);
       }
       /* Stream certificates get their own rows — they are the strongest single
          line of evidence in the pack and were invisible in the CSV before. */
       for (const s of ev.streams || []){
-        rows.push([ev.name, ev.username, s.name, "", s.title, "", "", "", "yes",
+        rows.push([ev.name, ev.username, s.name, "", s.title, "", "", "", "", "", "yes",
                    s.serial, s.date ? fmtDate(s.date) : ""]);
       }
     }
@@ -5134,7 +5703,10 @@ const Admin = (() => {
     evidencecsv: (b) => exportEvidenceCSV(b.dataset.user),
     /* Card S11: the index is positional, not student-supplied, but it rides
        the same delegated dispatch as everything else in this panel. */
-    boardremove: (b) => removeBoardPost(b.dataset.idx)
+    boardremove: (b) => removeBoardPost(b.dataset.idx),
+    /* Card C-01: doc ids are library-generated ([a-z0-9-]), but org free text
+       sits on the same rows — nothing here rides an inline handler. */
+    policyremove: (b) => removePolicyDoc(b.dataset.id)
   });
   let rowActionsBound = false;
   function bindRowActions(){
@@ -5175,6 +5747,9 @@ const Admin = (() => {
       /* Card S11: manager-and-above — the board is the roster-runner's daily
          tool, and everyone who can open this panel is at least a manager. */
       ["board", "Noticeboard", "board"],
+      /* Card C-01: same rank as the board — procedures are operational
+         content. The org-id setter inside it stays owner-only. */
+      ["policies", "Policies", "folder"],
       ["data", "Data & backup", "backup"], ["security", "Security", "security"]
     ];
     /* Owner-only surfaces are hidden from a manager for tidiness — the server
@@ -5192,6 +5767,7 @@ const Admin = (() => {
     else if (tab === "certs") body = viewCerts("");
     else if (tab === "evidence") body = viewEvidence();
     else if (tab === "board") body = viewBoard();
+    else if (tab === "policies") body = viewPolicies();
     else if (tab === "data") body = viewData();
     else if (tab === "branding") body = viewBranding();
     else if (tab === "security") body = viewSecurity();
@@ -5223,7 +5799,9 @@ const Admin = (() => {
     "student.import":"Data imported", "student.wipe":"All students wiped",
     "student.export":"Student data exported", "student.list":"Viewed the student list",
     "submission.view":"Submission viewed", "certificate.issue":"Certificate issued",
-    "audit.view":"Viewed the audit trail", "board.set":"Noticeboard updated"
+    "audit.view":"Viewed the audit trail", "board.set":"Noticeboard updated",
+    "policies.set":"Policy library updated", "policies.clear":"Policy library cleared",
+    "tenant.set":"Organisation id changed"
   });
   function viewAudit(){
     loadAudit();
@@ -5282,6 +5860,29 @@ const Admin = (() => {
       </table></div>`;
   }
 
+  /* Card C-04: a worker's growth, from the records — how many cases they
+     revised and how far the demonstrated-concept count moved, first to
+     latest. Malformed records contribute nothing; a negative delta renders
+     as its true value, because the evidence is honest or it is nothing. */
+  function growthSummary(a){
+    let revised = 0, delta = 0;
+    for (const st of Object.values(a.progress || {})){
+      const rec = st && st.assessed, orig = st && st.original;
+      if (rec && typeof rec === "object" && Array.isArray(rec.criteria) && rec.criteria.length
+          && orig && typeof orig === "object" && Array.isArray(orig.criteria) && orig.criteria.length){
+        revised++;
+        delta += rec.criteria.filter(x => x && x.hit).length
+               - orig.criteria.filter(x => x && x.hit).length;
+      }
+    }
+    return { revised, delta };
+  }
+  function growthCell(a){
+    const g = growthSummary(a);
+    return g.revised
+      ? `${g.revised} revised · ${g.delta >= 0 ? "+" : ""}${g.delta} concept${Math.abs(g.delta) === 1 ? "" : "s"}`
+      : `<span class="hint">—</span>`;
+  }
   function viewStudents(){
     const accounts = Object.values(getData())
       .sort((a,b)=> (studentSummary(b).last||"").localeCompare(studentSummary(a).last||""));
@@ -5294,16 +5895,17 @@ const Admin = (() => {
         <td><div class="prog-bar" style="min-width:90px"><div class="prog-fill" style="width:${pct}%"></div></div>
             <span class="hint">${s.passed}/${total} cases</span></td>
         <td>${s.certs}</td>
+        <td class="hint">${growthCell(a)}</td>
         <td class="hint">${fmtDate(s.last)}</td>
         <td class="admin-actions">
           <button class="btn" data-act="view" data-user="${esc(a.username)}">View</button>
           <button class="btn" data-act="delete" data-user="${esc(a.username)}">Delete</button>
         </td></tr>`;
-    }).join("") : `<tr><td colspan="5" class="hint">No students registered on this device yet.</td></tr>`;
+    }).join("") : `<tr><td colspan="6" class="hint">No students registered on this device yet.</td></tr>`;
     return `
       <h2>Students</h2>
       <div class="admin-tablewrap"><table class="admin-table">
-        <thead><tr><th>Student</th><th>Progress</th><th>Certs</th><th>Last activity</th><th></th></tr></thead>
+        <thead><tr><th>Student</th><th>Progress</th><th>Certs</th><th>Growth</th><th>Last activity</th><th></th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>`;
   }
@@ -5326,13 +5928,56 @@ const Admin = (() => {
                  data-act="submission" data-user="${esc(a.username)}" data-case="${esc(c.id)}">${Icons.icon("view")}View submission (recorded)</button>`
           : "");
       }).join(" ");
+      /* Card C-02: where a submission carries a per-criterion record, show it
+         — one quiet line per case: which assessed concepts the written answer
+         demonstrated, which are still to explore, and the stamp (when, which
+         build, which coach). Concept names are rubric content, not student
+         text; the response snapshot itself never reaches this view (the
+         server strips assessed.text from every roster, like draft). The full
+         supervisor treatment is Card C-04; this is the smallest honest
+         window. */
+      const recordLine = (rec, label) => {
+        if (!rec || !Array.isArray(rec.criteria) || !rec.criteria.length) return "";
+        const yes = rec.criteria.filter(x => x && x.hit).map(x => esc(String(x.n)));
+        const no  = rec.criteria.filter(x => x && !x.hit).map(x => esc(String(x.n)));
+        return `<p class="admin-assessed">${label} Demonstrated: ${yes.length ? yes.join(", ") : "—"}${
+          no.length ? ` · to explore: ${no.join(", ")}` : ""}
+          <span class="admin-assessed-stamp">(assessed ${esc(fmtDate(rec.at))} · v${esc(String(rec.v || "?"))} · ${esc(String(rec.engine || "builtin"))})</span></p>`;
+      };
+      const assessedLines = m.cases.map((c, i) => {
+        const st = (a.progress||{})[c.id];
+        const rec = st && st.assessed;
+        if (!rec || !Array.isArray(rec.criteria) || !rec.criteria.length) return "";
+        /* Card C-03: a revised case shows its retained FIRST attempt above
+           the latest — dates and criteria side by side, so growth is visible
+           without a word of either answer (the server strips both texts from
+           the roster; local mode never reads them here). Unrevised cases keep
+           C-02's single line exactly. */
+        const orig = st.original;
+        if (orig && Array.isArray(orig.criteria) && orig.criteria.length){
+          /* Card C-04: the growth line — the demo's one-glance story. Counts
+             from the records themselves, never from `best`. */
+          const fh = orig.criteria.filter(x => x && x.hit).length;
+          const lh = rec.criteria.filter(x => x && x.hit).length;
+          return `<p class="admin-assessed admin-growth">${i+1}. Growth: first ${fh} of ${orig.criteria.length} → latest ${lh} of ${rec.criteria.length} concepts demonstrated</p>`
+            + recordLine(orig, `${i+1}. First attempt —`) + recordLine(rec, `${i+1}. Latest —`);
+        }
+        return recordLine(rec, `${i+1}.`);
+      }).filter(Boolean).join("");
       const cert = (a.certs||{})[m.id];
       return `<div class="admin-modrow">
         <div><strong>${esc(m.code)}</strong> ${esc(m.title)}</div>
         <div class="admin-chips">${chips}</div>
+        ${assessedLines ? `<div class="admin-assessed-block">${assessedLines}</div>` : ""}
         <div class="hint">${cert ? `${Icons.icon("certificate")} Certificate ${esc(cert.serial)} · ${fmtDate(cert.date)}` : "No certificate yet"}</div>
       </div>`;
     };
+    /* Card C-04: the records block opens with the trust caveat, once — the
+       C-02 Referee's condition on any surface presenting the records. Only
+       when the account holds a record at all. */
+    const hasRecords = Object.values(a.progress || {}).some(st =>
+      st && st.assessed && typeof st.assessed === "object");
+    const caveat = hasRecords ? `<p class="hint admin-caveat">${esc(RECORD_CAVEAT)}</p>` : "";
     /* Grouped by stream — fourteen undifferentiated rows is a wall, and the
        stream is the unit a manager buys and reports on. */
     const moduleBlocks = CertRules.STREAMS.map(st => {
@@ -5360,6 +6005,7 @@ const Admin = (() => {
         <button class="btn" data-act="delete"   data-user="${esc(a.username)}">${Icons.icon("trash")}Delete student</button>
       </p>
       ${streamCerts}
+      ${caveat}
       ${moduleBlocks}`;
   }
 
@@ -5515,6 +6161,176 @@ const Admin = (() => {
     loadBoardAdmin();
   }
 
+  /* ================= policy library (Card C-01) =================
+     The tenant layer's admin surface: your organisation's own procedures,
+     loaded once, shown to YOUR signed-in workers beside the modules. The
+     ingestion service (policy-lib.js) owns the rules; the server (or local
+     storage) owns the library; this tab is just the Academy's hands on it.
+     Every rendered field goes through esc() — docs are org free text. */
+  const ownPolicyDocs = () => ((Store.policies || {}).docs || []).filter(d => d && d.scope !== "core");
+  const isOwnerHere = () => !remote() || viewerRole === "owner";
+
+  function viewPolicies(){
+    loadPoliciesAdmin();
+    const lim = Store.policyLimits;
+    const tenant = (Store.policies || {}).tenant || "";
+    const tenantRow = isOwnerHere()
+      ? `<form onsubmit="Admin.saveTenant(event)" class="tenant-row">
+           <label>Organisation id <span class="hint">(lowercase letters, digits, hyphens — e.g. <code>adapt</code>; scopes every document you load as <code>tenant:&lt;id&gt;</code>)</span>
+             <input type="text" id="tenantId" maxlength="32" value="${esc(tenant)}" placeholder="e.g. adapt">
+           </label>
+           <button type="submit" class="btn">Save organisation id</button>
+           <p id="tenantErr" class="auth-error hidden"></p>
+         </form>`
+      : `<p class="hint">Organisation id: <strong>${tenant ? esc(tenant) : "not set"}</strong> — set by the owner.</p>`;
+    return `
+      <h2>Policies &amp; procedures</h2>
+      <p class="hint" style="max-width:74ch">Your organisation's own procedures, policies and
+        workplace methods, shown to <strong>your</strong> signed-in workers beside the NDIS modules.
+        The academy's core curriculum is visible to every organisation; documents you load here
+        belong to yours alone and leave with you if you go. <strong>Never include participant
+        details or information about individual workers</strong> — every worker who signs in
+        can read these.</p>
+      ${tenantRow}
+      <h3 class="admin-h3">Add a document</h3>
+      <form onsubmit="Admin.addPolicyDoc(event)" style="max-width:560px">
+        <label>Title <span class="hint">(up to ${lim.title})</span>
+          <input type="text" id="pdTitle" maxlength="${lim.title}" placeholder="e.g. Medication support procedure">
+        </label>
+        <label>Group <span class="hint">(optional, up to ${lim.tag} — documents with the same group share a card, like a module)</span>
+          <input type="text" id="pdTag" maxlength="${lim.tag}" placeholder="e.g. Medication">
+        </label>
+        <label>Document text <span class="hint">(plain text, up to ${lim.body} characters — blank line = new paragraph)</span>
+          <textarea id="pdBody" rows="7" maxlength="${lim.body}"></textarea>
+        </label>
+        <p id="pdErr" class="auth-error hidden"></p>
+        <div class="modal-actions" style="justify-content:flex-start">
+          <button type="submit" class="btn btn-primary">Add to the library</button>
+        </div>
+      </form>
+      <h3 class="admin-h3">Load a whole set</h3>
+      <p class="hint" style="max-width:74ch">Paste a JSON array of documents —
+        <code>[{"title":"…","tag":"…","body":"…"}]</code> — and it <strong>replaces</strong> your
+        organisation's current set (up to ${lim.maxDocs} documents). This is the handover path:
+        one paste loads a provider's whole manual.</p>
+      <textarea id="pdImport" rows="4" style="max-width:560px;width:100%" placeholder='[{"title":"…","tag":"…","body":"…"}]'></textarea>
+      <p id="pdImportErr" class="auth-error hidden"></p>
+      <div class="modal-actions" style="justify-content:flex-start">
+        <button class="btn" onclick="Admin.importPolicies()">${Icons.icon("backup")}Import (replaces current set)</button>
+        <button class="btn" onclick="Admin.exportPolicies()">${Icons.icon("download")}Download JSON</button>
+        ${isOwnerHere() ? `<button class="btn" onclick="Admin.clearAllPolicies()">${Icons.icon("trash")}Remove all</button>` : ""}
+      </div>
+      <h3 class="admin-h3">In the library now</h3>
+      <div id="policyAdminBody"><p class="hint">Loading…</p></div>`;
+  }
+
+  async function loadPoliciesAdmin(){
+    await Store.loadPolicies();
+    const box = $("policyAdminBody");
+    if (!box) return;
+    const docs = ownPolicyDocs();
+    const tenant = (Store.policies || {}).tenant || "";
+    if (!docs.length){
+      box.innerHTML = `<p class="hint">${tenant
+        ? "No documents yet — add one above, or paste your organisation's set as JSON."
+        : "Set your organisation id first, then load your documents."}</p>`;
+      return;
+    }
+    box.innerHTML = `
+      <p class="hint">${docs.length} document${docs.length === 1 ? "" : "s"}, scoped
+        <code>tenant:${esc(tenant)}</code> — visible only to this organisation's workers.</p>
+      <table class="admin-table"><thead><tr><th>Title</th><th>Group</th><th>Length</th><th></th></tr></thead>
+      <tbody>${docs.map(d => `
+        <tr>
+          <td>${esc(d.title)}</td>
+          <td>${esc(d.tag || "—")}</td>
+          <td>${d.body.length} chars</td>
+          <td><button class="btn btn-small" data-act="policyremove" data-id="${esc(d.id)}">${Icons.icon("trash")}Remove</button></td>
+        </tr>`).join("")}</tbody></table>`;
+  }
+
+  async function saveTenant(ev){
+    ev.preventDefault();
+    const err = $("tenantErr");
+    const r = await Store.setTenant($("tenantId").value);
+    if (r && r.error){ err.textContent = r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    note(r.tenant ? "Organisation id saved — documents you load are scoped tenant:" + r.tenant + "."
+                  : "Organisation id cleared.");
+    renderPanel("policies");
+  }
+
+  async function addPolicyDoc(ev){
+    ev.preventDefault();
+    const err = $("pdErr");
+    const doc = {
+      title: $("pdTitle").value.trim(),
+      tag: $("pdTag").value.trim(),
+      body: $("pdBody").value.trim(),
+      updated: new Date().toISOString()
+    };
+    if (!doc.title || !doc.body){
+      err.textContent = "A document needs a title and its text.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const r = await Store.setPolicies([...ownPolicyDocs(), doc]);
+    if (r && r.error){ err.textContent = "Couldn't add it: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    $("pdTitle").value = ""; $("pdTag").value = ""; $("pdBody").value = "";
+    note("Added — workers see it on their dashboard under your organisation's name.");
+    loadPoliciesAdmin();
+  }
+
+  async function removePolicyDoc(id){
+    const docs = ownPolicyDocs().filter(d => d.id !== id);
+    const r = await Store.setPolicies(docs);
+    if (r && r.error){ note("Couldn't remove it: " + r.error); return; }
+    note("Document removed.");
+    loadPoliciesAdmin();
+  }
+
+  async function importPolicies(){
+    const err = $("pdImportErr");
+    let parsed;
+    try { parsed = JSON.parse($("pdImport").value); }
+    catch(e){ err.textContent = "That isn't valid JSON."; err.classList.remove("hidden"); return; }
+    if (!Array.isArray(parsed)){
+      err.textContent = "Expected a JSON array of documents.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const docs = parsed.map(d => ({
+      title: String((d && d.title) || "").trim(),
+      tag: String((d && d.tag) || "").trim(),
+      body: String((d && d.body) || "").trim(),
+      updated: new Date().toISOString()
+    }));
+    const r = await Store.setPolicies(docs);
+    if (r && r.error){ err.textContent = "Couldn't import: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    $("pdImport").value = "";
+    note("Imported " + docs.length + " document" + (docs.length === 1 ? "" : "s") + ".");
+    loadPoliciesAdmin();
+  }
+
+  function exportPolicies(){
+    /* The portable shape is exactly what the import takes — their content
+       is theirs, and it leaves in the same format it arrived in. */
+    const docs = ownPolicyDocs().map(d => ({ title: d.title, tag: d.tag, body: d.body }));
+    const tenant = (Store.policies || {}).tenant || "org";
+    download("policies-" + tenant + ".json", JSON.stringify(docs, null, 2), "application/json");
+    note("Downloaded " + docs.length + " document" + (docs.length === 1 ? "" : "s") + " as JSON.");
+  }
+
+  async function clearAllPolicies(){
+    if (!confirm("Remove ALL of this organisation's documents from the library? The core curriculum is not affected.")) return;
+    const r = await Store.clearPolicies();
+    if (r && r.error){ note("Couldn't clear the library: " + r.error); return; }
+    note("All of this organisation's documents removed. Core content is untouched.");
+    loadPoliciesAdmin();
+  }
+
   function viewBranding(){
     const b = Store.branding || {};
     const preview = b.logo
@@ -5651,14 +6467,20 @@ const Admin = (() => {
            computeStats, findSerial, allCerts, buildStudentsCSV, buildCertsCSV,
            exportJSON, exportStudentsCSV, exportCertsCSV, importData,
            deleteStudent, resetStudent, resetPassword, viewSubmission, editEmail, wipeAll, loadAudit,
+           viewStudents,   /* Card C-04: the roster is a gradeable surface, like the detail below */
            __esc: esc,          // exposed for the escaping gate in test-harness.html
            /* Card B3. The harness asserts on evidenceForAccount's numbers and greps
               evidencePackHTML's output for a sentinel draft — the pack's whole
               promise is what it does NOT contain, so it has to be gradeable. */
            evidenceForAccount, evidenceScope, evidencePackHTML, evidenceWorkerHTML, buildEvidenceCSV,
+           /* Card C-02: the harness renders the student detail to grade the
+              assessed line — names shown, hostile names inert, text absent. */
+           viewStudentDetail,
            viewEvidence, openEvidencePack, exportEvidenceCSV,
            viewBranding, pickLogo, saveBranding, clearBranding,
            viewBoard, addBoardPost, removeBoardPost, loadBoardAdmin,
+           viewPolicies, loadPoliciesAdmin, saveTenant, addPolicyDoc, removePolicyDoc,
+           importPolicies, exportPolicies, clearAllPolicies,
            printSerial, filterCerts, changePinSubmit };
 })();
 
@@ -5843,6 +6665,14 @@ const App = (() => {
       if (JSON.stringify((Store.board || {}).posts || []) !== before
           && document.querySelector("#mainView .dash-hero")) goHome();
     });
+    /* Card C-01: the org's policy library has the same timing as the board —
+       in server mode it needs a signed-in token, so fetch it now and repaint
+       the dashboard only if it actually changed. */
+    const pBefore = JSON.stringify((Store.policies || {}).docs || []);
+    Store.loadPolicies().then(() => {
+      if (JSON.stringify((Store.policies || {}).docs || []) !== pBefore
+          && document.querySelector("#mainView .dash-hero")) goHome();
+    });
   }
 
   function logout(){
@@ -5914,8 +6744,96 @@ const App = (() => {
      before it has no field — those workers must keep seeing the board. */
   const boardHidden = () => !!(user && user.settings && user.settings.showBoard === false);
 
+  /* ---- org policy library (Card C-01) ----
+     The tenant layer, rendered: this organisation's OWN procedures (their
+     scope in the shared library — Store.policies is already filtered to
+     core + own, and core docs are not org procedures). Grouped by tag the
+     way modules group by stream, so a provider's manual reads as part of
+     the course rather than bolted on. Every field is third-party plain
+     text: esc() on all of it, no HTML path — unlike learn[].html, which we
+     author. Deliberately unlike the board, an org with no docs gets NO
+     empty frame (S12 was a board directive; the public demo has no org). */
+  const orgDocs = () => ((Store.policies || {}).docs || []).filter(d => d && d.scope !== "core");
+
+  function policyTags(docs){
+    const tags = [];
+    for (const d of docs){
+      const t = d.tag || "";
+      if (tags.indexOf(t) === -1) tags.push(t);
+    }
+    return tags;
+  }
+  const policyTagLabel = t => t || "General";
+
+  /* Plain text to safe paragraphs: esc() first, then structure from
+     newlines only. */
+  function policyBodyHTML(body){
+    return String(body || "").split(/\n{2,}/).map(par =>
+      `<p>${esc(par).replace(/\n/g, "<br>")}</p>`).join("");
+  }
+
+  function policySection(){
+    const docs = orgDocs();
+    if (!docs.length) return "";
+    const org = (Store.branding && Store.branding.orgName) || "Your organisation";
+    /* The tag is org-admin free text and MUST NOT ride an inline handler
+       (the S6 lesson — and encodeURIComponent leaves ' and parens alone).
+       Cards address their group by INDEX into policyTags(), recomputed on
+       click, so no third-party string ever becomes code. */
+    const cards = policyTags(docs).map((t, i) => {
+      const n = docs.filter(d => (d.tag || "") === t).length;
+      return `
+      <div class="module-card policy-card" onclick="App.openPolicyTag(${i})">
+        <div class="mod-head"><span class="mod-icon">${Icons.icon("folder")}</span>
+          <div><div class="mod-code">PROCEDURES</div><h3>${esc(policyTagLabel(t))}</h3></div></div>
+        <p class="blurb">${n} document${n === 1 ? "" : "s"} from ${esc(org)} — tap to read.</p>
+      </div>`;
+    }).join("");
+    return `
+      <section class="stream policy-stream">
+        <div class="stream-head">
+          <div>
+            <h3 class="stream-name">${esc(org)} — policies &amp; procedures</h3>
+            <p class="stream-blurb">Your organisation's own ways of working, kept beside your modules so practice and procedure sit on the same shelf.</p>
+          </div>
+        </div>
+        <div class="module-grid">${cards}</div>
+      </section>`;
+  }
+
+  function openPolicyTag(idx){
+    const tags = policyTags(orgDocs());
+    const tag = tags[Number(idx)];
+    if (tag === undefined) return goHome();
+    const docs = orgDocs().filter(d => (d.tag || "") === tag);
+    if (!docs.length) return goHome();
+    const org = (Store.branding && Store.branding.orgName) || "Your organisation";
+    const items = docs.map((d, i) => `
+      <details class="learn-card" ${i === 0 ? "open" : ""}>
+        <summary>${esc(d.title)}</summary>
+        <div class="learn-body policy-body">${policyBodyHTML(d.body)}</div>
+      </details>`).join("");
+    view(`
+      <div class="crumb"><a onclick="App.goHome()">Dashboard</a> › ${esc(policyTagLabel(tag))}</div>
+      <div class="mod-hero">
+        <h2><span>${Icons.icon("folder")}</span> ${esc(policyTagLabel(tag))}</h2>
+        <p>${esc(org)}'s own procedures — reference material from your organisation, not an assessed module.</p>
+      </div>
+      <div class="learn-section"><h3>${Icons.icon("folder")} Documents</h3>${items}</div>
+    `);
+  }
+
   /* ---- dashboard ---- */
+  /* Card P-5 (C-05): the topbar says where you are. Four real views carry
+     the marker; Settings is a modal over the current view and deliberately
+     takes none. Guarded lookups — the admin overlay borrows none of these. */
+  function setNav(id){
+    for (const b of document.querySelectorAll(".topbar .nav-btn")) b.classList.remove("active");
+    const el = id && $(id);
+    if (el) el.classList.add("active");
+  }
   function goHome(){
+    setNav("navDash");
     const certCount = Object.keys(user.certs).length;
 
     function moduleCard(m){
@@ -5942,7 +6860,7 @@ const App = (() => {
       const doneMods = mods.filter(moduleComplete).length;
       const complete = doneMods === mods.length;
       sections += `
-        <section class="stream">
+        <section class="stream stream-${esc(s.key)}">
           <div class="stream-head">
             <div>
               <h3 class="stream-name">${esc(s.name)}</h3>
@@ -5970,7 +6888,7 @@ const App = (() => {
       <div class="dash-main">
       <div class="dash-hero">
         <h2>G'day, ${esc(user.name.split(" ")[0])} 👋</h2>
-        <p>Each module teaches the theory, then hands you six real support scenarios. You write the game plan — your AI coach tells you why your plan works and what could make it even stronger — no pass or fail, ever. Complete all six to earn that module's Certificate of Completion, emailed to <strong>${esc(user.email)}</strong>. Finish every module in a stream and its stream certificate is issued too.</p>
+        <p>Each module teaches the theory, then hands you six real support scenarios. You write the game plan — your AI coach names what works in your plan and gives you a few things to think about — no pass or fail, ever. Complete all six to earn that module's Certificate of Completion, emailed to <strong>${esc(user.email)}</strong>. Finish every module in a stream and its stream certificate is issued too.</p>
         <div class="progress-strip">
           <div class="stat-card"><div class="num">${totalPassed()}/${totalCases()}</div><div class="lbl">case studies completed</div></div>
           <div class="stat-card"><div class="num">${certCount}/${certsOnOffer()}</div><div class="lbl">certificates earned</div></div>
@@ -5978,6 +6896,7 @@ const App = (() => {
         </div>
       </div>
       ${sections}
+      ${policySection()}
       </div>
       ${infoAside}
       </div>
@@ -6038,11 +6957,12 @@ const App = (() => {
         </div>
         <div class="task-card"><strong>Your task:</strong> ${esc(c.task)}</div>
         <div class="answer-area">
-          <textarea id="answerBox" placeholder="Write your game plan here — what you'd do, in what order, who you'd involve, and why. There's no word limit; think it through like you would on shift."
+          <textarea id="answerBox" placeholder="What would you do, in what order, who would you involve — and why?"
             oninput="App.updateWordCount()">${st.draft ? esc(st.draft) : ""}</textarea>
           <div class="answer-meta">
             <span id="wordCount">0 words</span>
-            <span>${st.passed ? "✅ Completed — resubmit any time to sharpen your practice" :
+            <span>${st.original ? "✅ Revised — your first plan is kept too" :
+              st.passed ? "✅ Completed — resubmit any time" :
               st.attempts ? `Attempt ${st.attempts+1}` : "First attempt"}</span>
           </div>
           ${Store.mode === "remote" ? `<p class="hint answer-privacy">Your supervisor can open what you write here. Each time they do is recorded.</p>` : ""}
@@ -6057,7 +6977,9 @@ const App = (() => {
 
   function updateWordCount(){
     const n = Coach.wordCount($("answerBox").value);
-    $("wordCount").textContent = `${n} words ${n < Coach.MIN_WORDS ? `(more depth means richer coaching)` : "✓"}`;
+    /* Card C-06: a count, not a nag — the depth suggestion lives in the
+       coaching, once, after a submit. */
+    $("wordCount").textContent = `${n} word${n === 1 ? "" : "s"}`;
   }
 
   async function submitAnswer(){
@@ -6080,17 +7002,36 @@ const App = (() => {
     const firstComplete = !st.passed;
     st.passed = true;
     st.best = Math.max(st.best||0, fb.score||0);
+    /* Card C-02: persist the per-criterion assessment record the engine now
+       returns — the response as assessed, each rubric concept by name with
+       hit/miss, the coach used, the build, the moment. Never rendered to the
+       student; it is manager/evidence material, and the server strips its
+       text from every roster the way it strips `draft`.
+       Card C-03: the FIRST record is retained. The moment a record is about
+       to be replaced and no original exists yet, the outgoing record becomes
+       `original` — the same object, byte-equal — and is never written again,
+       however many revisions follow. Depth is exactly two (first + latest;
+       the arithmetic is in the card): a fuller trail is a sidecar, never a
+       third in-file record. `original.text` is answer text and follows the
+       same redaction rule as the other two. */
+    if (fb.assessed){
+      if (st.assessed && !st.original) st.original = st.assessed;
+      st.assessed = fb.assessed;
+    }
     user.progress[c.id] = st;
 
-    const modelHtml = `
-      <div class="model-answer"><strong>📘 Coach's worked example:</strong> ${esc(c.model)}</div>`;
-
+    /* Card C-06: the box opens with the coach — avatar, name, one status
+       line (which carries the no-pass-or-fail promise) — then the coaching,
+       then the worked example one click away, closed by default. */
     $("coachArea").innerHTML = `
       <div class="feedback ${fb.cls}">
-        <h3>💬 ${esc(fb.heading)}</h3>
+        <div class="coach-head">
+          <span class="coach-avatar">${Icons.icon("compass")}</span>
+          <div><div class="coach-name">Your AI coach</div><div class="coach-status">${esc(fb.heading)}</div></div>
+        </div>
         ${fb.html}
-        ${modelHtml}
-        <p class="fb-note">Want to go again? Edit your plan above and resubmit — the coach reviews every attempt fresh. Otherwise, you're all set to move on.</p>
+        <details class="model-answer"><summary>📘 Coach's worked example</summary><p>${esc(c.model)}</p></details>
+        <p class="fb-note">Edit your plan above and resubmit any time.</p>
       </div>`;
     $("submitBtn").disabled = false;
 
@@ -6277,6 +7218,7 @@ const App = (() => {
      first and at full size — it is the artefact they are here for — and the rest
      is a compact "still to earn" list underneath. */
   function showCertificates(){
+    setNav("navCerts");
     const earned = [], remaining = [];
     for (const m of MODULES){
       const c = user.certs[m.id];
@@ -6376,6 +7318,7 @@ const App = (() => {
      view is inside the Law 1 and Law 3 chrome scans in test-harness.html —
      keep every string here through esc() and inside those laws. */
   function showFramework(){
+    setNav("navFramework");
     const src = FrameworkMap.SOURCE;
     const chip = k => {
       const c = FrameworkMap.cap(k);
@@ -6443,6 +7386,7 @@ const App = (() => {
   }
 
   function showMail(){
+    setNav("navMail");
     user.mail.forEach(m=>m.unread=false);
     persist(); updateMailBadge();
     const items = user.mail.length ? user.mail.map((mail,idx)=>`
@@ -6613,6 +7557,7 @@ const App = (() => {
            updateWordCount, submitAnswer, showCertificates, printCert, showMail, showFramework,
            showSettings, saveSettings, closeSettings, resendMail, sendTestEmail,
            applyBranding,        // Card B1: admin.js repaints the live page after a change
+           openPolicyTag,        // Card C-01: the org procedures reader
            certificateHTML };
 })();
 
