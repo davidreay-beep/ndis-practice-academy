@@ -146,6 +146,13 @@ h1,h2,h3{line-height:1.25}
   padding:.6rem .8rem;border:1.5px solid var(--line);border-radius:var(--radius-sm);background:var(--card-dim);
 }
 .auth-form input:focus{outline:none;border-color:var(--teal)}
+/* Card P-06: the shared door's brand block — the org's mark, centred, over
+   one generic line. Nothing here names a portal. Scoped to the sign-in
+   screen: the set-a-password screen shares the class and was never part of
+   this card (Referee). */
+#authScreen .auth-brand{text-align:center}
+.auth-org{font-size:1.35rem;margin:.9rem 0 .4rem;line-height:1.25}
+.auth-logo .logo-placeholder{margin:0 auto}
 .auth-fine{font-size:.78rem;color:var(--ink-soft);text-align:center}
 .auth-error{color:var(--coral);font-size:.88rem}
 @media(max-width:760px){.auth-card{grid-template-columns:1fr}.auth-brand{padding:1.8rem}}
@@ -180,6 +187,65 @@ h1,h2,h3{line-height:1.25}
 .door-hub{border-top-color:var(--gold)}
 .door-hub .door-icon{color:var(--gold-deep)}
 .chooser-card .admin-entry{margin-top:1.4rem}
+/* Card P-03: with no logo the brand block is a placeholder box, not the
+   academy's mark — dashed, quiet, and (on the chooser) a button that opens
+   the hub's Settings. The static variant sits in the settings preview. */
+.logo-placeholder{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:11rem;min-height:3.2rem;padding:.5rem 1rem;
+  border:2px dashed var(--line);border-radius:var(--radius-sm);
+  background:var(--card);color:var(--ink-soft);
+  font:inherit;font-size:.82rem;font-weight:600;letter-spacing:.02em;cursor:pointer;
+}
+.logo-placeholder:hover{border-color:var(--teal);color:var(--teal-text)}
+/* Card P-06: the hub's Settings tab is retired, and its rules went with it
+   (they shipped in the bundle with no consumer — Referee). */
+/* ---- Card P-05: the case-authoring rows in the admin panel ---- */
+.admin-row{display:grid;grid-template-columns:1fr 1.4fr 1.4fr auto;gap:.4rem;margin:.35rem 0}
+.admin-row input{width:100%;padding:.45rem .6rem;border:1px solid var(--line);border-radius:var(--radius-sm);font:inherit;font-size:.86rem}
+.cs-flag.admin-row{grid-template-columns:1fr 2fr auto}
+.admin-h4{font-size:.92rem;margin:1rem 0 .3rem}
+@media(max-width:700px){.admin-row{grid-template-columns:1fr}}
+/* ---- Card P-05: the org's own case studies on the dashboard ---- */
+.org-cases .stream-blurb{max-width:78ch}
+.org-case-card .mod-icon .icon{width:1.4rem;height:1.4rem;color:var(--accent, currentColor)}
+.org-hero h2 .icon{width:1.2em;height:1.2em}
+
+/* ---- the Field Guide (Card P-04) ---- */
+.guide-ask{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.1rem 1.3rem 1.2rem;margin-top:1.2rem;
+}
+.guide-form{display:flex;gap:.6rem;flex-wrap:wrap}
+.guide-form input{
+  flex:1 1 18rem;padding:.65rem .8rem;border:1px solid var(--line);border-radius:var(--radius-sm);
+  font:inherit;font-size:.95rem;
+}
+.guide-form input:focus{outline:none;border-color:var(--teal)}
+.guide-card{
+  border:1px solid var(--line);border-left:5px solid var(--teal);border-radius:var(--radius-sm);
+  padding:.9rem 1rem;margin-top:.9rem;background:var(--card);
+}
+.guide-card h4{display:flex;align-items:center;gap:.4rem;margin:0 0 .5rem;font-size:.95rem;color:var(--teal-dark)}
+.guide-card ol,.guide-card ul{margin:.4rem 0 .3rem 1.2rem;font-size:.9rem}
+.guide-card li{margin:.25rem 0}
+.guide-org{border-left-color:var(--gold-deep)}
+.guide-org h4{color:var(--gold-text)}
+.guide-core{border-left-color:var(--teal)}
+.guide-composed{border-left-color:var(--teal-dark);background:var(--teal-soft)}
+.guide-src{font-size:.78rem;color:var(--ink-soft);margin-top:.5rem}
+.guide-escalate{border-left-color:var(--coral);background:var(--coral-soft)}
+.guide-escalate h4{color:var(--coral-text)}
+.guide-own-head{margin-top:.7rem;font-size:.86rem;font-weight:600}
+.guide-empty{border-left-color:var(--line);color:var(--ink-soft);font-size:.9rem}
+.guide-docs li{font-size:.9rem}
+.guide-tag{font-size:.72rem;color:var(--ink-soft);background:var(--card-dim);border-radius:999px;padding:.05rem .5rem;margin-left:.3rem}
+.guide-note{margin-top:.6rem}
+.guide-browse{margin-top:1.8rem}
+.guide-browse .board-h{color:var(--teal-dark)}
+.guide-group{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin:1.2rem 0 .4rem}
+.guide-group-org{color:var(--gold-text)}
+.guide-entry summary{font-size:.92rem}
 /* "Switch portal" — a quiet pill in each top bar's brand block, so the phone
    grid (Card S13: 2 rows of 3 tiles) is untouched: the brand row spans the
    grid already, and the pill rides on it. */
@@ -737,6 +803,16 @@ details.model-answer[open] summary{margin-bottom:.5rem}
 }
 .admin-tab:hover{background:rgba(255,255,255,.08);color:var(--white)}
 .admin-tab.active{background:var(--gold);color:var(--gold-ink)}
+/* Card P-06: the settings forms moved into the panel, so its plain
+   `<label>text <input>` pairs need to stack the way the modal's did.
+   Scoped to direct children so the radio rows and the P-05 concept grids
+   keep their own layout. */
+.admin-main form > label:not(.radio-row){display:block;margin:.75rem 0 .2rem;font-size:.9rem;font-weight:600}
+.admin-main form > label:not(.radio-row) input{
+  display:block;width:100%;max-width:420px;margin-top:.3rem;padding:.5rem .65rem;
+  border:1px solid var(--line);border-radius:var(--radius-sm);font:inherit;font-weight:400;
+}
+.admin-main form > label:not(.radio-row) input:focus{outline:none;border-color:var(--teal)}
 .admin-main{max-width:1080px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
 .admin-main h2{font-size:1.35rem;margin-bottom:.5rem}
 .admin-h3{font-size:1rem;color:var(--teal-dark);margin:1.6rem 0 .6rem;border-bottom:2px solid var(--teal-soft);padding-bottom:.3rem}
@@ -903,11 +979,16 @@ details.model-answer[open] summary{margin-bottom:.5rem}
 <!-- ============ AUTH SCREEN ============ -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
+    <!-- Card P-06: one sign-in for BOTH portals, so the door names neither.
+         The organisation's logo sits here centred; until one is set, the
+         "Your logo here" box (which opens the administrator gate, the only
+         place it can be uploaded). The academy's own issuing identity lives
+         on the certificate, the Academy portal header and both footers —
+         Law 3's surfaces, unchanged. -->
     <div class="auth-brand">
-      <div class="auth-logo" id="authLogo">◈</div>
-      <h1>NDIS Practice Academy</h1>
-      <p class="auth-tag">Scenario-based practice training for Australian NDIS workers.<br>
-      Not multiple choice. Not a memory game. You write the game plan — your AI coach reviews it.</p>
+      <div class="auth-logo" id="authLogo"><button type="button" class="logo-placeholder" onclick="Admin.open()" title="Administrators: add your organisation's logo">Your logo here</button></div>
+      <h1 id="authOrgName" class="auth-org hidden"></h1>
+      <p class="auth-tag">One sign-in for your training and your provider tools.</p>
     </div>
 
     <div class="auth-forms">
@@ -1001,7 +1082,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
       <button class="door door-hub" onclick="Hub.open()">
         <span class="door-icon" data-icon="board"></span>
         <strong id="chooserHubName">Provider Hub</strong>
-        <span class="door-sub">Your organisation's events &amp; team meetings, important information and policies &amp; procedures.</span>
+        <span class="door-sub">The message board, your organisation's events &amp; team meetings, important information, policies &amp; procedures, and the field guide.</span>
       </button>
     </div>
     <p class="admin-entry"><a onclick="App.logout()">Sign out</a></p>
@@ -1025,7 +1106,6 @@ details.model-answer[open] summary{margin-bottom:.5rem}
       <button class="nav-btn" id="navCerts" onclick="App.showCertificates()"><span class="nav-long">My certificates</span><span class="nav-short">Certificates</span></button>
       <button class="nav-btn" id="navFramework" onclick="App.showFramework()"><span class="nav-long">Capability framework</span><span class="nav-short">Framework</span></button>
       <button class="nav-btn" id="navMail" onclick="App.showMail()">Email centre <span id="mailBadge" class="badge hidden">0</span></button>
-      <button class="nav-btn" onclick="App.showSettings()"><span data-icon="settings"></span>Settings</button>
     </nav>
     <div class="topbar-user">
       <span id="userChip" class="user-chip"></span>
@@ -1054,6 +1134,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
     </div>
     <nav class="topbar-nav">
       <button class="nav-btn active" id="hubNavHome" onclick="Hub.home()">Hub home</button>
+      <button class="nav-btn" id="hubNavGuide" onclick="Hub.guide()"><span data-icon="compass"></span>Field guide</button>
     </nav>
     <div class="topbar-user">
       <span id="hubUserChip" class="user-chip"></span>
@@ -1069,46 +1150,8 @@ details.model-answer[open] summary{margin-bottom:.5rem}
   </footer>
 </div>
 
-<!-- ============ SETTINGS MODAL ============ -->
-<div id="settingsModal" class="modal-backdrop hidden" onclick="if(event.target===this)App.closeSettings()">
-  <div class="modal">
-    <h2>Settings</h2>
-
-    <h3 class="modal-section"><span data-icon="compass"></span>AI coach</h3>
-    <p class="modal-sub">Every case study answer is reviewed by your AI coach. Choose how it runs:</p>
-    <label class="radio-row">
-      <input type="radio" name="aiMode" value="local" checked>
-      <div><strong>Built-in coach</strong> (recommended)<br><span class="hint">Runs entirely in this page. Reviews your game plan against a professional practice rubric — no internet or account needed.</span></div>
-    </label>
-    <label class="radio-row">
-      <input type="radio" name="aiMode" value="claude">
-      <div><strong>Claude AI (live)</strong><br><span class="hint">Uses Anthropic's Claude for free-form feedback. Requires an Anthropic API key (stored only in this browser). If a request fails, the built-in coach takes over automatically.</span></div>
-    </label>
-    <label id="apiKeyRow" class="hidden">Anthropic API key
-      <input type="password" id="apiKeyInput" placeholder="sk-ant-...">
-    </label>
-
-    <h3 class="modal-section"><span data-icon="mail"></span>Real certificate emails (optional)</h3>
-    <p class="modal-sub">Certificates always appear in the in-app Email centre. To also send them to the student's real inbox, connect a free <strong>emailjs.com</strong> account and paste the three values below (stored only in this browser). Template setup is described in the README.</p>
-    <label>EmailJS public key
-      <input type="text" id="ejsPublic" placeholder="e.g. Xw2kP9…" autocomplete="off">
-    </label>
-    <label>Service ID
-      <input type="text" id="ejsService" placeholder="e.g. service_abc123" autocomplete="off">
-    </label>
-    <label>Template ID
-      <input type="text" id="ejsTemplate" placeholder="e.g. template_xyz789" autocomplete="off">
-    </label>
-    <div class="modal-actions" style="justify-content:flex-start;margin-top:.6rem">
-      <button class="btn" onclick="App.sendTestEmail()">Send me a test email</button>
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn btn-primary" onclick="App.saveSettings()">Save</button>
-      <button class="btn" onclick="App.closeSettings()">Cancel</button>
-    </div>
-  </div>
-</div>
+<!-- ============ (Card P-06: the settings modal is gone — every setting for
+     both portals now lives behind the administrator PIN, in #adminPanel.) ============ -->
 
 <!-- ============ PRINTABLE CERTIFICATE ============ -->
 <div id="printCert" class="print-cert hidden"></div>
@@ -1135,7 +1178,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.5.1";
+const ACADEMY_VERSION = "0.8.1";
 
 </script>
 <script>
@@ -3923,8 +3966,14 @@ const CertRules = {
    consumers; no HTML path exists. The caps are load-bearing: they bound the
    sidecar and every response that carries the library.
 
-   Doc shape: { id, scope, title, tag, body, updated }
+   Doc shape: { id, scope, kind, title, tag, body, updated }
      scope  "core" or "tenant:<id>"  (id: lowercase letters/digits/hyphens)
+     kind   "policy" (a procedure document — the default, and what every
+            doc stored before v0.6.0 reads as), "guide" (Card P-04: a field
+            guide entry — title is the question, body is the answer) or
+            "case" (Card P-05: a tenant-authored case study). Stamped by the
+            write path from the slice being replaced — like scope, never
+            believed from the wire. Caps apply per scope PER KIND.
      tag    optional grouping label ("Medication", "Incident reporting"…)
    ============================================================ */
 
@@ -3933,7 +3982,19 @@ const PolicyLib = {
   SCOPE_CORE: "core",
   TENANT_RE: /^[a-z0-9][a-z0-9-]{0,31}$/,
   ID_RE: /^[a-z0-9][a-z0-9-]{0,39}$/,
+  KINDS: ["policy", "guide", "case"],
+  KIND_DEFAULT: "policy",
   LIMITS: { maxDocs: 200, title: 120, tag: 40, body: 8000 },
+  /* Card P-05: a tenant-authored case study is a doc of kind "case" —
+     title, tag (its group, rendered like a module), body (the scenario),
+     plus `task`, `concepts[{name, terms[], hint}]`, optional
+     `flags[{terms[], warn}]` and `model` (the worked example). Caps here;
+     terms are LOWERCASED on the way in (the rubric law: the engine
+     lowercases the answer, never the term). */
+  CASE_LIMITS: { task: 600, model: 4000, concepts: 12, conceptName: 80, terms: 12, term: 40, termMin: 3, hint: 240, flags: 6, flagWarn: 300 },
+  /* The progress key a tenant case writes under. The prefix is what keeps
+     a crafted doc id ("m1c1") from colliding with a core case's progress. */
+  CASE_PREFIX: "t:",
 
   /* ---- scopes ---- */
   scopeFor(tenantId){
@@ -3951,6 +4012,71 @@ const PolicyLib = {
   },
   validTenantId(id){ return typeof id === "string" && PolicyLib.TENANT_RE.test(id); },
 
+  validKind(kind){ return PolicyLib.KINDS.indexOf(kind) !== -1; },
+  /* A stored doc from before kinds existed carries none and IS a policy. */
+  kindOf(doc){
+    return doc && PolicyLib.validKind(doc.kind) ? doc.kind : PolicyLib.KIND_DEFAULT;
+  },
+  ofKind(docs, kind){
+    return (Array.isArray(docs) ? docs : []).filter(d => d && PolicyLib.kindOf(d) === kind);
+  },
+
+  cleanTerms(raw, max){
+    const L = PolicyLib.CASE_LIMITS;
+    const out = [];
+    for (const t of (Array.isArray(raw) ? raw : [])){
+      if (out.length >= (max || L.terms)) break;
+      const s = String(t == null ? "" : t).toLowerCase().trim().slice(0, L.term);
+      /* The rubric law's other half: a term too short hides inside ordinary
+         words ("e" hits everything) and the bar means nothing. */
+      if (s.length >= L.termMin && out.indexOf(s) === -1) out.push(s);
+    }
+    return out;
+  },
+  cleanConcepts(raw){
+    const L = PolicyLib.CASE_LIMITS;
+    const out = [];
+    for (const c of (Array.isArray(raw) ? raw : [])){
+      if (out.length >= L.concepts) break;
+      if (!c || typeof c !== "object") continue;
+      const name = typeof c.name === "string" ? c.name.trim().slice(0, L.conceptName) : "";
+      const terms = PolicyLib.cleanTerms(c.terms);
+      if (!name || !terms.length) continue;
+      out.push({ name, terms, hint: typeof c.hint === "string" ? c.hint.trim().slice(0, L.hint) : "" });
+    }
+    return out;
+  },
+  cleanFlags(raw){
+    const L = PolicyLib.CASE_LIMITS;
+    const out = [];
+    for (const f of (Array.isArray(raw) ? raw : [])){
+      if (out.length >= L.flags) break;
+      if (!f || typeof f !== "object") continue;
+      const terms = PolicyLib.cleanTerms(f.terms);
+      const warn = typeof f.warn === "string" ? f.warn.trim().slice(0, L.flagWarn) : "";
+      if (!terms.length || !warn) continue;
+      out.push({ terms, warn });
+    }
+    return out;
+  },
+  /* The engine's case shape from a case doc: what app.js renders and the
+     coach reviews. The id carries the prefix. Null for anything not a
+     usable case. */
+  caseFrom(doc){
+    if (!doc || PolicyLib.kindOf(doc) !== "case") return null;
+    if (!doc.task || !doc.model || !Array.isArray(doc.concepts) || !doc.concepts.length) return null;
+    return {
+      id: PolicyLib.CASE_PREFIX + doc.id, docId: doc.id, tag: doc.tag || "",
+      title: doc.title, scenario: doc.body, task: doc.task,
+      concepts: doc.concepts.map(c => ({ name: c.name, terms: c.terms.slice(), hint: c.hint })),
+      redFlags: (doc.flags || []).map(f => ({ terms: f.terms.slice(), warn: f.warn })),
+      model: doc.model
+    };
+  },
+  isCaseKey(key){
+    return typeof key === "string" && key.slice(0, PolicyLib.CASE_PREFIX.length) === PolicyLib.CASE_PREFIX;
+  },
+
   makeId(){
     return "p" + Date.now().toString(36) + Math.floor(Math.random() * 1679616).toString(36);
   },
@@ -3959,7 +4085,7 @@ const PolicyLib = {
      localStorage shape as-is. Returns null for anything that is not an
      honest doc (no title, no body, or — when no `scope` argument forces
      one — a scope that is not core or a well-formed tenant). */
-  cleanDoc(raw, scope){
+  cleanDoc(raw, scope, kind){
     if (!raw || typeof raw !== "object") return null;
     const L = PolicyLib.LIMITS;
     const title = typeof raw.title === "string" ? raw.title.slice(0, L.title).trim() : "";
@@ -3967,13 +4093,30 @@ const PolicyLib = {
     if (!title || !body) return null;
     const sc = scope !== undefined ? scope : raw.scope;
     if (!PolicyLib.validScope(sc)) return null;
+    /* The kind is forced by the write path (the slice being replaced) or,
+       on a boot/read clean, taken from the stored doc — an unknown or
+       absent kind reads as a policy, never as anything with more reach. */
+    const kd = kind !== undefined ? kind : PolicyLib.kindOf(raw);
+    if (!PolicyLib.validKind(kd)) return null;
     const id = typeof raw.id === "string" && PolicyLib.ID_RE.test(raw.id) ? raw.id : PolicyLib.makeId();
-    return {
-      id, scope: sc, title,
+    const doc = {
+      id, scope: sc, kind: kd, title,
       tag:     typeof raw.tag     === "string" ? raw.tag.slice(0, L.tag).trim() : "",
       body,
       updated: typeof raw.updated === "string" ? raw.updated.slice(0, 40) : ""
     };
+    /* Card P-05: a case carries its rubric — rebuilt field by field, caps
+       applied, terms lowercased; a case with no task, no model or no usable
+       concept is not a case and is dropped. */
+    if (kd === "case"){
+      const C = PolicyLib.CASE_LIMITS;
+      doc.task = typeof raw.task === "string" ? raw.task.trim().slice(0, C.task) : "";
+      doc.model = typeof raw.model === "string" ? raw.model.trim().slice(0, C.model) : "";
+      doc.concepts = PolicyLib.cleanConcepts(raw.concepts);
+      doc.flags = PolicyLib.cleanFlags(raw.flags);
+      if (!doc.task || !doc.model || !doc.concepts.length) return null;
+    }
+    return doc;
   },
 
   /* The whole library, cleaned: bad docs dropped, per-scope cap enforced.
@@ -3983,14 +4126,15 @@ const PolicyLib = {
   cleanLibrary(raw){
     const src = raw && typeof raw === "object" ? raw : {};
     const docs = Array.isArray(src.docs) ? src.docs : [];
-    const perScope = Object.create(null);
+    const perSlice = Object.create(null);     // scope|kind -> count
     const out = [];
     for (const d of docs){
       const doc = PolicyLib.cleanDoc(d);
       if (!doc) continue;
-      const n = perScope[doc.scope] || 0;
+      const key = doc.scope + "|" + doc.kind;
+      const n = perSlice[key] || 0;
       if (n >= PolicyLib.LIMITS.maxDocs) continue;
-      perScope[doc.scope] = n + 1;
+      perSlice[key] = n + 1;
       out.push(doc);
     }
     return { docs: out, updated: typeof src.updated === "string" ? src.updated.slice(0, 40) : "" };
@@ -4005,18 +4149,21 @@ const PolicyLib = {
     return list.filter(d => d && (d.scope === PolicyLib.SCOPE_CORE || (own !== null && d.scope === own)));
   },
 
-  /* Replace ONE scope's docs, leaving every other scope untouched. The
-     scope is stamped onto every incoming doc — a doc claiming "core" or
-     another tenant's scope is re-stamped, never believed. This is the
-     single write path consumers use, which is what makes the stamp a rule
-     rather than a convention. */
-  replaceScope(docs, scope, incoming){
+  /* Replace ONE scope's docs OF ONE KIND, leaving every other slice
+     untouched — an org reloading its procedures does not lose its field
+     guide answers. Scope AND kind are stamped onto every incoming doc — a
+     doc claiming "core", another tenant's scope, or another kind is
+     re-stamped, never believed. This is the single write path consumers
+     use, which is what makes the stamp a rule rather than a convention. */
+  replaceScope(docs, scope, incoming, kind){
     if (!PolicyLib.validScope(scope)) return Array.isArray(docs) ? docs.filter(Boolean) : [];
-    const others = (Array.isArray(docs) ? docs : []).filter(d => d && d.scope !== scope);
+    const kd = PolicyLib.validKind(kind) ? kind : PolicyLib.KIND_DEFAULT;
+    const others = (Array.isArray(docs) ? docs : [])
+      .filter(d => d && !(d.scope === scope && PolicyLib.kindOf(d) === kd));
     const mine = [];
     for (const d of (Array.isArray(incoming) ? incoming : [])){
       if (mine.length >= PolicyLib.LIMITS.maxDocs) break;
-      const doc = PolicyLib.cleanDoc(d, scope);
+      const doc = PolicyLib.cleanDoc(d, scope, kd);
       if (doc) mine.push(doc);
     }
     return others.concat(mine);
@@ -4336,7 +4483,603 @@ strengths = why their plan works. coaching = one guiding question per practice a
     return fb;
   }
 
-  return { review, wordCount, MIN_WORDS };
+  /* Card P-05: the completion arithmetic, exported pure — the admin form
+     shows it live, store.js and the server refuse a tenant case whose
+     worked example would not itself clear the bar (the 84/84 law applied
+     to tenant content). Same analyse(), same rule. */
+  function coverage(answer, caseData){
+    const a = analyse(String(answer || ""), caseData);
+    const n = caseData.concepts.length, hits = a.covered.length;
+    return { hits, n, need: rule().caseNeeds(n), complete: rule().caseComplete(hits, n),
+             covered: a.covered.map(c => c.name), missing: a.missing.map(c => c.name) };
+  }
+
+  /* ---- Card P-05: drafting a case from a procedure document ----
+     scaffoldCase() is the built-in draft: the document's most content-heavy
+     sentences become concepts (name = the sentence's opening, terms = its
+     distinctive words, hint = a question that points back at it) and the
+     same sentences joined become the worked example — which is why the
+     scaffold always clears the bar. It is a STARTING POINT the manager
+     edits; the form says so. draftCase() asks Claude for a real case
+     (optional, a key pasted for that one call) and the caller falls back to
+     the scaffold on any error (Law 2). */
+  const DRAFT_STOP = new Set(("a an and are as at be but by for from has have if in is it its of on or the to that this " +
+    "these those with will would should must may can not no all any each every their they them there then than when " +
+    "where which who what how also into onto over under about after before during while you your our we us " +
+    "participant participants worker workers staff support supports organisation organisation's shift").split(" "));
+  function contentWords(sentence){
+    return (sentence.toLowerCase().replace(/[^a-z0-9' ]+/g, " ").split(/\s+/))
+      .map(w => w.replace(/^'+|'+$/g, ""))
+      .filter(w => w.length >= 5 && !DRAFT_STOP.has(w));
+  }
+  function scaffoldCase(doc){
+    const L = (typeof PolicyLib !== "undefined" && PolicyLib.CASE_LIMITS) || { concepts: 12, conceptName: 80, hint: 240, task: 600, model: 4000 };
+    const body = String((doc && doc.body) || "");
+    const title = String((doc && doc.title) || "your procedure");
+    const sentences = body.split(/(?<=[.!?])\s+|\n+/).map(s => s.trim()).filter(s => s.length >= 25 && s.length <= 400);
+    const scored = sentences.map((s, i) => ({ s, i, words: contentWords(s) }))
+      .filter(x => x.words.length >= 2)
+      .sort((a, b) => b.words.length - a.words.length)
+      .slice(0, Math.min(6, L.concepts))
+      .sort((a, b) => a.i - b.i);
+    const used = new Set();
+    const concepts = scored.map(x => {
+      const distinct = [];
+      for (const w of x.words.slice().sort((a, b) => b.length - a.length)){
+        if (used.has(w) || distinct.indexOf(w) !== -1) continue;
+        distinct.push(w);
+        if (distinct.length === 3) break;
+      }
+      for (const w of distinct) used.add(w);
+      const terms = distinct.length ? distinct : x.words.slice(0, 2);
+      return {
+        name: x.s.split(/\s+/).slice(0, 7).join(" ").replace(/[,;:.]+$/, "").slice(0, L.conceptName),
+        terms,
+        hint: ("How does your plan cover this part of the procedure: \u201c" + x.s.slice(0, 150) + (x.s.length > 150 ? "\u2026" : "") + "\u201d?").slice(0, L.hint)
+      };
+    });
+    return {
+      title: ("Working to: " + title).slice(0, 120),
+      tag: String((doc && doc.tag) || "").slice(0, 40),
+      body: ("You are on shift and a situation comes up that \u201c" + title + "\u201d is written for. (Edit this scenario: describe the participant, the setting and what happens, without using any real person's details.)").slice(0, 8000),
+      task: ("Write your game plan: what you would do, in what order, who you would involve and why \u2014 following " + title + ".").slice(0, L.task),
+      concepts,
+      flags: [],
+      model: scored.map(x => x.s).join(" ").slice(0, L.model)
+    };
+  }
+  async function draftCase(doc, apiKey){
+    const sys = `You write practice case studies for Australian NDIS support workers from one organisation's own procedure document. Produce ONE realistic, respectful scenario (no real names, a first name only for the participant, no diagnosis labels used as insults), a task, 4 to 8 rubric concepts a strong plan would cover (each with 2 to 4 lowercase search terms a worker would naturally write, and one coaching question as the hint), 0 to 3 red flags (an unsafe action a worker might propose: lowercase terms plus a supportive one-sentence warning), and a worked example of 120 to 200 words that clearly covers every concept using its own terms. Ground everything in the document; invent nothing the document does not support. Never use the words fail, wrong, competent, competency, accredited, qualified or certified. Respond ONLY with JSON.`;
+    const user = "PROCEDURE TITLE: " + doc.title + "\nGROUP: " + (doc.tag || "") + "\n\nPROCEDURE TEXT:\n" + String(doc.body || "").slice(0, 6000);
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model: MODEL, max_tokens: 2000, system: sys,
+        output_config: { format: { type: "json_schema", schema: {
+          type: "object",
+          properties: {
+            title: { type: "string" }, scenario: { type: "string" }, task: { type: "string" },
+            concepts: { type: "array", items: { type: "object", properties: {
+              name: { type: "string" }, terms: { type: "array", items: { type: "string" } }, hint: { type: "string" } },
+              required: ["name", "terms", "hint"], additionalProperties: false } },
+            flags: { type: "array", items: { type: "object", properties: {
+              terms: { type: "array", items: { type: "string" } }, warn: { type: "string" } },
+              required: ["terms", "warn"], additionalProperties: false } },
+            model: { type: "string" }
+          },
+          required: ["title", "scenario", "task", "concepts", "flags", "model"], additionalProperties: false } } },
+        messages: [{ role: "user", content: user }]
+      })
+    });
+    if (!res.ok) throw new Error("API " + res.status);
+    const data = await res.json();
+    if (data.stop_reason === "refusal") throw new Error("refused");
+    const textBlock = (data.content || []).find(b => b.type === "text");
+    const out = JSON.parse(textBlock.text);
+    return { title: String(out.title || ""), tag: String((doc && doc.tag) || ""), body: String(out.scenario || ""),
+             task: String(out.task || ""), concepts: out.concepts, flags: out.flags, model: String(out.model || "") };
+  }
+
+  /* Card P-04: the Field Guide's composer (guide.js) borrows MODEL so the
+     two Claude calls in the product cannot drift apart. */
+  return { review, wordCount, MIN_WORDS, MODEL, coverage, scaffoldCase, draftCase };
+})();
+
+</script>
+<script>
+/* ============================================================
+   NDIS Practice Academy — the Field Guide (Card P-04)
+
+   A worker on shift asks a question in plain words and gets the best
+   likely answer from three layers, in this order:
+     1. the organisation's OWN answer — a tenant guide entry the provider
+        wrote against its tailored procedures (library docs of kind "guide",
+        scope tenant:<id>; they arrive through Store like every other doc);
+     2. the CORE field guide below — general Australian NDIS practice,
+        written against the curriculum; every tenant sees it;
+     3. the organisation's procedure DOCUMENTS to read alongside.
+
+   THE ESCALATION RULE COMES FIRST, always (the standing rule carried from
+   the field-guide prototype, recorded in BACKLOG.md): a question touching
+   injury, medication, restrictive practice, safeguarding or a missing
+   participant is NEVER answered by the system — either engine. It gets an
+   escalation card: 000 if anyone is in danger, then a supervisor or the
+   on-call manager, with the organisation's own material on that topic
+   LISTED to read on the way. The term lists deliberately err toward a
+   human; a question wrongly routed to a person costs a phone call, the
+   other mistake costs more.
+
+   Two engines. The built-in one is offline term matching over these layers
+   (the rubric coach's own idea, aimed at retrieval — nothing is generated,
+   so nothing can be made up: no match means "ask a person"). With the
+   worker's own Claude key set (Settings → AI coach) `compose()` writes one
+   grounded answer FROM THE SAME MATERIAL, told to answer only from it; any
+   error falls back to the built-in result (Law 2).
+
+   Browser-only data + logic: rides index.html, both harnesses, the bundler
+   and tools/build-site.js — NOT loadCourse, NOT curriculum-pack.js. Every
+   string here is rendered through the hub's esc(); the copy avoids the
+   Law 1 / Law 3 banned words because the hub is a scanned surface.
+   ============================================================ */
+
+const FieldGuide = (() => {
+
+  /* ---- the escalation table: topic → matching terms. Broad on purpose.
+     Matching (Referee, v0.6.0): a term is a WHOLE word or phrase in the
+     normalised question — "skills" no longer trips "kill", "pillow" no
+     longer trips "pill" — unless it ends in "*", which marks a STEM that
+     matches any word starting with it ("injur*" → injury, injured). Every
+     plain form a worker actually writes is listed outright: the rule is
+     only as strong as its vocabulary, and the Referee's 26-sentence probe
+     (now a G2 fixture) found the first cut answering "he passed out",
+     "can I give her some panadol" and "her partner hits her". ---- */
+  const ESCALATE = [
+    { topic: "injury", label: "an injury, a fall or a medical emergency",
+      terms: ["injur*", "hurt", "hurts", "fall", "falls", "fell", "fallen", "bleed*", "blood", "burns", "burned",
+              "burnt her", "burnt his", "burnt them", "burnt the", "fracture*", "broken", "unconscious", "not breathing",
+              "trouble breathing", "can't breathe", "cannot breathe", "choking", "choke", "choked", "seizure*",
+              "chest pain", "chest pains", "overdose*", "collapsed", "collapse", "head knock", "hit their head", "hit his head",
+              "burnt himself", "burnt herself", "burnt themselves", "burnt myself", "nosebleed", "nose bleed",
+              "hit her head", "ambulance", "000", "emergency", "allerg*", "anaphyla*", "stroke", "heart attack",
+              "diabetic", "hypo", "hypogly*", "wound", "wounds", "faint*", "passed out", "unresponsive",
+              "not responding", "fit", "fits", "deep cut", "cut on", "cut to", "cut her", "cut his", "cut them",
+              "cut their", "bite", "bitten", "sting", "stung", "swallow*", "not waking", "won't wake",
+              "vomiting blood", "dislocat*", "sprain*", "concuss*", "poison*", "electric shock", "drown*",
+              "fire", "smoke inhal*"] },
+    { topic: "medication", label: "medication",
+      terms: ["medication*", "medicine*", "meds", "med chart", "tablet*", "pill", "pills", "dose", "doses", "dosage",
+              "prn", "webster", "blister pack", "insulin", "prescri*", "pharmac*", "injection*", "inhaler*", "drug",
+              "drugs", "panadol", "paracetamol", "nurofen", "ibuprofen", "painkiller*", "puffer", "ventolin",
+              "epipen", "chemist", "script", "scripts", "ointment", "eye drops", "ear drops", "laxative*",
+              "antibiotic*", "sedat*", "melatonin", "capsule*", "syringe*", "patch"] },
+    { topic: "restrictive", label: "a restrictive practice",
+      terms: ["restrain*", "restrictive", "restrict", "restricted", "restricting", "restriction*", "seclu*",
+              "lock the", "locked in", "lock them", "lock him", "lock her", "locking", "hold them", "hold him",
+              "hold her", "held down", "hold down", "take away their", "take away his", "take away her",
+              "confiscat*", "stop them leaving", "stop him leaving", "stop her leaving", "not allowed to leave",
+              "can't leave", "cannot leave", "prevent them", "prevent him", "prevent her", "block the door",
+              "bed rail*", "lap belt", "take his phone", "take her phone", "take their phone", "phone off him",
+              "phone off her", "phone off them", "keys off", "hide the keys", "hide the car keys", "hide the car", "hide his", "hide her",
+              "hide their", "keep him in", "keep her in", "keep them in", "sit on him", "sit on her",
+              "sit on them", "fridge lock", "lock on the", "pin him", "pin her", "pin them", "strap*",
+              "hands down", "hold his hands", "hold her hands", "hold their hands", "hold his arm", "hold her arm",
+              "hold their arm", "hold his arms", "hold her arms", "hold their arms", "stop him from leaving",
+              "stop her from leaving", "stop them from leaving", "gate locked", "door locked", "locked gate",
+              "locked door", "lock the gate", "lock the door", "take his cigarettes", "take her cigarettes",
+              "take their cigarettes", "keep him inside", "keep her inside", "keep them inside",
+              "tie him", "tie her", "tie them", "not let him out", "not let her out", "not let them out",
+              "shut in", "shut him in", "shut her in", "shut them in"] },
+    { topic: "safeguarding", label: "abuse, neglect, violence or someone's safety",
+      terms: ["abuse*", "abusive", "assault*", "neglect*", "exploit*", "sexual*", "hit me", "hits me", "hit them",
+              "hit him", "hit her", "hits him", "hits her", "hits them", "hitting", "punch*", "slap*", "kick", "kicks",
+              "kicked", "kicking", "threat*", "violen*", "unsafe", "grooming", "self-harm*", "self harm*",
+              "harming", "suicid*", "kill", "kills", "killed", "killing", "weapon*", "knife", "knives", "bruise*",
+              "bruising", "police", "scared of", "afraid of", "frightened", "bullying", "bullied", "bully",
+              "harass*", "touching", "touched", "inappropriate*", "molest*", "rape*", "cutting themselves",
+              "cutting herself", "cutting himself", "end their life", "end her life", "end his life",
+              "hurt themselves", "hurt herself", "hurt himself", "hurting", "push", "pushed", "pushes", "shove*",
+              /* suicidal ideation — the plainest words a worker repeats */
+              "wants to die", "want to die", "wanted to die", "better off dead", "end it all", "die", "dead",
+              "kill herself", "kill himself", "kill themselves", "not want to be here", "doesn't want to be here",
+              "take her own life", "take his own life", "take their own life", "cut herself", "cut himself",
+              "cut themselves", "hang herself", "hang himself", "hang themselves",
+              /* financial abuse and touching, in the words used */
+              "takes his money", "takes her money", "takes their money", "takes his pension", "takes her pension",
+              "takes their pension", "his pension", "her pension", "touches her", "touches him", "touches them",
+              "cigarettes off",
+              "shout*", "yell*", "steal*", "stolen", "theft", "marks on", "swearing at", "swears at",
+              "intimidat*", "coerc*", "screams at", "screaming at", "starv*", "left alone all", "not fed",
+              "no food", "financial abuse", "taking her money", "taking his money", "taking their money",
+              "not safe", "in danger", "domestic violence", "family violence"] },
+    { topic: "missing", label: "a missing participant",
+      /* "missing" itself stems to "miss" and would trip "near miss" (an incident
+         question) — so the word is listed in the phrases a worker uses. */
+      terms: ["is missing", "are missing", "went missing", "reported missing", "missing participant",
+              "missing person", "missing from", "she's missing", "he's missing", "they're missing", "missing since",
+              "can't find", "cannot find", "can not find", "wander*", "abscond*", "hasn't come home",
+              "hasn't come back", "hasn't returned", "not come home", "not come back", "gone missing",
+              "disappeared", "run away", "ran away", "walked off", "left the house", "left the premises",
+              "whereabouts", "haven't seen", "where is the participant", "didn't come back",
+              "not answering the door", "lost the participant", "lost him", "lost her", "lost them", "not here",
+              "not home", "not at home", "hasn't arrived at", "haven't arrived at", "she hasn't arrived",
+              "he hasn't arrived", "participant hasn't arrived", "took off", "escaped", "eloped",
+              "is gone", "has gone", "he's gone", "she's gone", "they've gone", "nowhere to be found",
+              "didn't come home", "did not come home", "ran off", "run off", "lost sight of", "slipped out",
+              "got out of the", "gone from the", "not in his room", "not in her room", "not in their room",
+              "not at the", "didn't turn up", "hasn't turned up", "unaccounted"] }
+  ];
+
+  /* ---- the core field guide ----
+     title = the question a worker actually asks; body = the answer, short,
+     concrete, Australian; tag = the group it browses under; terms = the
+     words a worker might use instead (lowercase; multi-word phrases match
+     the normalised question as a whole). Nothing here touches the five
+     escalation topics — those questions never reach an entry. */
+  const CORE = [
+    /* Starting a shift */
+    { id: "core-start-1", tag: "Starting a shift",
+      title: "What should I check before I start a shift?",
+      body: "Read the participant's support plan and the last few shift notes, and look for any alert — allergies, swallowing or mealtime plan, a behaviour support plan, a health condition to watch. Check who else is on and how to reach the on-call manager. Make sure your phone is charged and you know the address, the keys or codes, and where the first-aid kit is. If anything in the plan is unclear, ask before the shift starts, not during it.",
+      terms: ["start of shift", "before shift", "first thing", "arrive", "beginning", "prepare", "checklist", "handover notes"] },
+    { id: "core-start-2", tag: "Starting a shift",
+      title: "I'm running late or I can't make my shift — what do I do?",
+      body: "Tell rostering or your supervisor the moment you know, by phone rather than text, so the participant is not left without support. Never assume someone else will notice. If you are already with a participant and the next worker is late, stay until you are relieved or the on-call manager tells you otherwise. Record what happened in your shift notes.",
+      terms: ["late", "sick", "unwell myself", "call in", "cancel", "can't make it", "running late", "absent", "no show"] },
+    { id: "core-start-3", tag: "Starting a shift",
+      title: "I've been asked to do something that isn't in the participant's plan.",
+      body: "Supports come from the plan. If a request sits outside it — a different task, a different place, extra hours — check with your coordinator before you do it. Some things can be arranged; others are not funded or not safe to improvise. Explain kindly to the participant that you need to check, and follow it up so they are not left waiting.",
+      terms: ["not in the plan", "outside the plan", "out of scope", "scope", "asked to do", "not funded", "extra task"] },
+    { id: "core-start-4", tag: "Starting a shift",
+      title: "I know this participant personally — can I still work with them?",
+      body: "Tell your supervisor before the shift. Working with a friend, relative or neighbour is a conflict of interest, and the organisation decides whether it can be managed or the shift should go to someone else. Declaring it protects you as much as the participant.",
+      terms: ["know them", "friend", "relative", "family member", "neighbour", "conflict of interest", "personally"] },
+    { id: "core-start-5", tag: "Starting a shift",
+      title: "How do I write good shift notes?",
+      body: "Write what you saw and did, in order, with times — not what you think it meant. Use the participant's own words where they matter, name who you contacted and when, and note anything the next worker needs to know. Keep opinions and labels out. Write them during or straight after the shift, and sign and date them. Notes are read by the team, by the participant if they ask, and sometimes by an auditor.",
+      terms: ["shift notes", "progress notes", "notes", "documentation", "record", "write up", "case notes", "report writing"] },
+
+    /* Personal care & daily supports */
+    { id: "core-care-1", tag: "Personal care & daily living",
+      title: "The participant refuses their shower or personal care.",
+      body: "They have the right to say no. Ask what is behind it — cold bathroom, pain, a bad experience, wanting a different time or a different worker — and offer choices rather than pressure: later, a wash at the basin, a different order of tasks. Keep their dignity in every word. Record the refusal and what you offered, and if it becomes a pattern that affects their health or skin, raise it with your coordinator so the team can look at the plan together.",
+      terms: ["refuse", "refuses", "refusing", "shower", "wash", "bath", "hygiene", "won't", "doesn't want", "declines", "personal care", "toileting"] },
+    { id: "core-care-2", tag: "Personal care & daily living",
+      title: "The participant won't eat, or wants food that isn't on their mealtime plan.",
+      body: "If a mealtime management plan exists, follow it — the textures and positions in it are there because of a real risk, and changing them is the prescribing clinician's call (a speech pathologist or dietitian, reached through your supervisor), not a shift-by-shift choice. Where there is no plan, the participant chooses what they eat, and your job is to offer, encourage and make it easy. Record what was eaten and refused, and tell the team about any change in appetite that lasts.",
+      terms: ["eat", "eating", "food", "meal", "mealtime", "diet", "snack", "hungry", "texture", "dinner", "lunch", "breakfast", "cooking"] },
+    { id: "core-care-3", tag: "Personal care & daily living",
+      title: "How do I handle the participant's money when we go shopping?",
+      body: "It is their money and their choice. Use their card or cash only for their purchases, keep every receipt, and record each amount the way your organisation asks — usually a money-handling sheet with two signatures. Never mix their money with yours, never use your own card and settle up later, and never hold their PIN. If the organisation has no procedure for this, ask before the first shop.",
+      terms: ["money", "shopping", "cash", "receipt", "wallet", "purchase", "card", "spend", "spending", "bank", "atm", "pin number"] },
+    { id: "core-care-4", tag: "Personal care & daily living",
+      title: "The participant wants to do something I think is risky, like a night out.",
+      body: "People have the right to take risks that other adults take — the NDIS calls it dignity of risk. Your role is to make the choice an informed one, not to veto it: talk through what could go wrong and how to handle it, check the plan for anything relevant, and make a simple plan together (how they get home, who to call). Record the conversation. If the risk is serious or you are unsure, ring your supervisor before, not after.",
+      terms: ["risky", "risk", "dignity of risk", "night out", "pub", "alcohol", "drink", "go out", "wants to go", "their choice", "unwise"] },
+    { id: "core-care-5", tag: "Personal care & daily living",
+      title: "Do I need anything special to help someone transfer or use a hoist?",
+      body: "Yes: training on that equipment and the participant's own transfer plan. Never improvise a lift. If the plan says two workers, it means two workers. Check the sling and the hoist before use, tell the participant each step, and stop if anything feels wrong. If you have not been shown the equipment, say so and ask for support — a rushed transfer is how people get hurt.",
+      terms: ["hoist", "lift", "lifting", "transfer", "manual handling", "wheelchair", "sling", "slide sheet", "move them", "reposition"] },
+    { id: "core-care-6", tag: "Personal care & daily living",
+      title: "Can I drive the participant in my car, or drive their car?",
+      body: "Only if your organisation's policy allows it and you meet its conditions — the right licence, comprehensive insurance, a roadworthy vehicle, and any child or wheelchair restraints the participant needs. Record the trip and the kilometres the way the organisation asks. If you are unsure whether a trip is covered, ask before you set off.",
+      terms: ["drive", "driving", "car", "vehicle", "transport", "kilometres", "km", "licence", "lift them somewhere", "taxi", "uber"] },
+    { id: "core-care-7", tag: "Personal care & daily living",
+      title: "The participant wants to smoke or vape.",
+      body: "That is their choice as an adult. Follow the organisation's rules about where — never inside a shared home, a vehicle or near oxygen — and never buy tobacco with your own money or on the organisation's account. If they ask about cutting down, mention their interest to the coordinator so a health professional can support it; your role is not to lecture.",
+      terms: ["smoke", "smoking", "cigarette", "vape", "vaping", "tobacco"] },
+
+    /* Communication & choice */
+    { id: "core-comm-1", tag: "Communication & choice",
+      title: "The participant makes a decision I disagree with.",
+      body: "The NDIS is built on choice and control, and that includes choices you would not make. Give them the information they need in a way they understand, check they have understood it, and respect the decision. Record what was discussed and decided. Take it to your supervisor only if there is a real risk to their safety or someone else's, and say so to the participant rather than going behind their back.",
+      terms: ["disagree", "bad decision", "their decision", "override", "overrule", "choice and control", "supported decision"] },
+    { id: "core-comm-2", tag: "Communication & choice",
+      title: "How do I communicate with a participant who doesn't use speech?",
+      body: "Use their communication plan and whatever they use — a device, a board, signs, gestures, facial expression. Give them time; silence is not a no. Ask one thing at a time, offer choices they can point to, and check back what you understood. Talk to them, not about them, even when a family member is in the room. If there is no plan, ask the coordinator for one — a speech pathologist may already have set something up.",
+      terms: ["non-verbal", "nonverbal", "no speech", "communicate", "communication", "aac", "device", "understand me", "sign", "gestures", "picture board", "key word sign"] },
+    { id: "core-comm-3", tag: "Communication & choice",
+      title: "The family tells me to do something different from the plan.",
+      body: "Families matter and often know things the plan does not. But the participant is the person you support, and the plan is what the organisation has agreed to deliver. Listen, explain that you will follow the plan for now and hand the request on, and tell your coordinator the same day. Do not get caught between them — that is the coordinator's job to sort out.",
+      terms: ["family", "parent", "mum", "dad", "mother", "father", "sister", "brother", "guardian", "carer says", "family says", "tells me to"] },
+    { id: "core-comm-4", tag: "Communication & choice",
+      title: "The participant asked for my personal number or to connect on social media.",
+      body: "Say a warm no. A personal number or a social media connection blurs the professional relationship and makes both of you vulnerable — and it is almost always against the organisation's policy. Explain that you keep work and home separate, give them the organisation's number instead, and let your supervisor know it came up.",
+      terms: ["phone number", "personal number", "social media", "facebook", "instagram", "tiktok", "snapchat", "friend request", "contact outside", "message me", "text me"] },
+    { id: "core-comm-5", tag: "Communication & choice",
+      title: "The participant offered me a gift or money.",
+      body: "Thank them and decline anything of real value, and never cash. A small token — a card, a biscuit — may be fine under the organisation's gifts policy; check it and declare anything you accept. Accepting gifts can change the relationship and can look like exploitation to an outsider, which is why the rule protects you.",
+      terms: ["gift", "present", "tip", "offers money", "gift card", "voucher", "money for me", "buy me"] },
+    { id: "core-comm-6", tag: "Communication & choice",
+      title: "The participant asked me to keep something secret.",
+      body: "Never promise secrecy before you know what it is. Say honestly that you keep things private but that some things you must share to keep people safe. Most secrets are ordinary and can stay between you and the notes. If what they tell you involves anyone being hurt, at risk or taken advantage of, that is a safety matter — tell your supervisor straight away and tell the participant you are doing so.",
+      terms: ["secret", "don't tell", "promise not to tell", "keep it between us", "confidential"] },
+
+    /* Privacy & records */
+    { id: "core-priv-1", tag: "Privacy & records",
+      title: "Can I share information about a participant with another worker or another agency?",
+      body: "Within the support team, share what the next person needs to deliver the support safely — that is what handover and notes are for. Outside the organisation — a GP, a day program, a family member who is not the guardian — you need the participant's consent, unless it is a genuine safety situation. When in doubt, ask your coordinator to make the contact. Privacy is one of the Code of Conduct duties, and it applies to conversations in the car and the lunchroom as much as to files.",
+      terms: ["share", "information", "privacy", "consent", "tell another", "agency", "doctor", "gp", "disclose", "confidentiality", "talk about"] },
+    { id: "core-priv-2", tag: "Privacy & records",
+      title: "Can I take photos or videos of the participant?",
+      body: "Only with their consent, for a purpose they understand, on the organisation's device or system — never on your personal phone, and never to social media. Some participants have photo consent recorded in their plan; if it is not there, ask the coordinator. If a photo is needed for a health reason, such as a skin concern, the same rules apply and the image goes into the record, not your camera roll.",
+      terms: ["photo", "photos", "picture", "video", "film", "camera", "selfie", "record them"] },
+    { id: "core-priv-3", tag: "Privacy & records",
+      title: "I've lost a document, or my phone with participant information on it.",
+      body: "Tell your supervisor immediately — today, not tomorrow. Losing participant information is a privacy breach and the organisation has steps it must take quickly, including telling the participant. Change any passwords straight away. You will not be in trouble for reporting it; you would be for sitting on it.",
+      terms: ["lost my", "misplaced", "left behind", "breach", "data", "phone gone", "lost my phone", "paperwork", "lost a document"] },
+    { id: "core-priv-4", tag: "Privacy & records",
+      title: "The participant wants to see their own notes or file.",
+      body: "They are entitled to. Do not refuse or stall — tell them you will arrange it and let your coordinator know the same day, because the organisation has a process for giving people access to their records. Write your notes as if the participant will read them, because they may.",
+      terms: ["see their notes", "see my notes", "access their file", "their records", "own notes", "read the file"] },
+
+    /* Incidents & complaints */
+    { id: "core-inc-1", tag: "Incidents & complaints",
+      title: "What counts as an incident, and when do I report it?",
+      body: "Anything that harmed a participant, a worker or someone else — or could have, including a near miss — is an incident. Report it on the same shift using the organisation's form, and phone your supervisor as well for anything serious. Write what happened, when, who was involved and what you did, in plain words. Some incidents the organisation must also report to the NDIS Commission within strict timeframes — that is the provider's job, but it starts with your report reaching them fast.",
+      terms: ["incident", "report", "near miss", "what happened", "form", "record an incident", "incident form", "reporting"] },
+    { id: "core-inc-2", tag: "Incidents & complaints",
+      title: "What are reportable incidents?",
+      body: "The ones the provider must notify to the NDIS Commission: the death or serious injury of a participant, abuse or neglect of a participant, unlawful sexual or physical contact with or assault of a participant, sexual misconduct against a participant, and the use of a restrictive practice that is not authorised or not in the participant's behaviour support plan. If you see or suspect any of them, tell your supervisor immediately — do not wait to be sure.",
+      terms: ["reportable", "notify the commission", "commission report", "serious incident", "24 hours", "five days", "5 days"] },
+    { id: "core-inc-3", tag: "Incidents & complaints",
+      title: "The participant wants to make a complaint.",
+      body: "Help them. Complaining is a right, and nobody can be treated worse for it. Explain the organisation's complaints process and offer to help them use it, or to involve an advocate. They can also go straight to the NDIS Quality and Safeguards Commission on 1800 035 544. If the complaint is about you, hand it to your supervisor and step back from the process.",
+      terms: ["complaint", "complain", "unhappy", "feedback", "commission", "advocate", "not happy", "grievance"] },
+    { id: "core-inc-4", tag: "Incidents & complaints",
+      title: "I have a concern about another worker's conduct.",
+      body: "Raise it. The Code of Conduct requires every worker to promptly raise concerns about the quality and safety of supports, and it protects people who do. Tell your supervisor, or the next person up if the supervisor is the problem, and write down what you saw with dates. If what you saw involves abuse, neglect or violence, that is a safety matter and cannot wait until the end of the week.",
+      terms: ["another worker", "colleague", "co-worker", "coworker", "conduct", "concern about", "staff member", "whistleblow", "dob in", "report a worker"] },
+
+    /* Health & safety */
+    { id: "core-hs-1", tag: "Health & safety",
+      title: "The participant seems unwell — not urgent, but not themselves.",
+      body: "Look, ask and record: what is different, since when, temperature if you can, food and fluids, any pain. Check the health plan for anything that applies. Ring the on-call manager or coordinator for advice and write down what they said. Encourage fluids and rest. If anything changes quickly or you are worried, do not talk yourself out of it — call 000. It is always better to be told it was nothing.",
+      terms: ["unwell", "sick", "not themselves", "off colour", "fever", "temperature", "vomiting", "not feeling well", "poorly", "nausea", "headache", "cold", "flu"] },
+    { id: "core-hs-2", tag: "Health & safety",
+      title: "What are the basics of infection control on shift?",
+      body: "Clean hands before and after every task, especially personal care and food — soap and water or sanitiser. Wear gloves and other protective equipment where the task calls for it, and change them between tasks. Stay home if you are sick, and tell rostering. Clean surfaces and equipment you have used. Follow any extra precautions in the participant's plan or a current public health direction.",
+      terms: ["infection", "hand hygiene", "ppe", "gloves", "mask", "covid", "clean", "hygiene", "wash hands", "sanitiser", "gastro"] },
+    { id: "core-hs-3", tag: "Health & safety",
+      title: "What should I keep in mind when working alone in someone's home?",
+      body: "Know how you will get help: phone charged, on-call number saved, the organisation's check-in routine followed. Notice the exits and any hazards — pets, wet floors, cords, a heater too close to bedding. Park where you can leave easily. If a situation starts to feel wrong, it is fine to step outside and phone your supervisor; you do not need permission to stay safe.",
+      terms: ["alone", "lone worker", "working alone", "home visit", "community", "check in", "exit", "by myself", "on my own"] },
+    { id: "core-hs-4", tag: "Health & safety",
+      title: "It's a very hot day — what changes?",
+      body: "Water first: keep it in reach, offer it often, and watch for signs of heat stress — flushed skin, confusion, headache, no sweating. Shift outdoor activities to early or late, keep the home cool, and check the plan for any condition or medication note about heat (that part is a nurse's or supervisor's call, not yours). Never leave anyone in a parked car. If someone becomes confused or stops sweating, that is an emergency.",
+      terms: ["heat", "hot day", "heatwave", "weather", "storm", "hydration", "dehydrated", "sunburn", "cold day", "bushfire"] },
+    { id: "core-hs-5", tag: "Health & safety",
+      title: "The participant's home is cluttered or unhygienic.",
+      body: "It is their home. Work safely within it — clear a path where you need one, protect your hands, and do not judge out loud. Do only the cleaning that is in the plan. If the conditions affect their health or your safety, or seem to be getting worse, describe them factually in your notes and raise them with the coordinator, who can bring in the right support without embarrassing the person.",
+      terms: ["dirty", "unhygienic", "mess", "messy", "clutter", "hoard", "hoarding", "squalor", "cleaning", "filthy", "smell"] },
+
+    /* Role & boundaries */
+    { id: "core-role-1", tag: "Role & boundaries",
+      title: "The participant asked me to do something outside my role.",
+      body: "Say what you can and cannot do, kindly and plainly. Things like legal or money advice, fixing electrical work, or changing a health routine belong to other people. Offer to help them find the right person — the coordinator, a plan manager, a tradesperson — and record the request. Staying inside your role is not being unhelpful; it is what keeps them safe.",
+      terms: ["not my job", "outside my role", "my role", "favour", "advice", "not allowed to", "am i allowed", "can i do"] },
+    { id: "core-role-2", tag: "Role & boundaries",
+      title: "Can I take private work or cash-in-hand shifts from a participant?",
+      body: "Almost always no. Working privately for someone the organisation supports is a conflict of interest, usually breaches your agreement, and leaves you uninsured if something goes wrong. If a participant wants more hours, point them to the coordinator so it can be arranged properly.",
+      terms: ["cash in hand", "private work", "directly", "extra shifts", "moonlighting", "outside the agency", "work for them privately", "abn"] },
+    { id: "core-role-3", tag: "Role & boundaries",
+      title: "The participant asked me to stay longer or do extra hours.",
+      body: "Do not decide this on your own. Extra time has to be approved — it may not be funded, and unapproved hours are unpaid and uninsured. Ring the on-call manager or rostering, explain the situation, and follow what they say. If leaving on time would leave the participant unsupported when the plan says they need support, stay and keep ringing.",
+      terms: ["stay longer", "extra hours", "overtime", "more time", "unpaid", "longer", "finish late"] },
+    { id: "core-role-4", tag: "Role & boundaries",
+      title: "The next worker hasn't arrived and my shift is over.",
+      body: "If the plan says the participant needs support, you do not leave until you are relieved. Ring rostering or the on-call manager straight away, tell the participant what is happening, and record the times of every call. Leaving someone unsupported is the one thing that cannot be undone; a late finish can.",
+      terms: ["next worker", "relief", "hasn't arrived", "no one has come", "nobody has come", "replacement", "end of shift", "leave the shift", "handover to"] },
+
+    /* Mental health support */
+    { id: "core-mh-1", tag: "Mental health support",
+      title: "The participant is very anxious or distressed right now.",
+      body: "Slow down and stay. Lower your voice, drop the demands, and give them space without leaving. Ask what has helped before — their plan may name it — and offer something simple: a quieter room, a drink of water, breathing slowly together, a walk. Do not argue with the feeling or rush to fix it. When it settles, note what happened and what helped, and hand it over. If they talk about not wanting to be here or about harming themselves, that is a safety matter — ring your supervisor now.",
+      terms: ["anxious", "anxiety", "panic", "panicking", "distressed", "upset", "crying", "overwhelmed", "stressed", "worried", "meltdown", "agitated"] },
+    { id: "core-mh-2", tag: "Mental health support",
+      title: "The participant is hearing voices or talking about things that aren't there.",
+      body: "Stay calm and stay respectful. Do not argue about what is real and do not pretend you hear it too — acknowledge how it feels for them and focus on what would help right now: safety, quiet, something familiar. Check their support plan for what works. Note any change from their usual — new voices, more fear, less sleep — and tell the team the same day, because a change can mean their treating team needs to know.",
+      terms: ["voices", "hearing voices", "hallucin", "delusion", "paranoid", "not real", "psychosis", "psychotic", "unusual beliefs", "seeing things"] },
+    { id: "core-mh-3", tag: "Mental health support",
+      title: "The participant doesn't want to do anything today and seems very low.",
+      body: "Respect it, and stay connected. Offer small, easy things — a cuppa, sitting outside, one part of the plan rather than all of it — without pressure. Notice what is different from their usual and for how long, and record it; a low patch that lasts is something the team and their clinician need to hear about. Ask directly how they are going. If they mention not wanting to live, that is a safety matter — ring your supervisor now.",
+      terms: ["low", "flat", "depressed", "depression", "won't get up", "no motivation", "sad", "in bed", "mood", "withdrawn", "hopeless"] },
+    { id: "core-mh-4", tag: "Mental health support",
+      title: "Someone with dementia or memory loss keeps asking me the same question.",
+      body: "Answer as if it is the first time, every time — briefly, warmly, without correcting. Repeated questions usually mean worry, not stubbornness, so look for what is behind it: hunger, pain, needing the toilet, missing someone. Use cues in the environment — a clock, a written note, a familiar object — rather than testing their memory. Keep the routine steady and hand over what settled them.",
+      terms: ["dementia", "memory", "keeps asking", "repeat", "repeating", "forget", "forgets", "confused", "cognitive", "alzheimer"] },
+    { id: "core-mh-5", tag: "Mental health support",
+      title: "This work is starting to affect me.",
+      body: "That is normal in support work, and it is something to act on, not hide. Talk to your supervisor about a debrief, ask what employee assistance your organisation offers, and use it. Take your breaks and your leave. Notice the signs — not sleeping, dreading shifts, snapping — early. Looking after yourself is part of the job, because the people you support need you well.",
+      terms: ["burnt out", "burnout", "affecting me", "my mental health", "exhausted", "debrief", "eap", "support for me", "struggling", "self-care", "self care"] }
+  ];
+
+  /* ---- the built-in engine: normalise, tokenise, score ---- */
+  const STOP = new Set(("a an and are as at be but by can could do does for from has have how i if in is it its " +
+    "me my of on or our should that the their them there they this to was we what when where which who why will with " +
+    "would you your about into than then so am been being had having also just not no yes very get got go going " +
+    "one two some any all more most other such only own same too up out over under again further off " +
+    /* domain words that carry no signal in THIS product: every question has them */
+    "participant participants worker workers support supports supported ndis organisation organization " +
+    "shift shifts someone person people want wants wanted need needs help").split(" "));
+  function norm(text){
+    return " " + String(text || "").toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9'\- ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
+  }
+  function stem(w){
+    if (w.length > 5 && w.endsWith("ing")) w = w.slice(0, -3);
+    else if (w.length > 4 && w.endsWith("ies")) w = w.slice(0, -3) + "y";
+    else if (w.length > 4 && w.endsWith("ed")) w = w.slice(0, -2);
+    else if (w.length > 3 && w.endsWith("es")) w = w.slice(0, -2);
+    else if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0, -1);
+    return w;
+  }
+  function tokens(text){
+    const out = [];
+    for (const raw of norm(text).split(" ")){
+      const w = raw.replace(/^'+|'+$/g, "");
+      if (!w || STOP.has(w) || w.length < 2) continue;
+      const s = stem(w);
+      if (STOP.has(s) || out.indexOf(s) === -1 && !out.push(s)) continue;
+    }
+    return out;
+  }
+
+  /* The escalation check: a match on ANY term of ANY topic. Negation is
+     deliberately ignored — "should I NOT give the tablet" is still a
+     medication question and still goes to a person.
+
+     Matching (v0.7.1, the second Referee): both the question and every
+     term are STEMMED word by word, so "pain/pains", "touch/touches",
+     "lock/locked", "burn/burns/burned" collapse to one form and a list
+     of exact spellings is no longer the whole defence. Whole words and
+     phrases on that stemmed stream; a trailing "*" marks a prefix. A few
+     named idioms that carry a topic word but mean something else are
+     removed first ("falling asleep", "burnt out") — the only allow-list,
+     and it is a list of idioms, not of topics. */
+  const IDIOMS = ["fall asleep", "falling asleep", "falls asleep", "fell asleep", "fallen asleep",
+                  "burnt out", "burn out", "burned out", "burning out", "burnout"];
+  function streams(text){
+    let q = norm(text);
+    for (const i of IDIOMS) q = q.split(" " + i + " ").join(" ");
+    const words = q.trim().split(" ").filter(Boolean);
+    /* raw: for prefix terms ("abuse*" must see "abused", which stems to
+       "abus"); stemmed: for whole words and phrases. */
+    return { raw: " " + words.join(" ") + " ", stemmed: " " + words.map(stem).join(" ") + " " };
+  }
+  function termHit(qs, t){
+    if (t.endsWith("*")){
+      const prefix = norm(t.slice(0, -1)).trim();
+      return !!prefix && qs.raw.indexOf(" " + prefix) !== -1;
+    }
+    const text = norm(t).trim().split(" ").filter(Boolean).map(stem).join(" ");
+    return !!text && qs.stemmed.indexOf(" " + text + " ") !== -1;
+  }
+  function escalation(question){
+    const qs = streams(question);
+    if (qs.raw.trim() === "") return null;
+    for (const e of ESCALATE){
+      for (const t of e.terms){
+        if (termHit(qs, t)) return { topic: e.topic, label: e.label, term: t };
+      }
+    }
+    return null;
+  }
+
+  /* Score one guide entry against a question. Phrase terms hit the whole
+     normalised question; word hits weigh title over body. Requires a real
+     signal (a term or title hit, or two body hits) — noise scores zero. */
+  function scoreEntry(entry, qNorm, qTok){
+    let s = 0, strong = 0, bodyHits = 0;
+    for (const t of (entry.terms || [])){
+      const tn = norm(t).trim();
+      if (!tn) continue;
+      if (qNorm.indexOf(" " + tn + " ") !== -1 || (tn.indexOf(" ") === -1 && qTok.indexOf(stem(tn)) !== -1)){ s += 4; strong++; }
+    }
+    const tt = tokens(entry.title), bt = tokens(entry.body), gt = tokens(entry.tag || "");
+    for (const w of qTok){
+      if (tt.indexOf(w) !== -1){ s += 2; strong++; }
+      if (bt.indexOf(w) !== -1){ s += 1; bodyHits++; }
+      if (gt.indexOf(w) !== -1) s += 1;
+    }
+    return (strong > 0 || bodyHits >= 2) ? s : 0;
+  }
+  /* A procedure document: title over body, two hits or a title hit. */
+  function scoreDoc(doc, qTok){
+    let s = 0, strong = 0, hits = 0;
+    const tt = tokens(doc.title), gt = tokens(doc.tag || ""), bt = tokens(String(doc.body || "").slice(0, 4000));
+    for (const w of qTok){
+      if (tt.indexOf(w) !== -1){ s += 3; strong++; }
+      if (gt.indexOf(w) !== -1){ s += 2; strong++; }
+      if (bt.indexOf(w) !== -1){ s += 1; hits++; }
+    }
+    /* A procedure can be short and still be THE document for a question —
+       one real body hit is a signal once the domain noise words are gone. */
+    return (strong > 0 || hits >= 1) ? s : 0;
+  }
+  const ranked = (list, fn) => list
+    .map(x => ({ item: x, score: fn(x) }))
+    .filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+
+  /* The whole answer: escalation first (with the org's own material on the
+     topic LISTED, never answered), else the three ranked layers. The
+     organisation's own answer is always first — the provider tailored it. */
+  function ask(question, tenantEntries, docs){
+    const q = String(question || "").trim();
+    const out = { question: q, escalate: null, tenant: [], core: [], docs: [], empty: false };
+    if (!q) { out.empty = true; return out; }
+    const qNorm = norm(q), qTok = tokens(q);
+    const tenant = Array.isArray(tenantEntries) ? tenantEntries : [];
+    const library = Array.isArray(docs) ? docs : [];
+    out.tenant = ranked(tenant, e => scoreEntry(e, qNorm, qTok));
+    out.core = ranked(CORE, e => scoreEntry(e, qNorm, qTok));
+    out.docs = ranked(library, d => scoreDoc(d, qTok));
+    const esc = escalation(q);
+    if (esc){
+      /* The system answers nothing here: core entries are withheld, and the
+         organisation's own entries and documents on the topic are surfaced
+         as reading, with the call to a person on top. */
+      out.escalate = esc;
+      out.core = [];
+      return out;
+    }
+    out.empty = !out.tenant.length && !out.core.length && !out.docs.length;
+    return out;
+  }
+
+  /* ---- the optional Claude composer (Law 2: the caller falls back) ----
+     One grounded answer from EXACTLY the material the built-in engine
+     ranked, told to answer only from it. Never called on an escalation —
+     ask() has already returned, and the hub does not call this for one. */
+  async function compose(question, result, apiKey){
+    if (!result || result.escalate) throw new Error("no composer on an escalation");
+    const mats = [];
+    let n = 0;
+    for (const r of result.tenant) mats.push({ n: ++n, id: r.item.id, kind: "ORGANISATION'S OWN ANSWER", title: r.item.title, text: r.item.body });
+    for (const r of result.core)   mats.push({ n: ++n, id: r.item.id, kind: "GENERAL NDIS GUIDANCE", title: r.item.title, text: r.item.body });
+    for (const r of result.docs)   mats.push({ n: ++n, id: r.item.id, kind: "ORGANISATION DOCUMENT (excerpt)", title: r.item.title, text: String(r.item.body || "").slice(0, 1200) });
+    if (!mats.length) throw new Error("nothing to compose from");
+    const sys = "You are a field reference for Australian NDIS support workers on shift. Answer the worker's question ONLY from the numbered material provided — the organisation's own answers come first and take precedence over general guidance where they differ. If the material does not answer the question, say so plainly and tell the worker to ask their supervisor; never invent a procedure, a rule or a phone number. Give no medical, medication or legal advice. Plain Australian English, under 120 words, second person, no headings. Respond ONLY with JSON: {\"answer\":\"...\",\"sources\":[<material numbers used>]}";
+    const user = "QUESTION: " + question + "\n\nMATERIAL:\n" +
+      mats.map(m => `[${m.n}] ${m.kind} — ${m.title}\n${m.text}`).join("\n\n");
+    const model = (typeof Coach !== "undefined" && Coach.MODEL) ? Coach.MODEL : "claude-opus-4-8";
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model, max_tokens: 500, system: sys,
+        output_config: { format: { type: "json_schema", schema: {
+          type: "object",
+          properties: { answer: { type: "string" }, sources: { type: "array", items: { type: "integer" } } },
+          required: ["answer", "sources"], additionalProperties: false } } },
+        messages: [{ role: "user", content: user }]
+      })
+    });
+    if (!res.ok) throw new Error("API " + res.status);
+    const data = await res.json();
+    if (data.stop_reason === "refusal") throw new Error("refused");
+    const textBlock = (data.content || []).find(b => b.type === "text");
+    const out = JSON.parse(textBlock.text);
+    const answer = String(out.answer || "").trim();
+    if (!answer) throw new Error("empty answer");
+    const sources = (Array.isArray(out.sources) ? out.sources : [])
+      .map(k => mats.find(m => m.n === k)).filter(Boolean)
+      .map(m => ({ id: m.id, title: m.title, kind: m.kind }));
+    return { answer, sources, model };
+  }
+
+  return { CORE, ESCALATE, escalation, ask, compose, tokens };
 })();
 
 </script>
@@ -4368,7 +5111,8 @@ const Store = (() => {
   const LS_ACCOUNTS = "ndisAcademy.accounts";
   const LS_SESSION  = "ndisAcademy.session";
   const LS_TOKEN    = "ndisAcademy.token";
-  const LS_CREDS    = "ndisAcademy.creds.";     // + username, per-device credentials
+  const LS_CREDS    = "ndisAcademy.creds.";     // + username, per-device credentials (legacy, read-only from v0.8.0)
+  const LS_DEVICE   = "ndisAcademy.device";     // Card P-06: THIS DEVICE's coach + email settings, admin-written
   const LS_BRANDING = "ndisAcademy.branding";   // Card B1, local mode only
   const LS_BOARD    = "ndisAcademy.board";      // Card S11, local mode only
   const LS_FEED     = "ndisAcademy.feed";       // Card P-02, local mode only
@@ -4458,7 +5202,16 @@ const Store = (() => {
     if (clean.logo && Math.floor(clean.logo.split(",")[1].length * 3 / 4) > BRANDING_LOGO_MAX_BYTES)
       return { error: "logo too large" };
     if (mode === "remote"){
-      const r = await api("/admin/branding", { method: "PUT", token: adminToken(), body: clean });
+      /* Card P-03: the hub's Settings form saves branding on the signed-in
+         account's own token when no admin token is held — the server reads
+         the role off the account and refuses anything under owner (G6). */
+      let r = await api("/admin/branding", { method: "PUT", token: adminToken() || studentToken(), body: clean });
+      /* Referee (P-03): admin tokens expire at 12 h and api() does not clear
+         a stale one — an owner whose tab held the admin panel open yesterday
+         must not be told "unauthorised" by the hub form. One retry on the
+         account's own token; the server's role gate still decides. */
+      if (r.error && r.status === 401 && adminToken() && studentToken())
+        r = await api("/admin/branding", { method: "PUT", token: studentToken(), body: clean });
       if (r.error) return r;
       branding = cleanBranding(r);
       return branding;
@@ -4736,8 +5489,12 @@ const Store = (() => {
   /* Replace this org's OWN docs (the tenant slice). Courtesy caps mirrored
      from the server, refused with the limit named rather than truncated —
      same manners as setBoard. */
-  async function setPolicies(docs){
+  async function setPolicies(docs, kind){
     if (!Array.isArray(docs)) return { error: "docs must be an array" };
+    /* Card P-04: which slice of the org's library this replaces — policies
+       by default, or the field guide's entries. Stamped, never believed. */
+    const kd = kind === undefined ? PolicyLib.KIND_DEFAULT : kind;
+    if (!PolicyLib.validKind(kd)) return { error: "unknown kind" };
     if (docs.length > PolicyLib.LIMITS.maxDocs)
       return { error: "the library holds up to " + PolicyLib.LIMITS.maxDocs + " documents per organisation — remove one first" };
     for (const d of docs){
@@ -4747,9 +5504,32 @@ const Store = (() => {
         if (typeof d[f] === "string" && d[f].length > PolicyLib.LIMITS[f])
           return { error: "the " + f + " can be up to " + PolicyLib.LIMITS[f] + " characters" };
       }
+      /* Card P-05: a case carries its rubric, and its worked example must
+         clear the bar (the same coverage the coach runs). The server
+         enforces the same; this is the courtesy half with the count named. */
+      if (kd === "case"){
+        const C = PolicyLib.CASE_LIMITS;
+        if (!String(d.task || "").trim()) return { error: "a case needs a task" };
+        if (String(d.task).length > C.task) return { error: "the task can be up to " + C.task + " characters" };
+        if (!String(d.model || "").trim()) return { error: "a case needs a worked example" };
+        if (String(d.model).length > C.model) return { error: "the worked example can be up to " + C.model + " characters" };
+        for (const c of (Array.isArray(d.concepts) ? d.concepts : [])){
+          for (const t of (c && Array.isArray(c.terms) ? c.terms : [])){
+            if (String(t).trim().length < C.termMin) return { error: "a term must be at least " + C.termMin + " characters" };
+          }
+        }
+        const clean = PolicyLib.cleanDoc(d, "core", "case");
+        if (!clean) return { error: "a case needs at least one concept with a name and a search term" };
+        if (clean.concepts.length > C.concepts) return { error: "a case holds up to " + C.concepts + " concepts" };
+        if (typeof Coach !== "undefined" && Coach.coverage){
+          const cov = Coach.coverage(clean.model, PolicyLib.caseFrom(clean));
+          if (!cov.complete)
+            return { error: "the worked example covers " + cov.hits + " of " + cov.n + " concepts — it must cover at least " + cov.need };
+        }
+      }
     }
     if (mode === "remote"){
-      const r = await api("/admin/policies", { method: "PUT", token: adminToken(), body: { docs } });
+      const r = await api("/admin/policies", { method: "PUT", token: adminToken(), body: { docs, kind: kd } });
       if (r.error) return r;
       policies = { tenant: PolicyLib.validTenantId(r.tenant) ? r.tenant : "",
                    docs: PolicyLib.cleanLibrary({ docs: r.docs }).docs,
@@ -4760,7 +5540,7 @@ const Store = (() => {
     const scope = PolicyLib.scopeFor(tenant);
     if (!scope) return { error: "set your organisation id first (Admin → Policies)" };
     const lib = readPolicyLib();
-    lib.docs = PolicyLib.replaceScope(lib.docs, scope, docs);
+    lib.docs = PolicyLib.replaceScope(lib.docs, scope, docs, kd);
     lib.updated = new Date().toISOString();
     writePolicyLib(lib);
     policies = { tenant, docs: PolicyLib.visibleTo(lib.docs, tenant), updated: lib.updated };
@@ -4813,6 +5593,48 @@ const Store = (() => {
       mail: [],
       settings: { mode:"local", apiKey:"", ejs:{ pub:"", svc:"", tpl:"" } }
     };
+  }
+
+  /* ================= device settings (Card P-06) =================
+     The AI coach's mode and key, and the EmailJS values, are settings of
+     the DEVICE, written only in administrator mode. They were always
+     device-local and always stripped from every upload; what changed is
+     that they are no longer a worker's to set, and no longer keyed by the
+     worker's account.
+
+     `coachSettings(account)` is the one resolver both the Academy (when it
+     reviews an answer) and the admin panel read: the device's settings when
+     an administrator has written any, else the account's own legacy
+     credentials, so a device configured before v0.8.0 keeps working. */
+  function cleanDeviceSettings(d){
+    const src = d && typeof d === "object" ? d : {};
+    const e = src.ejs && typeof src.ejs === "object" ? src.ejs : {};
+    return {
+      mode: src.mode === "claude" ? "claude" : "local",
+      apiKey: typeof src.apiKey === "string" ? src.apiKey : "",
+      ejs: { pub: typeof e.pub === "string" ? e.pub : "",
+             svc: typeof e.svc === "string" ? e.svc : "",
+             tpl: typeof e.tpl === "string" ? e.tpl : "" },
+      set: !!src.set
+    };
+  }
+  function readDeviceSettings(){
+    try { return cleanDeviceSettings(JSON.parse(localStorage.getItem(LS_DEVICE) || "{}")); }
+    catch(e){ return cleanDeviceSettings(null); }
+  }
+  function setDeviceSettings(next){
+    const clean = cleanDeviceSettings(next);
+    clean.set = true;                       // an administrator has been here
+    localStorage.setItem(LS_DEVICE, JSON.stringify(clean));
+    return clean;
+  }
+  function coachSettings(account){
+    const d = readDeviceSettings();
+    if (d.set) return { mode: d.mode, apiKey: d.apiKey, ejs: d.ejs };
+    const s = (account && account.settings) || {};
+    return { mode: s.mode === "claude" ? "claude" : "local",
+             apiKey: s.apiKey || "",
+             ejs: s.ejs || { pub: "", svc: "", tpl: "" } };
   }
 
   /* ---- device-local credentials (never sent to any server) ---- */
@@ -4982,6 +5804,12 @@ const Store = (() => {
     get feed(){ return feed; },
     get feedLimits(){ return { maxPosts: FEED_MAX_POSTS, maxReplies: FEED_MAX_REPLIES, ...FEED_LIMITS }; },
     loadFeed, addFeedPost, addFeedReply, removeFeedPost,
+
+    /* Card P-06: the device's coach and email settings — administrator-written,
+       never uploaded (stripCreds still runs on every save), and read through
+       coachSettings() so a pre-v0.8.0 per-account setup still coaches. */
+    get deviceSettings(){ return readDeviceSettings(); },
+    setDeviceSettings, coachSettings,
 
     /* Card C-01. Same synchronous-cache pattern as branding and the board:
        goHome() renders from `Store.policies` (core + this org's own docs,
@@ -5174,10 +6002,15 @@ const Admin = (() => {
     for (const m of MODULES) for (const c of m.cases) ids.push(c.id);
     return ids;
   }
+  /* Card P-05: the roster's counts stay CORE-only — an org's own cases
+     (progress keys with the "t:" prefix) are practice, not curriculum, and
+     "cases completed of 84" must keep meaning what it meant. */
+  const isOrgCase = cid => PolicyLib.isCaseKey(cid);
   function studentSummary(a){
     const prog = a.progress || {};
     let passed = 0, attempts = 0, last = "";
     for (const cid of Object.keys(prog)){
+      if (isOrgCase(cid)) continue;
       const st = prog[cid] || {};
       if (st.passed) passed++;
       attempts += st.attempts || 0;
@@ -5197,6 +6030,7 @@ const Admin = (() => {
       casesPassed += s.passed;
       totalAttempts += s.attempts;
       for (const [cid, st] of Object.entries(a.progress || {})){
+        if (isOrgCase(cid)) continue;
         if (!perCase[cid]) perCase[cid] = { attempts:0, passes:0, tried:0 };
         perCase[cid].attempts += st.attempts || 0;
         perCase[cid].tried += 1;
@@ -6034,7 +6868,13 @@ const Admin = (() => {
     boardremove: (b) => removeBoardPost(b.dataset.idx),
     /* Card C-01: doc ids are library-generated ([a-z0-9-]), but org free text
        sits on the same rows — nothing here rides an inline handler. */
-    policyremove: (b) => removePolicyDoc(b.dataset.id)
+    policyremove: (b) => removePolicyDoc(b.dataset.id),
+    /* Card P-04's Remove rendered data-act="guideremove" with no entry here —
+       the button did nothing. Found while wiring P-05's; both now dispatch. */
+    guideremove:  (b) => removeGuideDoc(b.dataset.id),
+    caseremove:   (b) => removeCaseDoc(b.dataset.id),
+    caseconceptdel: (b) => removeConceptRow(b.dataset.idx),
+    caseflagdel:    (b) => removeFlagRow(b.dataset.idx)
   });
   let rowActionsBound = false;
   function bindRowActions(){
@@ -6078,6 +6918,11 @@ const Admin = (() => {
       /* Card C-01: same rank as the board — procedures are operational
          content. The org-id setter inside it stays owner-only. */
       ["policies", "Policies", "folder"],
+      /* Card P-04: the organisation's own field guide answers — same rank,
+         same plain-text rules, a different slice of the same library. */
+      ["guide", "Field guide", "compass"],
+      /* Card P-05: the organisation's own case studies — same rank. */
+      ["cases", "Case studies", "capstone"],
       ["data", "Data & backup", "backup"], ["security", "Security", "security"]
     ];
     /* Owner-only surfaces are hidden from a manager for tidiness — the server
@@ -6085,6 +6930,11 @@ const Admin = (() => {
        Branding is organisation-wide configuration, so it follows the same rule;
        in local mode there are no roles and the PIN-holder is the owner. */
     if (!remote() || viewerRole === "owner") tabs.push(["branding", "Organisation", "settings"]);
+    /* Card P-06: the Academy's settings moved here whole. Owner-only in server
+       mode, like branding — and for a sharper reason: these values never reach
+       the server, so no role gate can refuse them there. The PIN IS the
+       control, which is exactly why they may not sit on a worker's screen. */
+    if (!remote() || viewerRole === "owner") tabs.push(["coach", "AI coach & email", "compass"]);
     if (remote() && viewerRole === "owner") tabs.push(["audit", "Audit", "audit"]);
     const navBtns = tabs.map(([id, label, ico]) =>
       `<button class="admin-tab ${tab===id || (tab==="studentDetail" && id==="students") ? "active":""}" onclick="Admin.show('${id}')">${Icons.icon(ico)}${label}</button>`).join("");
@@ -6096,8 +6946,11 @@ const Admin = (() => {
     else if (tab === "evidence") body = viewEvidence();
     else if (tab === "board") body = viewBoard();
     else if (tab === "policies") body = viewPolicies();
+    else if (tab === "guide") body = viewGuide();
+    else if (tab === "cases") body = viewCases();
     else if (tab === "data") body = viewData();
     else if (tab === "branding") body = viewBranding();
+    else if (tab === "coach") body = viewCoach();
     else if (tab === "security") body = viewSecurity();
     else if (tab === "audit") body = viewAudit();
     $("adminPanel").innerHTML = `
@@ -6194,7 +7047,10 @@ const Admin = (() => {
      as its true value, because the evidence is honest or it is nothing. */
   function growthSummary(a){
     let revised = 0, delta = 0;
-    for (const st of Object.values(a.progress || {})){
+    /* v0.7.1 (Referee): org cases are not shown in the detail or the pack,
+       so they must not count in the Growth column either — core-only. */
+    for (const [cid, st] of Object.entries(a.progress || {})){
+      if (isOrgCase(cid)) continue;
       const rec = st && st.assessed, orig = st && st.original;
       if (rec && typeof rec === "object" && Array.isArray(rec.criteria) && rec.criteria.length
           && orig && typeof orig === "object" && Array.isArray(orig.criteria) && orig.criteria.length){
@@ -6495,7 +7351,11 @@ const Admin = (() => {
      ingestion service (policy-lib.js) owns the rules; the server (or local
      storage) owns the library; this tab is just the Academy's hands on it.
      Every rendered field goes through esc() — docs are org free text. */
-  const ownPolicyDocs = () => ((Store.policies || {}).docs || []).filter(d => d && d.scope !== "core");
+  /* Card P-04: kinds. The policies tab edits the POLICY slice alone — a
+     reload of the procedures must never wipe the field guide's answers. */
+  const ownDocsOfKind = kind => ((Store.policies || {}).docs || [])
+    .filter(d => d && d.scope !== "core" && PolicyLib.kindOf(d) === kind);
+  const ownPolicyDocs = () => ownDocsOfKind("policy");
   const isOwnerHere = () => !remote() || viewerRole === "owner";
 
   function viewPolicies(){
@@ -6659,6 +7519,479 @@ const Admin = (() => {
     loadPoliciesAdmin();
   }
 
+  /* ================= the organisation's field guide answers (Card P-04) =================
+     A guide entry is a library doc of kind "guide": title = the question a
+     worker asks, body = the organisation's tailored answer, tag = the group.
+     Same caps, same plain-text-forever rule, same scope stamping as the
+     procedures; workers find them on the Provider Hub's Field guide, ranked
+     ABOVE the built-in NDIS guidance. The escalation rule (BACKLOG.md)
+     applies to the reader, not the author: an entry about medication can be
+     written here, but a worker's question on that topic is never answered
+     by the system — the entry is listed for them to read on the way to a
+     person. */
+  const ownGuideDocs = () => ownDocsOfKind("guide");
+  function viewGuide(){
+    loadGuideAdmin();
+    const lim = Store.policyLimits;
+    const tenant = (Store.policies || {}).tenant || "";
+    return `
+      <h2>Field guide — your organisation's answers</h2>
+      <p class="hint" style="max-width:74ch">Workers ask the Provider Hub's <strong>Field guide</strong>
+        a question in plain words and get the best likely answer. Write your organisation's own
+        answers here — the question as a worker would ask it, and the answer as your procedures
+        say it — and they come first, above the built-in NDIS guidance. Questions about
+        <strong>injury, medication, restrictive practice, safeguarding or a missing participant</strong>
+        are never answered by the system: a worker asking one is sent to a person, with your entries
+        on that topic listed to read on the way. <strong>Never include participant details or
+        information about individual workers.</strong></p>
+      ${tenant ? "" : `<p class="hint"><strong>Set your organisation id first</strong> (Admin → Policies) — entries are scoped to it.</p>`}
+      <h3 class="admin-h3">Add an answer</h3>
+      <form onsubmit="Admin.addGuideDoc(event)" style="max-width:560px">
+        <label>The question, as a worker would ask it <span class="hint">(up to ${lim.title})</span>
+          <input type="text" id="gdTitle" maxlength="${lim.title}" placeholder="e.g. Who do I call if the next worker hasn't arrived?">
+        </label>
+        <label>Group <span class="hint">(optional, up to ${lim.tag} — e.g. Rostering, Transport, Money)</span>
+          <input type="text" id="gdTag" maxlength="${lim.tag}" placeholder="e.g. Rostering">
+        </label>
+        <label>Your organisation's answer <span class="hint">(plain text, up to ${lim.body} characters — blank line = new paragraph)</span>
+          <textarea id="gdBody" rows="6" maxlength="${lim.body}"></textarea>
+        </label>
+        <p id="gdErr" class="auth-error hidden"></p>
+        <div class="modal-actions" style="justify-content:flex-start">
+          <button type="submit" class="btn btn-primary">Add to the field guide</button>
+        </div>
+      </form>
+      <h3 class="admin-h3">Load a whole set</h3>
+      <p class="hint" style="max-width:74ch">Paste a JSON array —
+        <code>[{"title":"the question","tag":"…","body":"the answer"}]</code> — and it
+        <strong>replaces</strong> your organisation's current answers (up to ${lim.maxDocs}). Your
+        procedure documents are a separate set and are not touched.</p>
+      <textarea id="gdImport" rows="4" style="max-width:560px;width:100%" placeholder='[{"title":"…","tag":"…","body":"…"}]'></textarea>
+      <p id="gdImportErr" class="auth-error hidden"></p>
+      <div class="modal-actions" style="justify-content:flex-start">
+        <button class="btn" onclick="Admin.importGuide()">${Icons.icon("backup")}Import (replaces current answers)</button>
+        <button class="btn" onclick="Admin.exportGuide()">${Icons.icon("download")}Download JSON</button>
+      </div>
+      <h3 class="admin-h3">In the field guide now</h3>
+      <div id="guideAdminBody"><p class="hint">Loading…</p></div>`;
+  }
+  async function loadGuideAdmin(){
+    await Store.loadPolicies();
+    const box = $("guideAdminBody");
+    if (!box) return;
+    const docs = ownGuideDocs();
+    const tenant = (Store.policies || {}).tenant || "";
+    if (!docs.length){
+      box.innerHTML = `<p class="hint">${tenant
+        ? "No answers yet — add one above, or paste your organisation's set as JSON. Workers see the built-in NDIS guidance meanwhile."
+        : "Set your organisation id first, then add your answers."}</p>`;
+      return;
+    }
+    box.innerHTML = `
+      <p class="hint">${docs.length} answer${docs.length === 1 ? "" : "s"}, scoped
+        <code>tenant:${esc(tenant)}</code> — shown first on this organisation's Field guide.</p>
+      <table class="admin-table"><thead><tr><th>Question</th><th>Group</th><th>Length</th><th></th></tr></thead>
+      <tbody>${docs.map(d => `
+        <tr>
+          <td>${esc(d.title)}</td>
+          <td>${esc(d.tag || "—")}</td>
+          <td>${d.body.length} chars</td>
+          <td><button class="btn btn-small" data-act="guideremove" data-id="${esc(d.id)}">${Icons.icon("trash")}Remove</button></td>
+        </tr>`).join("")}</tbody></table>`;
+  }
+  async function addGuideDoc(ev){
+    ev.preventDefault();
+    const err = $("gdErr");
+    const doc = {
+      title: $("gdTitle").value.trim(),
+      tag: $("gdTag").value.trim(),
+      body: $("gdBody").value.trim(),
+      updated: new Date().toISOString()
+    };
+    if (!doc.title || !doc.body){
+      err.textContent = "An answer needs its question and its text.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const r = await Store.setPolicies([...ownGuideDocs(), doc], "guide");
+    if (r && r.error){ err.textContent = "Couldn't add it: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    $("gdTitle").value = ""; $("gdTag").value = ""; $("gdBody").value = "";
+    note("Added — workers find it on the Provider Hub's Field guide, above the built-in guidance.");
+    loadGuideAdmin();
+  }
+  async function removeGuideDoc(id){
+    const docs = ownGuideDocs().filter(d => d.id !== id);
+    const r = await Store.setPolicies(docs, "guide");
+    if (r && r.error){ note("Couldn't remove it: " + r.error); return; }
+    note("Answer removed.");
+    loadGuideAdmin();
+  }
+  async function importGuide(){
+    const err = $("gdImportErr");
+    let parsed;
+    try { parsed = JSON.parse($("gdImport").value); }
+    catch(e){ err.textContent = "That isn't valid JSON."; err.classList.remove("hidden"); return; }
+    if (!Array.isArray(parsed)){
+      err.textContent = "Expected a JSON array of answers.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const docs = parsed.map(d => ({
+      title: String((d && d.title) || "").trim(),
+      tag: String((d && d.tag) || "").trim(),
+      body: String((d && d.body) || "").trim(),
+      updated: new Date().toISOString()
+    }));
+    const r = await Store.setPolicies(docs, "guide");
+    if (r && r.error){ err.textContent = "Couldn't import: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    $("gdImport").value = "";
+    note("Imported " + docs.length + " answer" + (docs.length === 1 ? "" : "s") + ".");
+    loadGuideAdmin();
+  }
+  function exportGuide(){
+    const docs = ownGuideDocs().map(d => ({ title: d.title, tag: d.tag, body: d.body }));
+    const tenant = (Store.policies || {}).tenant || "org";
+    download("field-guide-" + tenant + ".json", JSON.stringify(docs, null, 2), "application/json");
+    note("Downloaded " + docs.length + " answer" + (docs.length === 1 ? "" : "s") + " as JSON.");
+  }
+
+  /* ================= the organisation's own case studies (Card P-05) =================
+     A case is a library doc of kind "case": title, group (tag), scenario
+     (body), task, concepts (name · search terms · coaching hint), optional
+     red flags (terms · a supportive warning), and the worked example. The
+     worked example must itself clear the completion bar — the form shows
+     the count live and the seam and the server both refuse otherwise (the
+     84/84 law applied to tenant content). "Draft from a document" fills the
+     form from one of the org's procedures: a built-in scaffold, or Claude
+     with a key pasted for that one call and never stored. */
+  const ownCaseDocs = () => ownDocsOfKind("case");
+  let caseConcepts = [];      // the rows being edited
+  let caseFlags = [];
+
+  function viewCases(){
+    loadCasesAdmin();
+    const L = PolicyLib.LIMITS, C = PolicyLib.CASE_LIMITS;
+    const tenant = (Store.policies || {}).tenant || "";
+    const docs = ownPolicyDocs();
+    return `
+      <h2>Case studies — your organisation's own</h2>
+      <p class="hint" style="max-width:74ch">Write a case study against one of <strong>your</strong> procedures and your
+        workers practise it in the Academy exactly like a module case: the same coach, the same completion
+        rule (a plan completes when it covers at least ${Math.round(CertRules.COMPLETE_RATIO * 100)}% of the concepts), the
+        same retained records. These are practice for your workplace and <strong>do not issue a certificate</strong>.
+        <strong>Never put a real participant's or worker's details in a scenario.</strong></p>
+      ${tenant ? "" : `<p class="hint"><strong>Set your organisation id first</strong> (Admin → Policies) — cases are scoped to it.</p>`}
+      <h3 class="admin-h3">Draft from one of your documents</h3>
+      <p class="hint" style="max-width:74ch">Pick a procedure and the form below fills with a starting point built from it — its key sentences become the concepts a strong plan covers, and the worked example. Edit everything before you save. Paste an Anthropic API key to have Claude write a fuller draft instead (used for this one call, never stored).</p>
+      <div class="modal-actions" style="justify-content:flex-start;flex-wrap:wrap;gap:.5rem">
+        <select id="caseDraftDoc" ${docs.length ? "" : "disabled"}>
+          ${docs.length ? docs.map((d, i) => `<option value="${i}">${esc(d.title)}${d.tag ? " — " + esc(d.tag) : ""}</option>`).join("")
+                        : `<option value="">No procedure documents loaded yet (Admin → Policies)</option>`}
+        </select>
+        <input type="password" id="caseDraftKey" placeholder="Anthropic API key (optional)" autocomplete="off" style="max-width:220px">
+        <button class="btn" onclick="Admin.draftCase()" ${docs.length ? "" : "disabled"}>${Icons.icon("edit")}Draft from this document</button>
+      </div>
+      <p id="caseDraftNote" class="hint hidden"></p>
+      <h3 class="admin-h3">The case</h3>
+      <form id="caseForm" onsubmit="Admin.saveCase(event)" style="max-width:640px" oninput="Admin.caseCoverageLive()">
+        <label>Title <span class="hint">(up to ${L.title})</span>
+          <input type="text" id="csTitle" maxlength="${L.title}" placeholder="e.g. A missed dose on the evening shift"></label>
+        <label>Group <span class="hint">(up to ${L.tag} — cases with the same group sit under one card, like a module; match a procedure's group to use it as the study guide)</span>
+          <input type="text" id="csTag" maxlength="${L.tag}" placeholder="e.g. Medication"></label>
+        <label>Scenario <span class="hint">(plain text, up to ${L.body})</span>
+          <textarea id="csBody" rows="5" maxlength="${L.body}" placeholder="Who is there, where you are, what happens…"></textarea></label>
+        <label>The task <span class="hint">(up to ${C.task})</span>
+          <input type="text" id="csTask" maxlength="${C.task}" placeholder="e.g. Write your game plan: what you would do, in what order, who you'd involve, and why."></label>
+        <h4 class="admin-h4">Concepts a strong plan covers <span class="hint">(up to ${C.concepts}; each with the words a worker would write — lowercase, up to ${C.terms})</span></h4>
+        <div id="csConcepts"></div>
+        <p><button type="button" class="btn btn-small" onclick="Admin.addConceptRow()">${Icons.icon("edit")}Add a concept</button></p>
+        <h4 class="admin-h4">Red flags <span class="hint">(optional, up to ${C.flags}: an unsafe action a worker might propose, and a supportive warning)</span></h4>
+        <div id="csFlags"></div>
+        <p><button type="button" class="btn btn-small" onclick="Admin.addFlagRow()">${Icons.icon("edit")}Add a red flag</button></p>
+        <label>Worked example <span class="hint">(the coach's model plan, up to ${C.model} — it must cover enough of the concepts above to complete the case itself)</span>
+          <textarea id="csModel" rows="6" maxlength="${C.model}"></textarea></label>
+        <p id="csCoverage" class="hint"></p>
+        <p id="csErr" class="auth-error hidden"></p>
+        <div class="modal-actions" style="justify-content:flex-start">
+          <button type="submit" class="btn btn-primary">Add to your case studies</button>
+          <button type="button" class="btn" onclick="Admin.clearCaseForm()">Clear the form</button>
+        </div>
+      </form>
+      <h3 class="admin-h3">Load a whole set</h3>
+      <p class="hint" style="max-width:74ch">Paste a JSON array of cases — the shape *Download JSON* produces — and it
+        <strong>replaces</strong> your organisation's current set (up to ${L.maxDocs}). Procedures and field guide answers are separate sets and are not touched.</p>
+      <textarea id="csImport" rows="4" style="max-width:640px;width:100%" placeholder='[{"title":"…","tag":"…","body":"…","task":"…","concepts":[{"name":"…","terms":["…"],"hint":"…"}],"flags":[],"model":"…"}]'></textarea>
+      <p id="csImportErr" class="auth-error hidden"></p>
+      <div class="modal-actions" style="justify-content:flex-start">
+        <button class="btn" onclick="Admin.importCases()">${Icons.icon("backup")}Import (replaces current set)</button>
+        <button class="btn" onclick="Admin.exportCases()">${Icons.icon("download")}Download JSON</button>
+      </div>
+      <h3 class="admin-h3">Your case studies now</h3>
+      <div id="caseAdminBody"><p class="hint">Loading…</p></div>`;
+  }
+  /* The rows are re-rendered from the arrays; the arrays are read back from
+     the inputs before every re-render so nothing typed is lost. */
+  function readCaseRows(){
+    const box = $("csConcepts");
+    if (box) caseConcepts = Array.from(box.querySelectorAll(".cs-concept")).map(row => ({
+      name: row.querySelector(".cs-cname").value,
+      terms: row.querySelector(".cs-cterms").value,
+      hint: row.querySelector(".cs-chint").value
+    }));
+    const fb = $("csFlags");
+    if (fb) caseFlags = Array.from(fb.querySelectorAll(".cs-flag")).map(row => ({
+      terms: row.querySelector(".cs-fterms").value,
+      warn: row.querySelector(".cs-fwarn").value
+    }));
+  }
+  function renderCaseRows(){
+    const C = PolicyLib.CASE_LIMITS;
+    const box = $("csConcepts");
+    if (box) box.innerHTML = caseConcepts.map((c, i) => `
+      <div class="cs-concept admin-row">
+        <input type="text" class="cs-cname" maxlength="${C.conceptName}" placeholder="Concept, e.g. Tell the on-call manager" value="${esc(c.name || "")}">
+        <input type="text" class="cs-cterms" maxlength="${C.terms * (C.term + 2)}" placeholder="words a worker would write, comma-separated: on-call, manager, ring" value="${esc(c.terms || "")}">
+        <input type="text" class="cs-chint" maxlength="${C.hint}" placeholder="Coaching question when it's missing" value="${esc(c.hint || "")}">
+        <button type="button" class="btn btn-small" data-act="caseconceptdel" data-idx="${i}">${Icons.icon("trash")}</button>
+      </div>`).join("") || `<p class="hint">No concepts yet — add at least one.</p>`;
+    const fb = $("csFlags");
+    if (fb) fb.innerHTML = caseFlags.map((f, i) => `
+      <div class="cs-flag admin-row">
+        <input type="text" class="cs-fterms" maxlength="${C.terms * (C.term + 2)}" placeholder="unsafe words, comma-separated: crush the tablet" value="${esc(f.terms || "")}">
+        <input type="text" class="cs-fwarn" maxlength="${C.flagWarn}" placeholder="A supportive warning a supervisor would give" value="${esc(f.warn || "")}">
+        <button type="button" class="btn btn-small" data-act="caseflagdel" data-idx="${i}">${Icons.icon("trash")}</button>
+      </div>`).join("");
+    caseCoverageLive();
+  }
+  function addConceptRow(){ readCaseRows(); caseConcepts.push({ name: "", terms: "", hint: "" }); renderCaseRows(); }
+  function addFlagRow(){ readCaseRows(); caseFlags.push({ terms: "", warn: "" }); renderCaseRows(); }
+  function removeConceptRow(idx){ readCaseRows(); caseConcepts.splice(Number(idx), 1); renderCaseRows(); }
+  function removeFlagRow(idx){ readCaseRows(); caseFlags.splice(Number(idx), 1); renderCaseRows(); }
+  const splitTerms = s => String(s || "").split(/[,;\n]+/).map(t => t.trim().toLowerCase()).filter(Boolean);
+  /* The doc the form currently describes, in the library's shape. */
+  function caseFromForm(){
+    readCaseRows();
+    return {
+      title: ($("csTitle") || {}).value || "",
+      tag: ($("csTag") || {}).value || "",
+      body: ($("csBody") || {}).value || "",
+      task: ($("csTask") || {}).value || "",
+      concepts: caseConcepts.map(c => ({ name: c.name.trim(), terms: splitTerms(c.terms), hint: c.hint.trim() })),
+      flags: caseFlags.map(f => ({ terms: splitTerms(f.terms), warn: f.warn.trim() })).filter(f => f.terms.length || f.warn),
+      model: ($("csModel") || {}).value || "",
+      updated: new Date().toISOString()
+    };
+  }
+  function caseCoverageLive(){
+    const el = $("csCoverage");
+    if (!el) return;
+    const d = caseFromForm();
+    const clean = PolicyLib.cleanDoc({ ...d, body: d.body || "-", title: d.title || "-", task: d.task || "-", model: d.model || "-" }, "core", "case");
+    if (!clean || !clean.concepts.length){ el.textContent = "Add at least one concept with a name and a search term."; return; }
+    const cov = Coach.coverage(d.model, PolicyLib.caseFrom(clean));
+    el.textContent = `The worked example covers ${cov.hits} of ${cov.n} concepts — it needs ${cov.need} to complete the case itself` +
+      (cov.complete ? ". ✓" : (cov.missing.length ? ". Not yet found: " + cov.missing.join(", ") : "."));
+  }
+  function fillCaseForm(d){
+    if ($("csTitle")) $("csTitle").value = d.title || "";
+    if ($("csTag")) $("csTag").value = d.tag || "";
+    if ($("csBody")) $("csBody").value = d.body || "";
+    if ($("csTask")) $("csTask").value = d.task || "";
+    if ($("csModel")) $("csModel").value = d.model || "";
+    caseConcepts = (d.concepts || []).map(c => ({ name: c.name || "", terms: (c.terms || []).join(", "), hint: c.hint || "" }));
+    caseFlags = (d.flags || []).map(f => ({ terms: (f.terms || []).join(", "), warn: f.warn || "" }));
+    renderCaseRows();
+  }
+  function clearCaseForm(){
+    fillCaseForm({ concepts: [{ name: "", terms: [], hint: "" }] });
+    const err = $("csErr"); if (err) err.classList.add("hidden");
+  }
+  async function draftCase(){
+    const note = $("caseDraftNote");
+    const docs = ownPolicyDocs();
+    const doc = docs[Number(($("caseDraftDoc") || {}).value)];
+    if (!doc){ if (note){ note.textContent = "Load a procedure document first (Admin → Policies)."; note.classList.remove("hidden"); } return; }
+    const key = (($("caseDraftKey") || {}).value || "").trim();
+    let draft, how = "built-in scaffold";
+    if (key){
+      if (note){ note.textContent = "Asking Claude to draft a case from \u201c" + doc.title + "\u201d…"; note.classList.remove("hidden"); }
+      try { draft = await Coach.draftCase(doc, key); how = "Claude AI"; }
+      catch(e){ draft = Coach.scaffoldCase(doc); how = "built-in scaffold (Claude wasn't reachable: " + String(e.message || e) + ")"; }
+    } else {
+      draft = Coach.scaffoldCase(doc);
+    }
+    if ($("caseDraftKey")) $("caseDraftKey").value = "";
+    fillCaseForm(draft);
+    if (note){ note.textContent = "Drafted from \u201c" + doc.title + "\u201d by the " + how + " — read every line and edit before saving."; note.classList.remove("hidden"); }
+  }
+  async function saveCase(ev){
+    if (ev && ev.preventDefault) ev.preventDefault();
+    const err = $("csErr");
+    const d = caseFromForm();
+    const fail = msg => { if (err){ err.textContent = msg; err.classList.remove("hidden"); } };
+    if (!d.title.trim() || !d.body.trim() || !d.task.trim() || !d.model.trim())
+      return fail("A case needs a title, a scenario, a task and a worked example.");
+    const r = await Store.setPolicies([...ownCaseDocs(), d], "case");
+    if (r && r.error) return fail("Couldn't add it: " + r.error);
+    if (err) err.classList.add("hidden");
+    clearCaseForm();
+    note("Added — workers find it on their dashboard under your organisation's name.");
+    loadCasesAdmin();
+  }
+  async function loadCasesAdmin(){
+    await Store.loadPolicies();
+    const box = $("caseAdminBody");
+    if (!box) return;
+    if ($("csConcepts") && !$("csConcepts").children.length) clearCaseForm();
+    const docs = ownCaseDocs();
+    const tenant = (Store.policies || {}).tenant || "";
+    if (!docs.length){
+      box.innerHTML = `<p class="hint">${tenant
+        ? "No case studies yet — draft one from a procedure above, or paste a set as JSON."
+        : "Set your organisation id first, then write your cases."}</p>`;
+      return;
+    }
+    box.innerHTML = `
+      <p class="hint">${docs.length} case stud${docs.length === 1 ? "y" : "ies"}, scoped
+        <code>tenant:${esc(tenant)}</code> — on every worker's dashboard under your organisation's name.</p>
+      <table class="admin-table"><thead><tr><th>Title</th><th>Group</th><th>Concepts</th><th>Flags</th><th></th></tr></thead>
+      <tbody>${docs.map(d => `
+        <tr>
+          <td>${esc(d.title)}</td>
+          <td>${esc(d.tag || "—")}</td>
+          <td>${d.concepts.length}</td>
+          <td>${(d.flags || []).length}</td>
+          <td><button class="btn btn-small" data-act="caseremove" data-id="${esc(d.id)}">${Icons.icon("trash")}Remove</button></td>
+        </tr>`).join("")}</tbody></table>`;
+  }
+  async function removeCaseDoc(id){
+    const docs = ownCaseDocs().filter(d => d.id !== id);
+    const r = await Store.setPolicies(docs, "case");
+    if (r && r.error){ note("Couldn't remove it: " + r.error); return; }
+    note("Case study removed.");
+    loadCasesAdmin();
+  }
+  async function importCases(){
+    const err = $("csImportErr");
+    let parsed;
+    try { parsed = JSON.parse($("csImport").value); }
+    catch(e){ err.textContent = "That isn't valid JSON."; err.classList.remove("hidden"); return; }
+    if (!Array.isArray(parsed)){ err.textContent = "Expected a JSON array of cases."; err.classList.remove("hidden"); return; }
+    const docs = parsed.map(d => ({
+      title: String((d && d.title) || "").trim(), tag: String((d && d.tag) || "").trim(),
+      body: String((d && d.body) || "").trim(), task: String((d && d.task) || "").trim(),
+      concepts: (d && Array.isArray(d.concepts)) ? d.concepts : [],
+      flags: (d && Array.isArray(d.flags)) ? d.flags : [],
+      model: String((d && d.model) || "").trim(), updated: new Date().toISOString()
+    }));
+    const r = await Store.setPolicies(docs, "case");
+    if (r && r.error){ err.textContent = "Couldn't import: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    $("csImport").value = "";
+    note("Imported " + docs.length + " case stud" + (docs.length === 1 ? "y" : "ies") + ".");
+    loadCasesAdmin();
+  }
+  function exportCases(){
+    const docs = ownCaseDocs().map(d => ({ title: d.title, tag: d.tag, body: d.body, task: d.task, concepts: d.concepts, flags: d.flags || [], model: d.model }));
+    const tenant = (Store.policies || {}).tenant || "org";
+    download("case-studies-" + tenant + ".json", JSON.stringify(docs, null, 2), "application/json");
+    note("Downloaded " + docs.length + " case stud" + (docs.length === 1 ? "y" : "ies") + " as JSON.");
+  }
+
+  /* ================= AI coach & email — this device (Card P-06) =================
+     David's word, 3 Sep: "important settings and image upload shouldn't be
+     accessed by employees". The Academy's Settings modal moved here whole.
+
+     These are settings of THE DEVICE, not of an account: whoever signs in on
+     this browser gets this coach. They are never uploaded (the store strips
+     them from every save and the server refuses to hold them), which is the
+     honest consequence to state plainly — on a server, a worker on their own
+     device gets the built-in coach until an administrator configures that
+     device. */
+  function viewCoach(){
+    const d = Store.deviceSettings;
+    /* Card P-06 (Referee): resolve against the SIGNED-IN account (null-safe),
+       not null — otherwise a device carrying pre-v0.8.0 account credentials
+       showed an empty form and the first Save stamped blanks over the
+       fallback the card promised. */
+    const eff = Store.coachSettings(typeof App !== "undefined" ? App.currentUser() : null);
+    const claude = d.set ? d.mode === "claude" : eff.mode === "claude";
+    const key = d.set ? d.apiKey : eff.apiKey;
+    const e = (d.set ? d.ejs : eff.ejs) || {};
+    return `
+      <h2>AI coach &amp; email</h2>
+      <p class="hint" style="max-width:74ch">These settings belong to <strong>this device</strong> — every worker who
+        signs in on this browser gets the coach you choose here. They are stored on the device only: they are never
+        uploaded, and the academy server never holds them. On a shared or organisation-owned device, set them once.
+        A worker signing in on their own phone gets the built-in coach until an administrator sets that device up.</p>
+      <form onsubmit="Admin.saveCoach(event)" style="max-width:560px">
+        <h3 class="admin-h3">AI coach</h3>
+        <p class="hint">Every case study answer is reviewed by the AI coach. Choose how it runs:</p>
+        <label class="radio-row">
+          <input type="radio" name="admAiMode" value="local" ${claude ? "" : "checked"} onchange="Admin.coachModeChanged()">
+          <div><strong>Built-in coach</strong> (recommended)<br><span class="hint">Runs entirely in the page. Reviews the plan against the professional practice rubric — no internet or account needed.</span></div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="admAiMode" value="claude" ${claude ? "checked" : ""} onchange="Admin.coachModeChanged()">
+          <div><strong>Claude AI (live)</strong><br><span class="hint">Uses Anthropic's Claude for free-form feedback. Needs an Anthropic API key, stored on this device only. If a request fails, the built-in coach takes over automatically.</span></div>
+        </label>
+        <label id="admApiKeyRow" class="${claude ? "" : "hidden"}">Anthropic API key
+          <input type="password" id="admApiKey" value="${esc(key || "")}" placeholder="sk-ant-..." autocomplete="off"></label>
+        <p class="hint">Use a <strong>restricted, low-spend-limit key</strong> — never an organisation-wide one — and revoke it if the device is lost.</p>
+
+        <h3 class="admin-h3">Real certificate emails (optional)</h3>
+        <p class="hint">Certificates always appear in each worker's in-app Email centre. To also send them to real inboxes, connect a free <strong>emailjs.com</strong> account and paste the three values below.</p>
+        <label>EmailJS public key<input type="text" id="admEjsPub" value="${esc(e.pub || "")}" placeholder="e.g. Xw2kP9…" autocomplete="off"></label>
+        <label>Service ID<input type="text" id="admEjsSvc" value="${esc(e.svc || "")}" placeholder="e.g. service_abc123" autocomplete="off"></label>
+        <label>Template ID<input type="text" id="admEjsTpl" value="${esc(e.tpl || "")}" placeholder="e.g. template_xyz789" autocomplete="off"></label>
+        <label>Send a test to<input type="email" id="admEjsTo" placeholder="you@example.com" autocomplete="off"></label>
+        <p id="admCoachErr" class="auth-error hidden"></p>
+        <div class="admin-actions">
+          <button type="submit" class="btn btn-primary">Save for this device</button>
+          <button type="button" class="btn" onclick="Admin.sendTestEmail()">${Icons.icon("mail")}Send a test email</button>
+        </div>
+      </form>`;
+  }
+  function coachModeChanged(){
+    const claude = document.querySelector('input[name=admAiMode]:checked');
+    const row = $("admApiKeyRow");
+    if (row) row.classList.toggle("hidden", !claude || claude.value !== "claude");
+  }
+  function coachFromForm(){
+    const picked = document.querySelector('input[name=admAiMode]:checked');
+    return {
+      mode: picked && picked.value === "claude" ? "claude" : "local",
+      apiKey: (($("admApiKey") || {}).value || "").trim(),
+      ejs: { pub: (($("admEjsPub") || {}).value || "").trim(),
+             svc: (($("admEjsSvc") || {}).value || "").trim(),
+             tpl: (($("admEjsTpl") || {}).value || "").trim() }
+    };
+  }
+  function saveCoach(ev){
+    if (ev && ev.preventDefault) ev.preventDefault();
+    const next = Store.setDeviceSettings(coachFromForm());
+    const bits = [next.mode === "claude" ? "AI coach: Claude (live), built-in as backup" : "AI coach: built-in"];
+    bits.push((next.ejs.pub && next.ejs.svc && next.ejs.tpl) ? "real email delivery: ON" : "email delivery: in-app only");
+    note("Saved for this device — " + bits.join(" · ") + ".");
+    renderPanel("coach");
+  }
+  async function sendTestEmail(){
+    const err = $("admCoachErr");
+    const fail = msg => { if (err){ err.textContent = msg; err.classList.remove("hidden"); } };
+    const cfg = coachFromForm().ejs;
+    const to = (($("admEjsTo") || {}).value || "").trim();
+    /* The values typed here, tested before they are saved — through app.js's
+       own EmailJS path, never a second copy of it. */
+    const r = await App.testEmail(cfg, to);
+    if (r && r.error) return fail(r.error);
+    if (err) err.classList.add("hidden");
+    note(r.result === "sent"
+      ? "📬 Test sent to " + to + " — check the inbox (and spam), then press Save."
+      : "⚠ Test failed — double-check the three values and your EmailJS template.");
+  }
+
   function viewBranding(){
     const b = Store.branding || {};
     const preview = b.logo
@@ -6691,26 +8024,38 @@ const Admin = (() => {
      it, and so an oversized or wrong-typed file is refused HERE with a message
      naming the limit — rather than as a 400 after the upload. The server checks
      both again regardless; this half is courtesy, that half is the gate. */
-  function pickLogo(ev){
+  /* Card P-03: ONE reader for every logo form — this panel's and the hub's
+     Settings. Resolves {logo} (a data URI) or {error} naming the rule, so a
+     wrong type or an oversized file is refused HERE with a message rather than
+     as a 400 after the upload. The server checks both again regardless. */
+  function readLogoFile(file){
+    return new Promise(resolve => {
+      if (!file) return resolve({ error: "Choose a file first." });
+      if (!LOGO_TYPES.includes(file.type))
+        return resolve({ error: "That file type isn't accepted. Use a PNG, JPEG or WebP — SVG files can carry scripts, so they're refused." });
+      if (file.size > LOGO_MAX_BYTES)
+        return resolve({ error: `That logo is ${Math.round(file.size/1024)} KB. The limit is 64 KB — every copy of your data carries it, so it has to stay small.` });
+      const reader = new FileReader();
+      reader.onerror = () => resolve({ error: "That file couldn't be read." });
+      reader.onload = () => resolve({ logo: String(reader.result || "") });
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function pickLogo(ev){
     const err = $("brandErr");
     const file = ev.target.files && ev.target.files[0];
     pendingLogo = null;
     if (!file) return;
-    const fail = msg => {
-      err.textContent = msg; err.classList.remove("hidden");
+    const r = await readLogoFile(file);
+    if (r.error){
+      err.textContent = r.error; err.classList.remove("hidden");
       ev.target.value = "";
-    };
-    if (!LOGO_TYPES.includes(file.type))
-      return fail("That file type isn't accepted. Use a PNG, JPEG or WebP — SVG files can carry scripts, so they're refused.");
-    if (file.size > LOGO_MAX_BYTES)
-      return fail(`That logo is ${Math.round(file.size/1024)} KB. The limit is 64 KB — every copy of your data carries it, so it has to stay small.`);
-    const reader = new FileReader();
-    reader.onload = () => {
-      pendingLogo = String(reader.result || "");
-      err.classList.add("hidden");
-      $("brandPreview").innerHTML = `<img class="brand-logo" style="max-height:3rem" src="${esc(pendingLogo)}" alt="">`;
-    };
-    reader.readAsDataURL(file);
+      return;
+    }
+    pendingLogo = r.logo;
+    err.classList.add("hidden");
+    $("brandPreview").innerHTML = `<img class="brand-logo" style="max-height:3rem" src="${esc(pendingLogo)}" alt="">`;
   }
 
   async function saveBranding(ev){
@@ -6730,7 +8075,7 @@ const Admin = (() => {
        screen, the header and the page title are painted once at boot — without
        this, "Remove branding" could never actually un-brand what the owner is
        looking at. */
-    if (window.App && App.applyBranding) App.applyBranding();
+    if (typeof App !== "undefined" && App.applyBranding) App.applyBranding();
     note("Branding saved — it's on the sign-in screen, the certificates and the evidence pack.");
     renderPanel("branding");
   }
@@ -6744,7 +8089,7 @@ const Admin = (() => {
        screen, the header and the page title are painted once at boot — without
        this, "Remove branding" could never actually un-brand what the owner is
        looking at. */
-    if (window.App && App.applyBranding) App.applyBranding();
+    if (typeof App !== "undefined" && App.applyBranding) App.applyBranding();
     note("Branding removed.");
     renderPanel("branding");
   }
@@ -6805,7 +8150,13 @@ const Admin = (() => {
               assessed line — names shown, hostile names inert, text absent. */
            viewStudentDetail,
            viewEvidence, openEvidencePack, exportEvidenceCSV,
+           viewGuide, addGuideDoc, removeGuideDoc, importGuide, exportGuide,   // Card P-04
+           bindRowActions,       // Referee (v0.6.0): the harness clicks admin rows without a session
+           viewCases, saveCase, draftCase, addConceptRow, addFlagRow, clearCaseForm,   // Card P-05
+           caseCoverageLive, fillCaseForm, caseFromForm, removeCaseDoc, importCases, exportCases,
            viewBranding, pickLogo, saveBranding, clearBranding,
+           readLogoFile,         // Card P-03: one logo rule (the hub's form is retired by P-06)
+           viewCoach, saveCoach, coachModeChanged, sendTestEmail,   // Card P-06
            viewBoard, addBoardPost, removeBoardPost, loadBoardAdmin,
            viewPolicies, loadPoliciesAdmin, saveTenant, addPolicyDoc, removePolicyDoc,
            importPolicies, exportPolicies, clearAllPolicies,
@@ -6846,6 +8197,14 @@ const Hub = (() => {
     window.scrollTo(0, 0);
   }
   const visible = () => { const h = $("hub"); return !!h && !h.classList.contains("hidden"); };
+  /* Card P-03: the hub's top bar has real tabs now — the current one stays
+     lit (the P-5 rule, scoped to this shell's bar). Guarded: the harness
+     stub carries no nav. */
+  function setNav(id){
+    for (const b of document.querySelectorAll("#hub .topbar .nav-btn")) b.classList.remove("active");
+    const el = id && $(id);
+    if (el) el.classList.add("active");
+  }
 
   /* ---- the message board (Card P-02) ----
      One open feed with replies — the first worker-authored free text
@@ -7025,15 +8384,168 @@ const Hub = (() => {
     `);
   }
 
+  /* ---- the Field Guide (Card P-04) ----
+     A worker asks in plain words; FieldGuide (guide.js) ranks the
+     organisation's own answers (library docs of kind "guide", through
+     Store) above the core guidance, with the org's procedure documents to
+     read alongside. The escalation rule is the engine's, applied before
+     anything else — this view only renders what it returns, and never
+     calls the Claude composer on an escalation. Every string here —
+     the worker's question, the org's entries, the core copy — goes
+     through esc(); documents open by TAG INDEX (the C-01 rule). */
+  const guideEntries = () => App.orgDocsOfKind("guide");
+  const tagIndexOf = doc => App.policyTags(App.orgDocs()).indexOf(doc.tag || "");
+
+  function guideEntryHTML(e, open){
+    return `
+      <details class="learn-card guide-entry" ${open ? "open" : ""}>
+        <summary>${esc(e.title)}</summary>
+        <div class="learn-body policy-body">${App.policyBodyHTML(e.body)}</div>
+      </details>`;
+  }
+  function guideDocsHTML(rows){
+    if (!rows.length) return "";
+    return `
+      <div class="guide-card guide-docs">
+        <h4>${Icons.icon("folder")} Read alongside</h4>
+        <ul>${rows.map(r => {
+          const i = tagIndexOf(r.item);
+          return `<li>${i >= 0 ? `<a class="hub-link" onclick="Hub.openPolicyTag(${i})">${esc(r.item.title)}</a>` : esc(r.item.title)}${r.item.tag ? ` <span class="guide-tag">${esc(r.item.tag)}</span>` : ""}</li>`;
+        }).join("")}</ul>
+      </div>`;
+  }
+  function escalationHTML(res){
+    const org = orgName() || "your organisation";
+    const own = res.tenant.length || res.docs.length;
+    return `
+      <div class="guide-card guide-escalate">
+        <h4>This one needs a person, now</h4>
+        <p>Your question touches on <strong>${esc(res.escalate.label)}</strong>. The field guide does not answer these — a person does.</p>
+        <ol>
+          <li><strong>If anyone is in immediate danger, call 000.</strong></li>
+          ${res.escalate.topic === "missing" ? `<li>A missing person who may be at risk is a matter for the police — 000 if there is any risk now; otherwise your supervisor decides when to involve them.</li>` : ""}
+          <li>Then call your supervisor or the on-call manager and tell them what is happening.</li>
+          <li>Follow their instructions, and record what you did, with times.</li>
+        </ol>
+        ${own ? `<p class="guide-own-head">${esc(org)}'s own instructions on this — read them on the way, then call:</p>
+          ${res.tenant.map(r => guideEntryHTML(r.item, false)).join("")}
+          ${guideDocsHTML(res.docs)}` : ""}
+      </div>`;
+  }
+  function resultHTML(res, composed, fallbackNote){
+    const org = orgName() || "Your organisation";
+    if (res.empty) return `
+      <div class="guide-card guide-empty">
+        <p>Nothing in the guide matches that yet. Try other words, or ask your supervisor — and if it comes up often, ${esc(org)} can add its own answer in Admin → Field guide.</p>
+      </div>`;
+    if (res.escalate) return escalationHTML(res);
+    let h = "";
+    if (composed) h += `
+      <div class="guide-card guide-composed">
+        <h4>${Icons.icon("compass")} Best answer</h4>
+        <p>${esc(composed.answer)}</p>
+        <p class="guide-src">Composed by Claude AI from: ${composed.sources.map(s => esc(s.title)).join(" · ") || "the material below"}. Check the sources below before you act on it.</p>
+      </div>`;
+    if (fallbackNote) h += `<p class="fb-note guide-note">⚠ ${esc(fallbackNote)}</p>`;
+    if (res.tenant.length) h += `
+      <div class="guide-card guide-org">
+        <h4>${Icons.icon("board")} ${esc(org)} says</h4>
+        ${res.tenant.map((r, i) => guideEntryHTML(r.item, i === 0)).join("")}
+      </div>`;
+    if (res.core.length) h += `
+      <div class="guide-card guide-core">
+        <h4>${Icons.icon("compass")} General NDIS guidance</h4>
+        ${res.core.map((r, i) => guideEntryHTML(r.item, i === 0 && !res.tenant.length)).join("")}
+      </div>`;
+    h += guideDocsHTML(res.docs);
+    return h;
+  }
+  function browseSection(){
+    const org = orgName() || "Your organisation";
+    const groups = list => {
+      const tags = [];
+      for (const e of list){ const t = e.tag || ""; if (tags.indexOf(t) === -1) tags.push(t); }
+      return tags;
+    };
+    const own = guideEntries();
+    let h = `<section class="guide-browse"><h3 class="board-h">${Icons.icon("folder")} Browse the guide</h3>`;
+    if (own.length){
+      for (const t of groups(own)){
+        h += `<h4 class="guide-group guide-group-org">${esc(org)} — ${esc(App.policyTagLabel(t))}</h4>` +
+             own.filter(e => (e.tag || "") === t).map(e => guideEntryHTML(e, false)).join("");
+      }
+    }
+    for (const t of groups(FieldGuide.CORE)){
+      h += `<h4 class="guide-group">General NDIS guidance — ${esc(t)}</h4>` +
+           FieldGuide.CORE.filter(e => e.tag === t).map(e => guideEntryHTML(e, false)).join("");
+    }
+    return h + `</section>`;
+  }
+  function guide(){
+    setNav("hubNavGuide");
+    const org = orgName() || "your organisation";
+    view(`
+      <div class="crumb"><a onclick="Hub.home()">Hub home</a> › Field guide</div>
+      <div class="mod-hero">
+        <h2><span>${Icons.icon("compass")}</span> Field guide</h2>
+        <p>Ask a question about your work in plain words. ${esc(org)}'s own answers come first, then general NDIS guidance, then the procedures to read alongside. A question about an injury, medication, a restrictive practice, someone's safety or a missing participant is always sent to a person — never answered here.</p>
+      </div>
+      <section class="guide-ask">
+        <form class="guide-form" onsubmit="Hub.ask(event)">
+          <input id="guideQ" type="text" maxlength="300" placeholder="e.g. The participant refuses their shower — what do I do?" autocomplete="off">
+          <button class="btn-primary" type="submit">Ask</button>
+        </form>
+        <p class="feed-standing">Never type a participant's name or details into a question.</p>
+        <div id="guideResults"></div>
+      </section>
+      ${browseSection()}
+    `);
+  }
+  async function ask(ev){
+    if (ev && ev.preventDefault) ev.preventDefault();
+    const input = $("guideQ");
+    const q = input ? input.value.trim() : "";
+    const box = $("guideResults");
+    if (!box) return;
+    if (!q){ box.innerHTML = `<p class="guide-hint hint">Type a question first.</p>`; return; }
+    const res = FieldGuide.ask(q, guideEntries(), App.orgDocs());
+    let composed = null, fallbackNote = "";
+    /* Card P-06 (Referee): the guide's composer reads the DEVICE's coach
+       settings, the same resolver the Academy's submit seam uses — the card
+       moved settings for BOTH portals, and this path was still reading the
+       account's own, which no worker can set any more. Without this, a new
+       install could never reach the Claude composer at all.
+       Law 2 on the guide: the composer only ever ADDS a grounded answer on
+       top of the built-in result, and any error shows that result instead.
+       Never on an escalation, never on an empty result. */
+    const s = Store.coachSettings(App.currentUser());
+    if (!res.escalate && !res.empty && s.mode === "claude" && s.apiKey){
+      box.innerHTML = `<div class="coach-thinking"><div class="spinner"></div> Composing an answer from your organisation's material…</div>`;
+      try { composed = await FieldGuide.compose(q, res, s.apiKey); }
+      catch(e){ fallbackNote = "Claude AI wasn't reachable (" + String(e.message || e) + ") — showing the built-in guide's answer instead."; }
+    }
+    box.innerHTML = resultHTML(res, composed, fallbackNote);
+  }
+
+  /* ---- Settings: RETIRED by Card P-06 ----
+     P-03 put the organisation's name and logo on a hub tab. David's later
+     word — "important settings and image upload shouldn't be accessed by
+     employees" — moves every setting for both portals behind the
+     administrator PIN, so this tab and its five functions are gone and
+     Admin → Organisation is the one place the logo is uploaded. The
+     "Your logo here" box on the chooser and the sign-in screen opens that
+     gate. P-03's gates were re-aimed at the admin surface, none deleted. */
+
   /* ---- hub home ---- */
   function home(){
+    setNav("hubNavHome");
     const u = App.currentUser();
     const first = u && u.name ? esc(String(u.name).split(" ")[0]) : "there";
     const org = orgName();
     view(`
       <div class="dash-hero hub-hero">
         <h2>G'day, ${first} 👋</h2>
-        <p>${org ? esc(org) + "'s" : "Your organisation's"} message board, noticeboard and procedures, in one place. Talk to your team below; events &amp; team meetings and important information are on the wall${App.orgDocs().length ? ", and your policies &amp; procedures underneath" : ""}. Training lives in the Practice Academy — <a class="hub-link" onclick="App.showChooser()">switch portal</a> any time.</p>
+        <p>${org ? esc(org) + "'s" : "Your organisation's"} message board, noticeboard and procedures, in one place. Talk to your team below; events &amp; team meetings and important information are on the wall${App.orgDocs().length ? ", and your policies &amp; procedures underneath" : ""}. Got a question on shift? Ask the <a class="hub-link" onclick="Hub.guide()">field guide</a>. Training lives in the Practice Academy — <a class="hub-link" onclick="App.showChooser()">switch portal</a> any time.</p>
       </div>
       ${feedSection()}
       <div class="hub-boards">
@@ -7075,13 +8587,13 @@ const Hub = (() => {
     feedWired = true;
   }
 
-  function open(){
+  function open(next){
     const hide = id => { const el = $(id); if (el) el.classList.add("hidden"); };
     hide("chooser"); hide("portal");
     wireFeed();
     paintHeader();
     const h = $("hub"); if (h) h.classList.remove("hidden");
-    home();
+    (typeof next === "function" ? next : home)();
   }
 
   /* Called by app.js when the board or the library arrives after sign-in
@@ -7092,7 +8604,8 @@ const Hub = (() => {
     if (visible() && document.querySelector("#hubView .hub-hero")) home();
   }
 
-  return { open, home, refresh, openPolicyTag, hubName };
+  return { open, home, refresh, openPolicyTag, hubName,
+           guide, ask };                                                     // Card P-04
 })();
 
 </script>
@@ -7279,8 +8792,15 @@ const App = (() => {
     if (t) t.textContent = b.orgName ? `${b.orgName} — where to today?` : "Where to today?";
     const hn = $("chooserHubName");
     if (hn) hn.textContent = Hub.hubName();     // one naming rule, owned by the hub
+    /* Card P-03: with no logo the brand block is a PLACEHOLDER, not the
+       academy's mark — a dashed box reading "Your logo here". Card P-06: it
+       opens the ADMINISTRATOR gate, because the logo is an administrator's
+       to set and the hub's Settings tab is retired. The academy's own name
+       stays on both doors regardless (Law 3: delivered for, never issued by). */
     const lg = $("chooserLogo");
-    if (lg) lg.innerHTML = b.logo ? `<img class="brand-logo" src="${esc(b.logo)}" alt="">` : "◈";
+    if (lg) lg.innerHTML = b.logo
+      ? `<img class="brand-logo" src="${esc(b.logo)}" alt="">`
+      : `<button type="button" class="logo-placeholder" onclick="Admin.open()" title="Administrators: add your organisation's logo">Your logo here</button>`;
     show("chooser", true);
     window.scrollTo(0, 0);
   }
@@ -7374,7 +8894,35 @@ const App = (() => {
      text: esc() on all of it, no HTML path — unlike learn[].html, which we
      author. Deliberately unlike the board, an org with no docs gets NO
      empty frame (S12 was a board directive; the public demo has no org). */
-  const orgDocs = () => ((Store.policies || {}).docs || []).filter(d => d && d.scope !== "core");
+  /* Card P-04: the library carries kinds now. orgDocs() stays "the org's
+     procedure documents" so nothing that reads it regresses; the hub asks
+     for the field guide's entries by kind. */
+  const orgDocsOfKind = kind => ((Store.policies || {}).docs || [])
+    .filter(d => d && d.scope !== "core" && PolicyLib.kindOf(d) === kind);
+  const orgDocs = () => orgDocsOfKind("policy");
+
+  /* ---- Card P-05: the organisation's own case studies ----
+     Library docs of kind "case" (tenant-scoped, written in Admin → Case
+     studies) rendered in the Academy like a module per GROUP (tag): the
+     org's procedure documents of the same tag are the group's study guide,
+     the cases run through the same case page and the same coach, under the
+     same 60% rule, with the same retained records — and NO certificate
+     (certificate logic stays core; a decision recorded in the card). The
+     progress key carries the "t:" prefix so a crafted doc id can never
+     mark a core case. Everything renders through esc(); groups and cases
+     are addressed by INDEX, never by an org-supplied string (the C-01 rule). */
+  const orgCases = () => orgDocsOfKind("case").map(PolicyLib.caseFrom).filter(Boolean);
+  /* A module-like object per group, built fresh from the library each time. */
+  function orgGroups(){
+    const cases = orgCases();
+    const tags = policyTags(cases);
+    return tags.map((t, i) => ({
+      id: "org" + i, org: true, index: i, code: "YOUR ORGANISATION",
+      icon: Icons.icon("folder"), tag: t, title: policyTagLabel(t),
+      blurb: "Case studies written by your organisation against its own procedures.",
+      cases: cases.filter(c => (c.tag || "") === t)
+    }));
+  }
 
   function policyTags(docs){
     const tags = [];
@@ -7452,6 +9000,41 @@ const App = (() => {
         </section>`;
     }
 
+    /* Card P-05: the organisation's own case studies, a card per group, in
+       the policy accent. Only when the org has written some — no empty
+       frame (the C-01 rule for the public demo). */
+    const groups = orgGroups();
+    if (groups.length){
+      const org = (Store.branding && Store.branding.orgName) || "Your organisation";
+      const doneAll = groups.reduce((n, g) => n + modulePassCount(g), 0);
+      const totalAll = groups.reduce((n, g) => n + g.cases.length, 0);
+      const cards = groups.map(g => {
+        const done = modulePassCount(g), total = g.cases.length;
+        const pct = Math.round(done / total * 100);
+        return `
+        <div class="module-card policy-card org-case-card ${done === total ? "mod-done" : ""}" onclick="App.openOrgGroup(${g.index})">
+          <div class="mod-head"><span class="mod-icon">${g.icon}</span>
+            <div><div class="mod-code">${esc(g.code)}</div><h3>${esc(g.title)}</h3></div></div>
+          <p class="blurb">${total} case stud${total === 1 ? "y" : "ies"} from ${esc(org)} — practise your own procedures.</p>
+          <div class="mod-progress">
+            <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+            <span>${done}/${total} cases</span>
+          </div>
+        </div>`;
+      }).join("");
+      sections += `
+        <section class="stream policy-stream org-cases">
+          <div class="stream-head">
+            <div>
+              <h3 class="stream-name">${esc(org)} — your own case studies</h3>
+              <p class="stream-blurb">Written by your organisation against its own procedures. The same coach and the same completion rule as the modules; these count as practice for your workplace, not toward a certificate.</p>
+            </div>
+            <span class="stream-count">${doneAll} of ${totalAll} complete</span>
+          </div>
+          <div class="module-grid">${cards}</div>
+        </section>`;
+    }
+
     view(`
       <div class="dash-hero">
         <h2>G'day, ${esc(user.name.split(" ")[0])} 👋</h2>
@@ -7501,18 +9084,73 @@ const App = (() => {
     `);
   }
 
+  /* ---- Card P-05: an org group page — a module page for the org's cases.
+     The study guide is the org's procedure documents of the same tag (read
+     through the borrowed policy helpers), then the cases. ---- */
+  function openOrgGroup(i){
+    const g = orgGroups()[Number(i)];
+    if (!g) return goHome();
+    const org = (Store.branding && Store.branding.orgName) || "Your organisation";
+    const docs = orgDocs().filter(d => (d.tag || "") === g.tag);
+    const learn = docs.length
+      ? docs.map((d, k) => `
+        <details class="learn-card" ${k === 0 ? "open" : ""}>
+          <summary>${esc(d.title)}</summary>
+          <div class="learn-body policy-body">${policyBodyHTML(d.body)}</div>
+        </details>`).join("")
+      : `<p class="hint">Your organisation has not loaded a procedure document for this group yet — work from what you know of its ways of working.</p>`;
+    const cases = g.cases.map((c, j) => {
+      const st = caseState(c.id);
+      const status = st.passed ? `<span class="case-status st-passed">Completed ✓</span>`
+        : st.attempts ? `<span class="case-status st-progress">Not there yet · ${st.attempts} attempt${st.attempts > 1 ? "s" : ""}</span>`
+        : `<span class="case-status st-new">Not started</span>`;
+      return `<div class="case-row ${st.passed ? "passed" : ""}" onclick="App.openOrgCase(${g.index},${j})">
+        <div class="case-num">${j + 1}</div>
+        <div class="case-title">${esc(c.title)}</div>${status}</div>`;
+    }).join("");
+    const done = modulePassCount(g);
+    view(`
+      <div class="crumb"><a onclick="App.goHome()">Dashboard</a> › ${esc(org)} › ${esc(g.title)}</div>
+      <div class="mod-hero org-hero">
+        <h2><span>${g.icon}</span> ${esc(g.title)}</h2>
+        <p>${esc(org)}'s own case studies — written against its procedures, coached the same way as the modules. Practice for your workplace; no certificate is issued.</p>
+        <div class="mod-progress" style="margin-top:.8rem;max-width:420px">
+          <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(done / g.cases.length * 100)}%"></div></div>
+          <span>${done}/${g.cases.length} case studies completed</span>
+        </div>
+      </div>
+      <div class="learn-section"><h3>📖 Your organisation's procedure — read this first</h3>${learn}</div>
+      <div class="learn-section"><h3>📝 Case studies</h3>
+        <div class="case-list">${cases}</div>
+      </div>
+    `);
+  }
+  function openOrgCase(i, j){
+    const g = orgGroups()[Number(i)];
+    const c = g && g.cases[Number(j)];
+    if (!c) return goHome();
+    renderCase(g, c);
+  }
+
   /* ---- case study page ---- */
   let currentCase = null;
 
   function openCase(mid, cid){
     const m = MODULES.find(x=>x.id===mid);
     const c = m.cases.find(x=>x.id===cid);
+    renderCase(m, c);
+  }
+  /* Card P-05: one case page for a core module's case and an org group's
+     case — the only differences are the crumb and the way back. */
+  function renderCase(m, c){
     currentCase = { m, c };
-    const st = caseState(cid);
+    const st = caseState(c.id);
     const idx = m.cases.indexOf(c)+1;
+    const back = m.org ? `App.openOrgGroup(${m.index})` : `App.openModule('${m.id}')`;
+    const crumbMid = m.org ? `<a onclick="${back}">${esc(m.title)}</a>` : `<a onclick="${back}">${m.code}</a>`;
     view(`
       <div class="case-wrap">
-        <div class="crumb"><a onclick="App.goHome()">Dashboard</a> › <a onclick="App.openModule('${m.id}')">${m.code}</a> › Case ${idx}</div>
+        <div class="crumb"><a onclick="App.goHome()">Dashboard</a> › ${crumbMid} › Case ${idx}</div>
         <div class="scenario-card">
           <div class="scenario-label">CASE STUDY ${idx} OF ${m.cases.length} — ${esc(m.title.toUpperCase())}</div>
           <h2>${esc(c.title)}</h2>
@@ -7530,7 +9168,7 @@ const App = (() => {
           </div>
           ${Store.mode === "remote" ? `<p class="hint answer-privacy">Your supervisor can open what you write here. Each time they do is recorded.</p>` : ""}
           <button id="submitBtn" class="btn btn-primary" onclick="App.submitAnswer()">Submit to my AI coach</button>
-          <button class="btn" onclick="App.openModule('${m.id}')">Back to module</button>
+          <button class="btn" onclick="${back}">${m.org ? "Back to the group" : "Back to module"}</button>
         </div>
         <div id="coachArea"></div>
       </div>
@@ -7557,7 +9195,10 @@ const App = (() => {
     $("submitBtn").disabled = true;
     $("coachArea").innerHTML = `<div class="coach-thinking"><div class="spinner"></div> Your AI coach is reading your plan…</div>`;
 
-    const fb = await Coach.review(answer, c, user.settings, st.attempts);
+    /* Card P-06: the coach's mode and key are the DEVICE's, written in
+       administrator mode; an account's own legacy credentials are the
+       fallback, so a device set up before v0.8.0 keeps coaching the same way. */
+    const fb = await Coach.review(answer, c, Store.coachSettings(user), st.attempts);
     // small human pause so it feels considered
     await new Promise(r=>setTimeout(r, 600));
 
@@ -7613,7 +9254,15 @@ const App = (() => {
       }
     }
 
-    if (firstComplete && moduleComplete(m)){
+    if (firstComplete && moduleComplete(m) && m.org){
+      /* Card P-05: an org group completes without a certificate — say so
+         plainly, in the same warm register. */
+      $("coachArea").innerHTML += `
+        <div class="feedback fb-pass" style="margin-top:1rem">
+          <h3>🏅 Group complete!</h3>
+          <p>You've completed all ${m.cases.length} of <strong>${esc(m.title)}</strong> — your organisation's own case studies. These are practice for your workplace; they don't issue a certificate, and they're always here to revisit.</p>
+        </div>`;
+    } else if (firstComplete && moduleComplete(m)){
       $("coachArea").innerHTML += `
         <div class="feedback fb-pass" style="margin-top:1rem">
           <h3>🏅 Module complete!</h3>
@@ -7676,13 +9325,15 @@ const App = (() => {
 
   /* ---- optional real email delivery via EmailJS ---- */
   function ejsConfig(){
-    const e = (user.settings && user.settings.ejs) || {};
+    const e = Store.coachSettings(user).ejs || {};
     return (e.pub && e.svc && e.tpl) ? e : null;
   }
 
-  async function deliverEmail(mail){
-    const cfg = ejsConfig();
-    if (!cfg) return "inapp";
+  /* `override` lets the administrator's test send use the values typed in
+     the admin panel before they are saved (Card P-06). */
+  async function deliverEmail(mail, override){
+    const cfg = override || ejsConfig();
+    if (!cfg || !(cfg.pub && cfg.svc && cfg.tpl)) return "inapp";
     try{
       const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method:"POST",
@@ -7693,14 +9344,18 @@ const App = (() => {
           user_id: cfg.pub,
           template_params: {
             to_email: mail.to,
-            to_name: user.name,
+            /* Card P-06 (Referee): `user` is null whenever Admin was opened
+               from the sign-in screen — which is the device-setup flow this
+               card created — so the administrator's test send threw here and
+               the catch below reported a failed send with correct values. */
+            to_name: (user && user.name) || mail.to,
             subject: mail.subject,
             cert_title: mail.title,
             cert_desc: mail.desc,
             serial: mail.serial,
             course_code: mail.code,
             awarded_date: new Date(mail.date).toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}),
-            message: `Congratulations ${user.name}! You have earned the Certificate of Completion for ${mail.title} (serial ${mail.serial}, course ${mail.code}). Sign in to NDIS Practice Academy on your study device to view, print or save it.`
+            message: `Congratulations ${(user && user.name) || mail.to}! You have earned the Certificate of Completion for ${mail.title} (serial ${mail.serial}, course ${mail.code}). Sign in to NDIS Practice Academy on your study device to view, print or save it.`
           }
         })
       });
@@ -7731,7 +9386,7 @@ const App = (() => {
         await persist();
         toast(result === "sent"
           ? `📬 Certificate emailed to your real inbox (${user.email})`
-          : "⚠ Real email send failed — the certificate is safe in the Email centre. Check your EmailJS details in Settings.");
+          : "⚠ Real email send failed — the certificate is safe in the Email centre. Your administrator can check the email settings.");
         // refresh if the user is looking at the mail view
         if ($("mainView").querySelector(".mail-list")) showMail();
       })();
@@ -7741,35 +9396,12 @@ const App = (() => {
   async function resendMail(i){
     const mail = user.mail[i];
     if (!mail) return;
-    if (!ejsConfig()){ toast("Add your EmailJS details in Settings first."); return; }
+    if (!ejsConfig()){ toast("Real email delivery isn't set up on this device — ask your administrator."); return; }
     toast("Sending…");
     mail.delivery = await deliverEmail(mail);
     await persist();
     showMail();
-    toast(mail.delivery === "sent" ? `📬 Sent to ${mail.to}` : "⚠ Send failed — check your EmailJS details in Settings.");
-  }
-
-  async function sendTestEmail(){
-    // use whatever is typed right now, so it can be tested before saving
-    const cfg = {
-      pub: $("ejsPublic").value.trim(),
-      svc: $("ejsService").value.trim(),
-      tpl: $("ejsTemplate").value.trim()
-    };
-    if (!(cfg.pub && cfg.svc && cfg.tpl)){ toast("Fill in all three EmailJS fields first."); return; }
-    const saved = user.settings.ejs;
-    user.settings.ejs = cfg;                    // temporarily adopt the typed values
-    toast("Sending test email…");
-    const result = await deliverEmail({
-      to: user.email, subject: "✅ Test — NDIS Practice Academy email delivery",
-      title: "Email delivery test", serial: "TEST-0000", code: "TEST",
-      desc: "If you can read this in your inbox, certificate delivery is connected and working.",
-      date: new Date().toISOString()
-    });
-    user.settings.ejs = saved;                  // saveSettings() decides whether to keep them
-    toast(result === "sent"
-      ? `📬 Test sent to ${user.email} — check your inbox (and spam), then press Save.`
-      : "⚠ Test failed — double-check the three values and your EmailJS template.");
+    toast(mail.delivery === "sent" ? `📬 Sent to ${mail.to}` : "⚠ Send failed — your administrator can check the email settings.");
   }
 
   function updateMailBadge(){
@@ -7987,7 +9619,7 @@ const App = (() => {
       : `<div class="cert-locked"><div class="lock-mark">${Icons.icon("inbox")}</div><strong>No certificate emails yet</strong><span>Complete all six case studies in any module and your first certificate lands here, addressed to ${esc(user.email)}.</span></div>`;
     const note = ejsConfig()
       ? `<div class="mail-note">📬 <strong>Real email delivery is ON.</strong> New certificates are sent to ${esc(user.email)} through your connected EmailJS account, as well as appearing here. Use “Send to my inbox” on any older email above to deliver it too.</div>`
-      : `<div class="mail-note">💡 <strong>Want these in your real inbox?</strong> Open <em>Settings ⚙ → Real certificate emails</em> and connect a free EmailJS account — certificates will then send to ${esc(user.email)} automatically (and past ones can be re-sent from here). Until then, this inbox view is the delivery point.</div>`;
+      : `<div class="mail-note">💡 <strong>Want these in your real inbox?</strong> Your administrator can connect a free EmailJS account for this device — certificates will then send to ${esc(user.email)} automatically (and past ones can be re-sent from here). Until then, this inbox view is the delivery point.</div>`;
     view(`
       <div class="dash-hero"><h2>Email centre</h2>
       <p>Every certificate is composed and sent to your nominated address the moment you earn it. Each email below shows its delivery status.</p></div>
@@ -7996,37 +9628,25 @@ const App = (() => {
     `);
   }
 
-  /* ================= settings ================= */
-  function showSettings(){
-    $("settingsModal").classList.remove("hidden");
-    const mode = user.settings.mode || "local";
-    document.querySelectorAll('input[name=aiMode]').forEach(r=>{
-      r.checked = r.value===mode;
-      r.onchange = () => $("apiKeyRow").classList.toggle("hidden", r.value!=="claude" || !r.checked);
-    });
-    $("apiKeyInput").value = user.settings.apiKey || "";
-    $("apiKeyRow").classList.toggle("hidden", mode!=="claude");
-    const e = user.settings.ejs || {};
-    $("ejsPublic").value = e.pub || "";
-    $("ejsService").value = e.svc || "";
-    $("ejsTemplate").value = e.tpl || "";
+  /* ================= settings — administrator mode only (Card P-06) =================
+     The Settings modal and its three handlers left this file with the top-bar
+     button: the AI coach's mode and key and the EmailJS values are settings
+     of the DEVICE, written in Admin → AI coach & email, and a worker has no
+     surface that reaches them. What remains here is the one function the
+     admin panel borrows — a test send with values typed but not yet saved,
+     using this file's EmailJS path rather than a second copy of it. */
+  async function testEmail(cfg, to){
+    if (!(cfg && cfg.pub && cfg.svc && cfg.tpl)) return { error: "Fill in all three EmailJS fields first." };
+    const address = String(to || (user && user.email) || "").trim();
+    if (!address) return { error: "Type an address to send the test to." };
+    const result = await deliverEmail({
+      to: address, subject: "✅ Test — certificate email delivery",
+      title: "Email delivery test", serial: "TEST-0000", code: "TEST",
+      desc: "If you can read this in your inbox, certificate delivery is connected and working.",
+      date: new Date().toISOString()
+    }, cfg);
+    return { result };
   }
-  async function saveSettings(){
-    const mode = document.querySelector('input[name=aiMode]:checked').value;
-    user.settings.mode = mode;
-    user.settings.apiKey = $("apiKeyInput").value.trim();
-    user.settings.ejs = {
-      pub: $("ejsPublic").value.trim(),
-      svc: $("ejsService").value.trim(),
-      tpl: $("ejsTemplate").value.trim()
-    };
-    await persist();
-    closeSettings();
-    const bits = [mode==="claude" ? "AI coach: Claude (live), built-in as backup" : "AI coach: built-in"];
-    bits.push(ejsConfig() ? "real email delivery: ON" : "email delivery: in-app only");
-    toast("Saved — " + bits.join(" · ") + ".");
-  }
-  function closeSettings(){ $("settingsModal").classList.add("hidden"); }
 
   /* ================= misc ================= */
   let toastTimer = null;
@@ -8057,10 +9677,17 @@ const App = (() => {
     if (!brandDefaults){
       brandDefaults = {
         title: document.title,
+        /* Card P-06: the unbranded sign-in mark is the "Your logo here" box
+           that ships in the markup — captured here so removing branding puts
+           it back, exactly as it put the ◈ back before. */
         authLogo: $("authLogo") ? $("authLogo").innerHTML : "",
-        topLogo:  pick(".topbar-logo") ? pick(".topbar-logo").innerHTML : "",
-        h1:       pick(".auth-brand h1") ? pick(".auth-brand h1").innerHTML : "",
-        topTitle: pick(".topbar-title") ? pick(".topbar-title").innerHTML : ""
+        /* Card P-06 (Referee): scoped to #portal. The admin overlay renders
+           its own `.topbar-logo`, sits EARLIER in the document, and is now
+           always on screen when branding is saved (it is the only save path),
+           so the unscoped selector painted the admin header and left the
+           Academy's mark stale until a reload. */
+        topLogo:  pick("#portal .topbar-logo") ? pick("#portal .topbar-logo").innerHTML : "",
+        topTitle: pick("#portal .topbar-title") ? pick("#portal .topbar-title").innerHTML : ""
       };
     }
     const b = Store.branding || {};
@@ -8068,12 +9695,21 @@ const App = (() => {
     const set = (sel, html) => { const el = pick(sel); if (el) el.innerHTML = html; };
     const logoImg = b.logo ? `<img class="brand-logo" src="${esc(b.logo)}" alt="">` : "";
     if ($("authLogo")) $("authLogo").innerHTML = b.logo ? logoImg : d.authLogo;
-    set(".topbar-logo", b.logo ? logoImg : d.topLogo);
-    /* querySelector, not All: the set-a-password screen has its own .auth-brand
-       h1 reading "Choose a password", which must not become the org name. */
+    set("#portal .topbar-logo", b.logo ? logoImg : d.topLogo);
+    /* Card P-06: the shared sign-in names no portal, so the org's name is the
+       only name on it — and it has its own id. The old `.auth-brand h1`
+       selector sat one DOM position from the set-a-password screen's own h1
+       ("Choose a password"); with the static heading gone that trap would
+       have gone live. */
+    const on = $("authOrgName");
+    if (on){
+      on.textContent = b.orgName || "";
+      on.classList.toggle("hidden", !b.orgName);
+    }
+    /* The ACADEMY's header still carries the academy's name under the org's —
+       Law 3's "delivered for, never instead of" on the portal that issues. */
     const named = () => `${esc(b.orgName)}<span class="brand-sub">NDIS Practice Academy</span>`;
-    set(".auth-brand h1", b.orgName ? named() : d.h1);
-    set(".topbar-title",  b.orgName ? named() : d.topTitle);
+    set("#portal .topbar-title",  b.orgName ? named() : d.topTitle);
     document.title = b.orgName ? b.orgName + " — NDIS Practice Academy" : d.title;
   }
 
@@ -8111,7 +9747,6 @@ const App = (() => {
       else if (h === "#certificates"){ enterAcademy(); showCertificates(); }
       else if (h === "#framework"){ enterAcademy(); showFramework(); }
       else if (h === "#mail"){ enterAcademy(); showMail(); }
-      else if (h === "#settings"){ enterAcademy(); showSettings(); }
       else if (/^#m\d$/.test(h)){
         const mid = h.slice(1);
         if (MODULES.some(m=>m.id===mid)){ enterAcademy(); openModule(mid); }
@@ -8122,13 +9757,15 @@ const App = (() => {
 
   return { showAuthTab, register, login, logout, submitNewPassword, goHome, openModule, openCase,
            updateWordCount, submitAnswer, showCertificates, printCert, showMail, showFramework,
-           showSettings, saveSettings, closeSettings, resendMail, sendTestEmail,
+           resendMail,
+           testEmail,            // Card P-06: the admin panel's test send borrows this path
            applyBranding,        // Card B1: admin.js repaints the live page after a change
            showChooser, enterAcademy, currentUser,   // Card P-01: the two-portal shell
            /* Card P-01: the hub renders the same policy library; it borrows
               these helpers rather than carrying a second copy of the rules
               (the tag-index rule above included). Pure, no view side-effects. */
-           orgDocs, policyTags, policyTagLabel, policyBodyHTML,
+           orgDocs, orgDocsOfKind, policyTags, policyTagLabel, policyBodyHTML,
+           orgCases, orgGroups, openOrgGroup, openOrgCase,   // Card P-05: the org's own case studies
            certificateHTML };
 })();
 
