@@ -150,6 +150,50 @@ h1,h2,h3{line-height:1.25}
 .auth-error{color:var(--coral);font-size:.88rem}
 @media(max-width:760px){.auth-card{grid-template-columns:1fr}.auth-brand{padding:1.8rem}}
 
+/* ---------- portal chooser (Card P-01) ----------
+   Sits on the same gradient as sign-in: one card, the org's name above two
+   doors. Doors are BUTTONS (keyboard-reachable), each a card with the same
+   elevation rule as a module card, teal for the Academy and the org's
+   wattle-gold for the hub — the accent the policy section already answers to. */
+.chooser-card{
+  width:100%;max-width:760px;background:var(--card);
+  border-radius:var(--radius-lg);box-shadow:0 20px 60px rgba(0,0,0,.28);
+  padding:2.2rem 2.2rem 1.6rem;text-align:center;
+}
+.chooser-brand h1{font-size:1.5rem;margin:.4rem 0 .3rem}
+.chooser-tag{color:var(--ink-soft);font-size:.92rem;max-width:48ch;margin:0 auto}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+@media(max-width:640px){.doors{grid-template-columns:1fr}}
+.door{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.45rem;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-top:5px solid var(--teal);
+  border-radius:var(--radius);padding:1.2rem 1.2rem 1.3rem;cursor:pointer;
+  font:inherit;color:var(--ink);box-shadow:var(--shadow);
+  transition:transform .12s,box-shadow .15s,border-color .15s;
+}
+.door:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(19,34,30,.14)}
+.door:active{transform:translateY(0)}
+.door strong{font-size:1.08rem}
+.door-sub{font-size:.86rem;color:var(--ink-soft);line-height:1.45}
+.door-icon{font-size:1.5rem;color:var(--teal);display:inline-flex}
+.door-icon .icon{width:1.5rem;height:1.5rem}
+.door-hub{border-top-color:var(--gold)}
+.door-hub .door-icon{color:var(--gold-deep)}
+.chooser-card .admin-entry{margin-top:1.4rem}
+/* "Switch portal" — a quiet pill in each top bar's brand block, so the phone
+   grid (Card S13: 2 rows of 3 tiles) is untouched: the brand row spans the
+   grid already, and the pill rides on it. */
+.switch-btn{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:var(--foam);
+  font:inherit;font-size:.74rem;font-weight:600;padding:.22rem .6rem;border-radius:999px;
+  cursor:pointer;margin-left:.4rem;white-space:nowrap;
+}
+.switch-btn:hover{background:rgba(255,255,255,.2);color:var(--white)}
+.topbar-logo,.topbar-title{cursor:pointer}
+/* the hub's org name uses the same demotion as the Academy header */
+.hub-title .brand-sub{color:var(--foam)}
+.hub-logo .brand-logo{max-height:2rem;max-width:9rem;vertical-align:middle}
+
 /* ============ TOPBAR ============ */
 .portal{min-height:100vh;display:flex;flex-direction:column}
 .topbar{
@@ -326,35 +370,16 @@ h1,h2,h3{line-height:1.25}
   font-size:.78rem;font-weight:700;padding:.25rem .7rem;border-radius:var(--radius-sm);text-align:center;
 }
 
-/* ---------- company noticeboard (Card S11) ----------
-   Two side rails flanking the dashboard: events & team meetings on one side,
-   important information on the other. A side with no posts contributes no
-   markup, so with an unused board the dashboard is exactly its old
-   full-width self. Below 1150px the rails drop under the modules (order),
-   because a phone has no "side of the page". */
-.dash-layout{display:flex;flex-direction:column;gap:1.6rem}
-.dash-layout .dash-main{min-width:0}
-/* Stacked: boards drop BELOW the modules — a phone has no side of the page.
-   Scoped to narrow screens only: `order` also binds in the wide grid, and an
-   unscoped version put the main column into the 230px events rail (caught by
-   the witness capture, not the suite — the harness loads no stylesheet). */
-@media(max-width:1149.98px){
-  .dash-layout .dash-main{order:0}
-  .dash-layout .noticeboard{order:1}
-}
-@media(min-width:1150px){
-  .dash-layout{display:grid;align-items:start}
-  .dash-layout.has-events.has-info{grid-template-columns:230px minmax(0,1fr) 230px}
-  .dash-layout.has-events:not(.has-info){grid-template-columns:230px minmax(0,1fr)}
-  .dash-layout.has-info:not(.has-events){grid-template-columns:minmax(0,1fr) 230px}
-  .dash-layout .noticeboard{position:sticky;top:1.2rem}
-}
-/* Three columns need more room than the standard 1080px column; :has() is
-   progressive enhancement — without it the rails just sit a little tighter. */
-@media(min-width:1150px){
-  .main-view:has(.dash-layout.has-events),
-  .main-view:has(.dash-layout.has-info){max-width:1400px}
-}
+/* ---------- company noticeboard (Card S11; on the hub from Card P-01) ----------
+   Events & team meetings on one side, important information on the other.
+   Cards S11/S12 hung the two rails beside the dashboard's modules; Card P-01
+   moved them to the Provider Hub, where they are the page: two columns on a
+   wide screen, stacked (events first, in DOM order — no `order` rule needed)
+   on a phone. */
+.hub-boards{display:grid;gap:1.2rem;margin:1.5rem 0}
+@media(min-width:900px){.hub-boards{grid-template-columns:1fr 1fr;align-items:start}}
+.hub-hero p{max-width:70ch}
+.hub-link{color:var(--teal-text);cursor:pointer;font-weight:600;text-decoration:underline}
 .noticeboard{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   padding:1rem 1.1rem;
@@ -380,6 +405,37 @@ h1,h2,h3{line-height:1.25}
 .board-post h4{overflow-wrap:break-word}
 .board-author{font-size:.74rem;color:var(--ink-soft);margin-top:.3rem;text-align:right}
 .board-empty{font-size:.82rem;color:var(--ink-soft);padding:.75rem 0 .3rem;font-style:italic}
+
+/* ---- the message board feed (Card P-02) ---- */
+.feed{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  border-top:5px solid var(--teal);padding:1rem 1.1rem;margin:1.5rem 0;
+}
+.feed .board-h{color:var(--teal-dark)}
+.feed-standing{font-size:.78rem;color:var(--ink-soft);margin:.6rem 0 .4rem;font-style:italic}
+.feed-composer textarea{
+  width:100%;box-sizing:border-box;resize:vertical;font:inherit;font-size:.88rem;
+  padding:.6rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--white);
+}
+.feed-composer-row{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;margin:.45rem 0 .2rem}
+.feed-err{font-size:.78rem;color:var(--coral-text);margin:0;flex:1}
+.feed-post{padding:.85rem 0;border-bottom:1px solid var(--line)}
+.feed-post:last-child{border-bottom:0;padding-bottom:.2rem}
+.feed-meta{font-size:.78rem;color:var(--ink-soft)}
+.feed-meta strong{color:var(--ink)}
+.feed-body{font-size:.86rem;margin-top:.25rem;white-space:pre-line;overflow-wrap:break-word}
+.feed-replies{margin:.5rem 0 0 1rem;border-left:2px solid var(--line);padding-left:.8rem}
+.feed-reply{padding:.4rem 0}
+.feed-replybox{display:flex;gap:.5rem;margin-top:.55rem}
+.feed-replybox .feed-replyinput{
+  flex:1;min-width:0;font:inherit;font-size:.82rem;padding:.4rem .6rem;
+  border:1px solid var(--line);border-radius:8px;background:var(--white);
+}
+.feed-remove{
+  border:0;background:none;color:var(--ink-soft);font-size:.72rem;cursor:pointer;
+  text-decoration:underline;padding:0 .1rem;margin-left:.35rem;
+}
+.feed-remove:hover{color:var(--coral-text)}
 .board-cell{max-width:26ch;overflow-wrap:break-word}
 
 /* ---------- module view ---------- */
@@ -498,6 +554,9 @@ details.learn-card .learn-body{padding:0 1.1rem 1.1rem;color:var(--ink);font-siz
 .coach-avatar .icon{width:22px;height:22px}
 .coach-name{font-weight:800;font-size:1rem;color:var(--ink)}
 .coach-status{font-size:.82rem;color:var(--ink-soft)}
+/* Card C-07: the red state says so in the status line and the avatar, not with a stamp */
+.feedback.fb-revise .coach-status{color:var(--coral-text);font-weight:700}
+.feedback.fb-revise .coach-avatar{background:var(--coral)}
 .feedback .fb-chips{list-style:none;margin:.35rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem}
 .feedback .fb-chips li{
   margin:0;background:var(--white);border:1px solid var(--green-line);border-radius:999px;
@@ -921,6 +980,34 @@ details.model-answer[open] summary{margin-bottom:.5rem}
   </div>
 </div>
 
+<!-- ============ PORTAL CHOOSER (Card P-01) ============
+     One account, two portals. Shown after every sign-in; "Switch portal" in
+     either top bar brings it back. Static copy here is scanned by the Law 1
+     and Law 3 gates through a real page load (it is not in the harness's
+     stub markup). -->
+<div id="chooser" class="auth-screen chooser-screen hidden">
+  <div class="chooser-card">
+    <div class="chooser-brand">
+      <div class="auth-logo" id="chooserLogo">◈</div>
+      <h1 id="chooserTitle">Where to today?</h1>
+      <p class="chooser-tag">One sign-in, two portals. You can switch between them at any time from the top bar.</p>
+    </div>
+    <div class="doors">
+      <button class="door door-academy" onclick="App.enterAcademy()">
+        <span class="door-icon" data-icon="compass"></span>
+        <strong>NDIS Practice Academy</strong>
+        <span class="door-sub">Modules, case studies, your AI coach and your certificates.</span>
+      </button>
+      <button class="door door-hub" onclick="Hub.open()">
+        <span class="door-icon" data-icon="board"></span>
+        <strong id="chooserHubName">Provider Hub</strong>
+        <span class="door-sub">Your organisation's events &amp; team meetings, important information and policies &amp; procedures.</span>
+      </button>
+    </div>
+    <p class="admin-entry"><a onclick="App.logout()">Sign out</a></p>
+  </div>
+</div>
+
 <!-- ============ ADMINISTRATOR OVERLAY ============ -->
 <div id="adminPanel" class="admin-panel hidden"></div>
 
@@ -928,9 +1015,10 @@ details.model-answer[open] summary{margin-bottom:.5rem}
 <div id="portal" class="portal hidden">
 
   <header class="topbar">
-    <div class="topbar-left" onclick="App.goHome()">
-      <span class="topbar-logo">◈</span>
-      <span class="topbar-title">NDIS Practice Academy</span>
+    <div class="topbar-left">
+      <span class="topbar-logo" onclick="App.goHome()">◈</span>
+      <span class="topbar-title" onclick="App.goHome()">NDIS Practice Academy</span>
+      <button class="switch-btn" onclick="App.showChooser()" title="Switch to the Provider Hub">Switch portal</button>
     </div>
     <nav class="topbar-nav">
       <button class="nav-btn" id="navDash" onclick="App.goHome()">Dashboard</button>
@@ -953,6 +1041,34 @@ details.model-answer[open] summary{margin-bottom:.5rem}
   </footer>
 </div>
 
+<!-- ============ PROVIDER HUB (Card P-01) ============
+     The second portal on the same account: the organisation's noticeboard
+     (events & team meetings, important information) and its policies &
+     procedures. Rendered by hub.js into #hubView. -->
+<div id="hub" class="portal hub hidden">
+  <header class="topbar hub-topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo hub-logo" onclick="Hub.home()">◈</span>
+      <span class="topbar-title hub-title" onclick="Hub.home()">Provider Hub</span>
+      <button class="switch-btn" onclick="App.showChooser()" title="Switch to the Practice Academy">Switch portal</button>
+    </div>
+    <nav class="topbar-nav">
+      <button class="nav-btn active" id="hubNavHome" onclick="Hub.home()">Hub home</button>
+    </nav>
+    <div class="topbar-user">
+      <span id="hubUserChip" class="user-chip"></span>
+      <button class="nav-btn subtle" onclick="App.logout()">Sign out</button>
+    </div>
+  </header>
+
+  <main id="hubView" class="main-view hub-view"><!-- hub views render here --></main>
+
+  <footer class="footer">
+    <p>Provider Hub — your organisation's noticeboard and procedures, kept beside the NDIS Practice Academy. Internal to your organisation; never post anything about a participant or another worker here.</p>
+    <p class="footer-ver"><span class="ver-chip"></span></p>
+  </footer>
+</div>
+
 <!-- ============ SETTINGS MODAL ============ -->
 <div id="settingsModal" class="modal-backdrop hidden" onclick="if(event.target===this)App.closeSettings()">
   <div class="modal">
@@ -970,12 +1086,6 @@ details.model-answer[open] summary{margin-bottom:.5rem}
     </label>
     <label id="apiKeyRow" class="hidden">Anthropic API key
       <input type="password" id="apiKeyInput" placeholder="sk-ant-...">
-    </label>
-
-    <h3 class="modal-section"><span data-icon="board"></span>Dashboard</h3>
-    <label class="radio-row">
-      <input type="checkbox" id="showBoardChk" checked>
-      <div><strong>Show the company noticeboard on my dashboard</strong><br><span class="hint">Events &amp; team meetings and important information from your organisation, beside your modules. Untick to hide it.</span></div>
     </label>
 
     <h3 class="modal-section"><span data-icon="mail"></span>Real certificate emails (optional)</h3>
@@ -1025,7 +1135,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.3.9";
+const ACADEMY_VERSION = "0.5.1";
 
 </script>
 <script>
@@ -2150,10 +2260,10 @@ MODULES.push(
       task:"Write your game plan for today's shift, the teammate's stance, and Reuben's support going forward.",
       concepts:[
         {name:"Both conditions deserve support", terms:["dual diagnosis","co-occur","both","addiction is a health","not a moral","alcohol use disorder","substance use is common","part of the picture","support doesn't stop"], hint:"Schizophrenia plus heavy drinking is common, not exceptional. What's your basic stance on whether someone 'earns' support by sobriety first?"},
-        {name:"No lectures, no judgement", terms:["without judg","non-judg","won't lecture","no shame","respect","dignity","not moralis","meet him where"], hint:"Reuben has certainly heard every sobriety lecture ever written. What does respect sound like today — and what does one more lecture achieve?"},
-        {name:"Assess today's shift practically", terms:["assess","safe to","adjust the plan","adapt the shift","how intoxicated","risk today","modify","shorter walk","stay home instead","judge the situation"], hint:"He's slurring at 10 am and wants to walk to the shops. Talk through the practical call: what can today's shift safely include, what gets adapted, and what would make you change the plan?"},
+        {name:"No lectures, no judgement", terms:["without judg","non-judg","won't lecture","no lecture","without a lecture","no shame","respect","dignity","not moralis","meet him where"], hint:"Reuben has certainly heard every sobriety lecture ever written. What does respect sound like today — and what does one more lecture achieve?"},
+        {name:"Assess today's shift practically", terms:["assess","safe to","safety read","adjust the plan","adapt the shift","adapt, don't abandon","how intoxicated","risk today","modify","shorter walk","shorter loop","stay home instead","judge the situation"], hint:"He's slurring at 10 am and wants to walk to the shops. Talk through the practical call: what can today's shift safely include, what gets adapted, and what would make you change the plan?"},
         {name:"Decline the beer, stay warm", terms:["decline the beer","no to the drink","won't drink","can't drink on shift","thanks but"], hint:"Small moment, real boundary: the offered beer. What's your answer, and in what tone?"},
-        {name:"Know your unsafe-to-continue line", terms:["if it becomes unsafe","unsafe to continue","leave and report","end the shift","withdraw","aggress","risk to me or him","safety line"], hint:"Reuben's never aggressive — but where is your line? What circumstances would end a shift, and what happens (reporting, follow-up) if you ever have to draw it?"},
+        {name:"Know your unsafe-to-continue line", terms:["if it becomes unsafe","genuinely unsafe","unsafe to continue","leave and report","report and return","end the shift"," end it","withdraw","aggress","risk to me or him","safety line","know your line","my line"], hint:"Reuben's never aggressive — but where is your line? What circumstances would end a shift, and what happens (reporting, follow-up) if you ever have to draw it?"},
         {name:"Door open to AOD support — his timing", terms:["aod","drug and alcohol","if he ever wants","when he's ready","harm reduction","reduce","support to cut down","referral if he wishes","his choice whether"], hint:"There are services for the drinking — on whose initiative and timeline does that referral run, and how do you keep the door visibly open without pushing him through it?"},
         {name:"Challenge the teammate's stance, fix the plan", terms:["raise with the team","supervisor","teammate","refusing shifts","the plan says nothing","update the plan","team approach","consistent approach","alcohol should be addressed in the plan"], hint:"One worker boycotting, a plan that ignores the biggest thing in the room — what needs to change at team level so Reuben's support doesn't depend on who's rostered?"}
       ],
@@ -2231,12 +2341,12 @@ MODULES.push(
       scenario:"Tahlia, 15, has cerebral palsy and uses a power wheelchair. Her parents have arranged her support hours around extra tutoring — “her marks are her future.” Driving back from tutoring, Tahlia says: “Can I tell you something? I hate Thursdays. I looked up wheelchair basketball — there's a team twenty minutes away. Mum and Dad will say it's a waste of support hours and I'll get hurt. Don't say anything, but I wish someone would ask me what I want.” Her plan review is next month.",
       task:"Write your game plan. What do you do with what Tahlia told you, her parents' position, and the plan review?",
       concepts:[
-        {name:"Her voice is the point", terms:["her voice","what tahlia wants","her goals","participant is tahlia","her plan","ask her what she wants","she's the participant","her own goals"], hint:"Whose plan is being reviewed next month — and whose stated wish has never yet made it into the room?"},
-        {name:"No secret missions — but no betrayal either", terms:["won't go behind her parents","with her permission","ask tahlia how she wants","support her to raise it","her consent before","won't just report her words","how to share it","together"], hint:"'Don't say anything' — yet this clearly needs saying. What's the move that neither buries her wish nor hands it to her parents behind her back?"},
+        {name:"Her voice is the point", terms:["her voice","what tahlia wants","her goals","goals of her own","stated a goal","participant is tahlia","her plan","ask her what she wants","she's the participant","her own goals","a girl who's heard","she is heard"], hint:"Whose plan is being reviewed next month — and whose stated wish has never yet made it into the room?"},
+        {name:"No secret missions — but no betrayal either", terms:["won't go behind her parents","with her permission","ask tahlia how she","how she'd like it handled","support her to raise it","raise it herself","her consent before","won't just report her words","promise secrecy","how to share it","together"], hint:"'Don't say anything' — yet this clearly needs saying. What's the move that neither buries her wish nor hands it to her parents behind her back?"},
         {name:"Coach her to speak, offer to back her", terms:["help her prepare","practise the conversation","rehearse","support her to tell","be there when she","back her up","advocate with her","build her confidence"], hint:"Fifteen-year-olds can learn to argue their own case. What could you do this month so that Tahlia — not you — is the one her parents hear it from?"},
         {name:"The plan review is the vehicle", terms:["plan review","next month","review meeting","put it on the agenda","goal in the plan","attend the review","coordinator","raise it at the review"], hint:"There's a formal moment coming where goals get rewritten. How does wheelchair basketball get onto that agenda, and who should be in the room?"},
         {name:"Teenagers get dignity of risk too", terms:["dignity of risk","allowed to get hurt","normal for teenagers","adolescen","growing autonomy","risk is part of","sport carries risk","reasonable risk"], hint:"'She'll get hurt' — perhaps, like every teenager who plays sport. What principle covers a 15-year-old's right to a bruising, brilliant Thursday night?"},
-        {name:"Honour the parents without obeying the fear", terms:["parents' concern","acknowledge their","their fear","tutoring matters to them","respect her parents","not the enemy","balance","bring the parents"], hint:"Her parents aren't wrong to care about marks and safety. How does your approach keep them respected partners while still moving Tahlia's wish forward?"}
+        {name:"Honour the parents without obeying the fear", terms:["parents' concern","acknowledge their","their fear","tutoring matters to them","respect her parents","parents respected","keep her parents","not the enemy","balance","coexist","bring the parents"], hint:"Her parents aren't wrong to care about marks and safety. How does your approach keep them respected partners while still moving Tahlia's wish forward?"}
       ],
       redFlags:[
         {terms:["take her to basketball secretly","without her parents knowing, drive her","just swap thursdays quietly","don't tell the parents and"], warn:"Secretly rerouting a 15-year-old's support hours puts you between a child and her parents in the worst way — discovered, it destroys every relationship the plan depends on, including hers with you."},
@@ -2774,12 +2884,12 @@ MODULES.push(
       task:"Write your game plan. What is your reassurance actually doing, and what do you do instead — this morning, and longer term?",
       concepts:[
         {name:"Reassurance is part of the compulsion", terms:["reassurance","compulsion","ritual","feeding","reinforc","part of the ocd","makes it worse","relief doesn't last","not information","the cycle","perpetuat","accommodat"], hint:"Nine confirmations haven't settled it. What does that tell you about what the answer is actually doing?"},
-        {name:"Don't stop dead in the middle of it", terms:["not refuse now","not in the moment","not abruptly","not today","not while he's distressed","not spring it","not withdraw suddenly","plan it","not ambush"], hint:"You've just realised the answers are unhelpful. Why isn't the driveway, mid-distress, the place to change your approach?"},
-        {name:"Compassion for the distress", terms:["distress","crying","frustrat","horrible","not his fault","kind","compassion","validate","hard","he knows","exhausting","respect"], hint:"Tom knows the checking doesn't make sense and does it anyway. How does that shape your tone with him?"},
+        {name:"Don't stop dead in the middle of it", terms:["not refuse now","not in the moment","not the place","not abruptly","not today","not while he's distressed","not spring it","not withdraw suddenly","plan it","not ambush","when he's calm","change tack"], hint:"You've just realised the answers are unhelpful. Why isn't the driveway, mid-distress, the place to change your approach?"},
+        {name:"Compassion for the distress", terms:["distress","crying","in tears","frustrat","horrible","not his fault","blame off him","kind","warm","compassion","validate","hard","he knows","exhausting","respect"], hint:"Tom knows the checking doesn't make sense and does it anyway. How does that shape your tone with him?"},
         {name:"Agree a script in advance", terms:["agree in advance","script","phrase","agreed response","plan what i say","decide together","ahead of time","same words","consistent","pre-agreed","when he's calm"], hint:"What would let you stop giving reassurance without it feeling like a refusal in the moment?"},
         {name:"Involve his clinician", terms:["psychologist","clinician","therapist","treating team","gp","erp","exposure and response prevention","their plan","consent","coordinate","mental health"], hint:"Response prevention has a protocol and an owner. Who is it, and what's your part?"},
-        {name:"Never mock, time or block", terms:["not mock","not laugh","not time him","don't count","not block","not stop him physically","not shame","not rush him","without judgement","not punish"], hint:"What are the things you must never do around a compulsion, including one that would be a restrictive practice?"},
-        {name:"Consistency across the team", terms:["team","all workers","everyone","consistent","same approach","handover","other staff","communicate the plan","documented"], hint:"You're not his only worker. What happens if you change your approach and nobody else does?"},
+        {name:"Never mock, time or block", terms:["not mock","don't mock","not laugh","not time him","don't time him","don't count","not block","not stop him physically","not physically stop","don't physically stop","not shame","not rush him","without judgement","not punish"], hint:"What are the things you must never do around a compulsion, including one that would be a restrictive practice?"},
+        {name:"Consistency across the team", terms:["team","all workers","every worker","roster","everyone","consistent","same approach","handover","other staff","the others","communicate the plan","documented"], hint:"You're not his only worker. What happens if you change your approach and nobody else does?"},
         {name:"Document the pattern", terms:["document","record","note","pattern","how often","track","report","evidence","frequency","worse when"], hint:"What's worth recording here, and who benefits from it?"}
       ],
       redFlags:[
@@ -3734,6 +3844,26 @@ const CertRules = {
     return !!CertRules.certMeta(key, modules);
   },
 
+  /* Card C-07 (v0.4.0) — the case completion threshold. A case counts
+     toward its certificate once the worker's plan covers at least this
+     share of the case's rubric concepts. It lives here, not in the engine,
+     because "when is a case complete" is certificate logic; the engine
+     applies it, app.js records it as `passed`, and this file is what the
+     server would consult if it ever derived completion itself (today
+     `passed` rides PUT /api/me client-asserted, like `best`). Completion
+     never goes backwards: once `passed`, a case stays complete. */
+  COMPLETE_RATIO: 0.6,
+  caseComplete(hits, total){
+    return total > 0 && hits / total >= CertRules.COMPLETE_RATIO;
+  },
+  /* The smallest number of concepts that completes a case of `total` —
+     computed by search, not by rounding 0.6 * total, so 6 needs 4 and
+     5 needs 3 without floating-point surprises. */
+  caseNeeds(total){
+    for (let k = 0; k <= total; k++) if (CertRules.caseComplete(k, total)) return k;
+    return total;
+  },
+
   /* Issue any newly-earned certificates directly onto the account.
      Idempotent: existing certificates are never re-issued or altered.
      Returns metadata for each NEW certificate so the caller can
@@ -3936,15 +4066,17 @@ if (typeof MODULES !== "undefined") PolicyLib.stampCore(MODULES);
      2. Claude API (optional) — live LLM feedback, falls back to
         the built-in coach on any error.
 
-   Coaching philosophy: there are no wrong answers and no
-   pass/fail judgement. Every submission is reviewed as a
-   professional conversation — the coach names what's working,
-   then offers ways to make the plan even stronger. Safety
-   concerns are raised as caring guidance, never as a failure.
-   Submitting an answer always completes the case.
+   Coaching philosophy (Law 1 as amended, Card C-07): coached until
+   you get there, never marked wrong. Every submission is reviewed as
+   a professional conversation — the coach ticks what the plan covers,
+   then coaches the rest. A case COMPLETES when the plan covers
+   CertRules.COMPLETE_RATIO of its rubric; below that the box is red,
+   every gap is listed and the worker resubmits. Safety concerns are
+   raised as caring guidance, never as a failure. No fail/wrong
+   verdicts, no percentages, no attempt limits.
 
-   Both modes return: { tier:"complete", score, cls, heading, html,
-   attempt, assessed }. `score` is a private rubric-coverage number
+   Both modes return: { tier:"complete"|"notyet", score, hits, n, need,
+   cls, heading, html, attempt, assessed }. `score` is a private rubric-coverage number
    kept for the admin dashboard's stats — never shown to students as
    a grade. `assessed` (Card C-02) is the per-criterion record the
    caller persists: {at, v, engine, text, criteria:[{n, hit}]} —
@@ -4013,6 +4145,28 @@ const Coach = (() => {
   const H_WORKS = `<h4>✅ What works</h4>`;
   const H_SAFETY = `<h4>🚩 A safety note — worth a rethink</h4>`;
   const H_GROWTH = `<h4>💡 To think about</h4>`;
+  const H_TOADD = `<h4>💡 To add before you resubmit</h4>`;
+
+  /* Card C-07 — the completion threshold. A case COMPLETES (counts toward
+     its certificate) when the plan covers enough of the rubric; below that
+     the box is red, the covered concepts keep their ticks, EVERY missing
+     concept is coached, and the worker resubmits a fuller plan. The rule
+     itself lives in cert-rules.js (completion is certificate logic, shared
+     with the server); the guard keeps this file loadable on its own. */
+  const rule = () => (typeof CertRules !== "undefined" && CertRules.caseComplete)
+    ? CertRules
+    : { caseComplete: (h, n) => n > 0 && h / n >= 0.6,
+        caseNeeds: n => { for (let k = 0; k <= n; k++) if (k / n >= 0.6) return k; return n; } };
+
+  /* The status line under the coach's name — one sentence, the same rule
+     on both coach paths. Red says how many are covered and that the rest
+     are listed below; green says complete. No "fail", no percentage. */
+  function statusLine(hits, n, complete, flagged){
+    if (!complete) return `Not there yet — ${hits} of ${n} covered. Add the rest below and resubmit.`;
+    return flagged ? `Case complete — ${hits} of ${n} covered, plus a safety note to think through`
+                   : `Case complete — ${hits} of ${n} covered`;
+  }
+  const chips = list => `<ul class="fb-chips">` + list.map(c => `<li>${esc(c.name)}</li>`).join("") + `</ul>`;
 
   /* --- built-in coach: turn analysis into human coaching ---
      Card C-06 — the coach speaks briefly. Strengths are concept names as
@@ -4024,14 +4178,14 @@ const Coach = (() => {
     const words = wordCount(answer);
     const a = analyse(answer, caseData);
     const pct = Math.round(a.ratio * 100);
+    const n = caseData.concepts.length, hits = a.covered.length;
+    const complete = rule().caseComplete(hits, n);
 
     let html = "";
 
-    /* 1. what's working — always leads */
+    /* 1. what's working — always leads; the ticks stay whatever the verdict */
     if (a.covered.length){
-      html += H_WORKS + `<ul class="fb-chips">`;
-      for (const c of a.covered) html += `<li>${esc(c.name)}</li>`;
-      html += `</ul>`;
+      html += H_WORKS + chips(a.covered);
     } else {
       html += H_WORKS + `<ul><li>You've committed a first plan to the page — that's how practice grows.</li></ul>`;
     }
@@ -4043,35 +4197,45 @@ const Coach = (() => {
       html += `</ul>`;
     }
 
-    /* 3. what could make it even better — three questions, at most */
+    /* 3. the gaps. Not there yet: EVERY missing concept, because the worker
+       needs the whole list to write the fuller plan. Complete: the top three,
+       as "what could make it stronger". */
     if (a.missing.length){
-      html += H_GROWTH + `<ul>`;
-      for (const c of a.missing.slice(0, 3)) html += `<li>${esc(c.hint)}</li>`;
+      const list = complete ? a.missing.slice(0, 3) : a.missing;
+      html += (complete ? H_GROWTH : H_TOADD) + `<ul>`;
+      for (const c of list) html += `<li>${esc(c.hint)}</li>`;
       html += `</ul>`;
     }
 
-    /* 4. gentle depth suggestion — never a requirement */
-    if (words < MIN_WORDS){
+    /* 4. gentle depth suggestion — only once the case is complete; a red
+       box already says exactly what to add. */
+    if (complete && words < MIN_WORDS){
       html += `<p class="fb-depth">A fuller plan gets richer coaching — what you'd do first, who you'd involve, what you'd record, and why.</p>`;
     }
 
-    const heading = a.flags.length
-      ? "Case complete — one safety note to think through, no pass or fail"
-      : "Case complete — no pass or fail, just coaching";
-    const cls = a.flags.length ? "fb-develop" : "fb-pass";
+    const heading = statusLine(hits, n, complete, a.flags.length);
+    const cls = !complete ? "fb-revise" : a.flags.length ? "fb-develop" : "fb-pass";
     html = intro(attempt) + html;
 
-    return { tier: "complete", score: pct, cls, heading, html, attempt };
+    return { tier: complete ? "complete" : "notyet", score: pct, hits, n, need: rule().caseNeeds(n),
+             cls, heading, html, attempt };
   }
 
   /* --- optional Claude API mode --- */
   async function claudeFeedback(answer, caseData, apiKey, attempt){
+    /* Card C-07: the offline rubric decides the verdict on this path too,
+       and Claude is TOLD which concepts the rubric did not find, so its
+       coaching aims at the gaps a red box will list. */
+    const a = analyse(answer, caseData);
+    const n = caseData.concepts.length, hits = a.covered.length;
+    const complete = rule().caseComplete(hits, n);
     const rubricList = caseData.concepts.map(c => `- ${c.name}`).join("\n");
+    const gapList = a.missing.map(c => `- ${c.name}`).join("\n") || "- (none — every practice area is evident)";
     const flagList = (caseData.redFlags||[]).map(f => `- ${f.warn}`).join("\n");
-    const sys = `You are a warm, rigorous practice coach for Australian NDIS support workers. A student has written a "game plan" answer to a case study. There is NO pass/fail and NO wrong answer: never judge, grade, or mark the student as incorrect, and never tell them their plan fails or falls short. Your feedback has exactly two jobs: (1) explain specifically why what they wrote works — what's professionally sound in their plan; (2) offer what could make it even stronger, as guiding questions that open up the missing practice areas without simply giving away the answers. If the plan contains something unsafe or unethical, raise it as caring safety guidance a supervisor would offer over a cuppa — a rethink to consider, never a failure. Australian NDIS context (NDIS Code of Conduct, NDIS Quality and Safeguards Commission, restrictive practice rules) applies.
+    const sys = `You are a warm, rigorous practice coach for Australian NDIS support workers. A student has written a "game plan" answer to a case study. Never grade, score, or call the student wrong, and never use the words "fail" or "wrong". Your feedback has exactly two jobs: (1) explain specifically why what they wrote works — what's professionally sound in their plan; (2) coach the practice areas listed as NOT YET EVIDENT, as guiding questions that open each one up without simply giving away the answers — one question per missing area, in the order given. If the plan contains something unsafe or unethical, raise it as caring safety guidance a supervisor would offer over a cuppa — a rethink to consider, never a failure. Australian NDIS context (NDIS Code of Conduct, NDIS Quality and Safeguards Commission, restrictive practice rules) applies.
 Respond ONLY with JSON: {"strengths":["..."],"coaching":["..."],"warnings":["..."]}
-strengths = why their plan works. coaching = guiding questions to make it stronger. warnings = only for unsafe/unethical elements, phrased as supportive guidance (empty array if none).`;
-    const user = `CASE: ${caseData.title}\nSCENARIO: ${caseData.scenario}\nTASK: ${caseData.task}\n\nKEY PRACTICE AREAS (rubric):\n${rubricList}\n\nSAFETY CONSIDERATIONS TO COACH ON IF PRESENT:\n${flagList}\n\nSTUDENT ANSWER:\n${answer}`;
+strengths = why their plan works. coaching = one guiding question per practice area not yet evident. warnings = only for unsafe/unethical elements, phrased as supportive guidance (empty array if none).`;
+    const user = `CASE: ${caseData.title}\nSCENARIO: ${caseData.scenario}\nTASK: ${caseData.task}\n\nKEY PRACTICE AREAS (rubric):\n${rubricList}\n\nPRACTICE AREAS NOT YET EVIDENT IN THE ANSWER (coach these):\n${gapList}\n\nSAFETY CONSIDERATIONS TO COACH ON IF PRESENT:\n${flagList}\n\nSTUDENT ANSWER:\n${answer}`;
 
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method:"POST",
@@ -4104,26 +4268,36 @@ strengths = why their plan works. coaching = guiding questions to make it strong
     const textBlock = (data.content||[]).find(b => b.type === "text");
     const out = JSON.parse(textBlock.text);
 
+    /* Card C-07: the verdict is the rubric's on this path too — Claude
+       writes the prose, the offline rubric decides complete / not yet, so
+       two workers with the same words get the same answer whichever coach
+       they run. Rubric ticks lead; Claude's strengths follow them. */
     let html = intro(attempt);
+    html += H_WORKS + (a.covered.length ? chips(a.covered) : "");
     if (out.strengths.length){
-      html += H_WORKS + `<ul>` +
-        out.strengths.map(s=>`<li>${esc(s)}</li>`).join("") + `</ul>`;
+      html += `<ul>` + out.strengths.map(s=>`<li>${esc(s)}</li>`).join("") + `</ul>`;
+    } else if (!a.covered.length){
+      html += `<ul><li>You've committed a first plan to the page — that's how practice grows.</li></ul>`;
     }
     if (out.warnings && out.warnings.length){
       html += H_SAFETY + `<ul>` +
         out.warnings.map(w=>`<li class="fb-flag">${esc(w)}</li>`).join("") + `</ul>`;
     }
-    if (out.coaching.length){
-      html += H_GROWTH + `<ul>` +
+    /* Red: the rubric's own hint for EVERY missing concept comes first — the
+       list a worker needs is guaranteed whatever Claude wrote — then Claude's
+       questions. Green: Claude's questions alone, as improvements. */
+    if (!complete){
+      html += H_TOADD + `<ul>` + a.missing.map(c=>`<li>${esc(c.hint)}</li>`).join("") +
         out.coaching.map(c=>`<li>${esc(c)}</li>`).join("") + `</ul>`;
+    } else if (out.coaching.length){
+      html += H_GROWTH + `<ul>` + out.coaching.map(c=>`<li>${esc(c)}</li>`).join("") + `</ul>`;
     }
     const hasWarn = out.warnings && out.warnings.length;
     // score: keep the offline rubric's coverage number for admin stats only
-    const score = Math.round(analyse(answer, caseData).ratio * 100);
-    return { tier: "complete", score,
-             cls: hasWarn ? "fb-develop" : "fb-pass",
-             heading: (hasWarn ? "Case complete — one safety note to think through, no pass or fail"
-                              : "Case complete — no pass or fail, just coaching") + " · Claude AI",
+    const score = Math.round(a.ratio * 100);
+    return { tier: complete ? "complete" : "notyet", score, hits, n, need: rule().caseNeeds(n),
+             cls: !complete ? "fb-revise" : hasWarn ? "fb-develop" : "fb-pass",
+             heading: statusLine(hits, n, complete, hasWarn) + " · Claude AI",
              html, attempt };
   }
 
@@ -4197,6 +4371,7 @@ const Store = (() => {
   const LS_CREDS    = "ndisAcademy.creds.";     // + username, per-device credentials
   const LS_BRANDING = "ndisAcademy.branding";   // Card B1, local mode only
   const LS_BOARD    = "ndisAcademy.board";      // Card S11, local mode only
+  const LS_FEED     = "ndisAcademy.feed";       // Card P-02, local mode only
   const LS_POLICIES = "ndisAcademy.policies";   // Card C-01, local mode only — the library (all scopes)
   const LS_TENANT   = "ndisAcademy.tenant";     // Card C-01, local mode only — this device's tenant id
   const SS_ADMIN_TOKEN = "ndisAcademy.adminToken";
@@ -4226,7 +4401,7 @@ const Store = (() => {
          — there is no token before sign-in — so app.js loads it on entering
          the portal, and admin.js when its tab opens. Card C-01: the policy
          library follows the same timing for the same reason. */
-      if (mode !== "remote"){ await loadBoard(); await loadPolicies(); }
+      if (mode !== "remote"){ await loadBoard(); await loadPolicies(); await loadFeed(); }
     })();
     return initPromise;
   }
@@ -4371,6 +4546,150 @@ const Store = (() => {
     board = { posts: clean.posts, updated: new Date().toISOString() };
     localStorage.setItem(LS_BOARD, JSON.stringify(board));
     return board;
+  }
+
+  /* ================= message board feed (Card P-02) =================
+     One open worker feed with replies, rendered on the Provider Hub. In
+     remote mode the server owns it (the academy.feed.json sidecar) and
+     stamps every identity itself; this seam's job is only to carry the
+     body text and to mirror the cleaning rule over local mode's
+     hand-editable localStorage copy. Newest first in storage, so the
+     prune ("the 301st post removes the oldest") is a truncate. */
+  const FEED_MAX_POSTS = 300;
+  const FEED_MAX_REPLIES = 50;
+  const FEED_LIMITS = { post: 1000, reply: 500 };
+  let feed = { posts: [], updated: "" };
+
+  function cleanFeedEntry(p, bodyCap){
+    if (!p || typeof p !== "object") return null;
+    const body = typeof p.body === "string" ? p.body.slice(0, bodyCap).trim() : "";
+    if (!body) return null;
+    return {
+      id:   typeof p.id   === "string" ? p.id.slice(0, 40) : "",
+      user: typeof p.user === "string" ? p.user.slice(0, 30) : "",
+      name: typeof p.name === "string" ? p.name.slice(0, 80).trim() : "",
+      body,
+      at:   typeof p.at   === "string" ? p.at.slice(0, 40) : ""
+    };
+  }
+  /* The server runs its own copy of this rule; this one guards local mode's
+     localStorage copy and whatever a remote response has been through. */
+  function cleanFeed(f){
+    const src = f && typeof f === "object" && !Array.isArray(f) ? f : {};
+    const posts = [];
+    if (Array.isArray(src.posts)) for (const p of src.posts){
+      if (posts.length >= FEED_MAX_POSTS) break;
+      const e = cleanFeedEntry(p, FEED_LIMITS.post);
+      if (!e) continue;
+      const replies = [];
+      if (p && Array.isArray(p.replies)) for (const r of p.replies){
+        if (replies.length >= FEED_MAX_REPLIES) break;
+        const re = cleanFeedEntry(r, FEED_LIMITS.reply);
+        if (re) replies.push(re);
+      }
+      e.replies = replies;
+      posts.push(e);
+    }
+    return { posts, updated: typeof src.updated === "string" ? src.updated.slice(0, 40) : "" };
+  }
+
+  const feedId = () => {
+    const a = new Uint8Array(9);
+    (crypto.getRandomValues ? crypto.getRandomValues(a) : a);
+    return Array.from(a, b => b.toString(16).padStart(2, "0")).join("");
+  };
+  const localFeedAuthor = () => {
+    const uname = localStorage.getItem(LS_SESSION) || "";
+    const all = readAll();
+    const acct = uname && all[uname];
+    return acct ? { user: uname, name: acct.name || uname } : null;
+  };
+  const writeLocalFeed = () => { localStorage.setItem(LS_FEED, JSON.stringify(feed)); };
+
+  async function loadFeed(){
+    try{
+      if (mode === "remote"){
+        const r = await api("/feed", { token: studentToken() || adminToken() });
+        feed = r.error ? { posts: [], updated: "" } : cleanFeed(r);
+      } else {
+        feed = cleanFeed(JSON.parse(localStorage.getItem(LS_FEED) || "{}"));
+      }
+    } catch(e){ feed = { posts: [], updated: "" }; }
+    return feed;
+  }
+
+  async function addFeedPost(body){
+    const text = typeof body === "string" ? body.trim() : "";
+    if (!text) return { error: "write something first" };
+    /* Courtesy cap, mirrored from the server (the gate): refused with the
+       limit named, never truncated. */
+    if (text.length > FEED_LIMITS.post)
+      return { error: "a post holds up to " + FEED_LIMITS.post + " characters" };
+    if (mode === "remote"){
+      const r = await api("/feed", { method: "POST", token: studentToken(), body: { body: text } });
+      if (r.error) return r;
+      await loadFeed();
+      return r;
+    }
+    const who = localFeedAuthor();
+    if (!who) return { error: "sign in first" };
+    feed.posts.unshift({ id: feedId(), user: who.user, name: who.name, body: text,
+                         at: new Date().toISOString(), replies: [] });
+    if (feed.posts.length > FEED_MAX_POSTS) feed.posts.length = FEED_MAX_POSTS;
+    feed.updated = new Date().toISOString();
+    writeLocalFeed();
+    return { post: feed.posts[0] };
+  }
+
+  async function addFeedReply(postId, body){
+    const text = typeof body === "string" ? body.trim() : "";
+    if (!text) return { error: "write something first" };
+    if (text.length > FEED_LIMITS.reply)
+      return { error: "a reply holds up to " + FEED_LIMITS.reply + " characters" };
+    if (mode === "remote"){
+      const r = await api("/feed/" + encodeURIComponent(String(postId)) + "/replies",
+                          { method: "POST", token: studentToken(), body: { body: text } });
+      if (r.error) return r;
+      await loadFeed();
+      return r;
+    }
+    const who = localFeedAuthor();
+    if (!who) return { error: "sign in first" };
+    const post = feed.posts.find(p => p.id === String(postId));
+    if (!post) return { error: "notfound" };
+    if (post.replies.length >= FEED_MAX_REPLIES)
+      return { error: "a post holds up to " + FEED_MAX_REPLIES + " replies" };
+    const reply = { id: feedId(), user: who.user, name: who.name, body: text, at: new Date().toISOString() };
+    post.replies.push(reply);
+    feed.updated = reply.at;
+    writeLocalFeed();
+    return { reply, postId: post.id };
+  }
+
+  async function removeFeedPost(postId, replyId){
+    if (mode === "remote"){
+      const p = "/feed/" + encodeURIComponent(String(postId)) +
+                (replyId ? "/replies/" + encodeURIComponent(String(replyId)) : "");
+      const r = await api(p, { method: "DELETE", token: studentToken() || adminToken() });
+      if (r.error) return r;
+      await loadFeed();
+      return r;
+    }
+    /* Local mode has no roles: the device is the boundary, and the only
+       moderation that means anything is tidying your own words. */
+    const who = localFeedAuthor();
+    if (!who) return { error: "sign in first" };
+    const idx = feed.posts.findIndex(p => p.id === String(postId));
+    if (idx < 0) return { error: "notfound" };
+    const post = feed.posts[idx];
+    const target = replyId ? post.replies.find(r => r.id === String(replyId)) : post;
+    if (!target) return { error: "notfound" };
+    if (target.user !== who.user) return { error: "forbidden" };
+    if (replyId) post.replies = post.replies.filter(r => r !== target);
+    else feed.posts.splice(idx, 1);
+    feed.updated = new Date().toISOString();
+    writeLocalFeed();
+    return { removed: target.id };
   }
 
   /* ================= policy library (Card C-01) =================
@@ -4656,6 +4975,13 @@ const Store = (() => {
     get board(){ return board; },
     get boardLimits(){ return { maxPosts: BOARD_MAX_POSTS, ...BOARD_LIMITS }; },
     loadBoard, setBoard,
+
+    /* Card P-02. Same synchronous-cache pattern: the hub renders from
+       `Store.feed`; loadFeed() fills it. Always a shape — a quiet board is
+       `{posts:[], updated:""}`, never null. */
+    get feed(){ return feed; },
+    get feedLimits(){ return { maxPosts: FEED_MAX_POSTS, maxReplies: FEED_MAX_REPLIES, ...FEED_LIMITS }; },
+    loadFeed, addFeedPost, addFeedReply, removeFeedPost,
 
     /* Card C-01. Same synchronous-cache pattern as branding and the board:
        goHome() renders from `Store.policies` (core + this org's own docs,
@@ -5514,6 +5840,8 @@ const Admin = (() => {
     await Store.init();
     $("authScreen").classList.add("hidden");
     $("portal").classList.add("hidden");
+    /* Card P-01: two more shells can be painted behind the overlay. */
+    for (const id of ["hub", "chooser"]){ const el = $(id); if (el) el.classList.add("hidden"); }
     $("adminPanel").classList.remove("hidden");
     if (remote()){
       const st = await Store.adminStatus();
@@ -6066,23 +6394,23 @@ const Admin = (() => {
   let pendingLogo = null;          // data URI chosen but not yet saved
 
   /* ================= company noticeboard (Card S11) =================
-     Two-sided board on the worker's dashboard: events & team meetings down
-     one side, important information down the other. Everything goes through
-     Store (Law 5); the server gates writes at manager-and-above and audits
-     the COUNT, never the text. Posts are plain text and every field renders
-     through esc() — here and on the dashboard. */
+     Two-sided board on the worker's Provider Hub (Card P-01 moved it there
+     from the dashboard): events & team meetings on one side, important
+     information on the other. Everything goes through Store (Law 5); the
+     server gates writes at manager-and-above and audits the COUNT, never
+     the text. Posts are plain text and every field renders through esc() —
+     here and on the hub. */
   function viewBoard(){
     loadBoardAdmin();
     const lim = Store.boardLimits;
     return `
       <h2>Company noticeboard</h2>
-      <p class="hint" style="max-width:74ch">Posts appear beside every worker's dashboard the
-        next time they open it — <strong>events &amp; team meetings</strong> down one side,
-        <strong>important information</strong> down the other. Plain text only, up to
-        ${lim.maxPosts} posts. The rails are always on the wall (an empty side shows an
-        invitation); a worker can hide them for themselves in Settings. Don't put
-        anything about a participant or a worker's progress here — it is visible to everyone
-        who signs in.</p>
+      <p class="hint" style="max-width:74ch">Posts appear on every worker's <strong>Provider
+        Hub</strong> the next time they open it — <strong>events &amp; team meetings</strong>
+        on one side, <strong>important information</strong> on the other. Plain text only, up
+        to ${lim.maxPosts} posts. Both sides are always on the wall (an empty side shows an
+        invitation). Don't put anything about a participant or a worker's progress here — it
+        is visible to everyone who signs in.</p>
       <form onsubmit="Admin.addBoardPost(event)" style="max-width:560px">
         <label>Where it goes
           <select id="bpKind">
@@ -6149,7 +6477,7 @@ const Admin = (() => {
     }
     err.classList.add("hidden");
     $("bpTitle").value = ""; $("bpWhen").value = ""; $("bpBody").value = "";
-    note("Posted — workers see it next time they open their dashboard.");
+    note("Posted — workers see it next time they open the Provider Hub.");
     loadBoardAdmin();
   }
 
@@ -6157,7 +6485,7 @@ const Admin = (() => {
     const posts = ((Store.board || {}).posts || []).filter((p, i) => i !== Number(idx));
     const r = await Store.setBoard(posts);
     if (r && r.error){ note("Couldn't remove the post: " + r.error); return; }
-    note(posts.length ? "Post removed." : "Post removed — the board is empty, so workers see their normal dashboard.");
+    note(posts.length ? "Post removed." : "Post removed — the board is empty, so workers see the hub's invitations.");
     loadBoardAdmin();
   }
 
@@ -6487,6 +6815,289 @@ const Admin = (() => {
 </script>
 <script>
 /* ============================================================
+   NDIS Practice Academy — the Provider Hub (Card P-01)
+   The second portal on the same account. It renders what the
+   organisation already manages in Admin — the company
+   noticeboard (events & team meetings, important information)
+   and the policy library — and, from Card P-02, the message
+   board. Nothing here touches storage: every read goes through
+   Store (Law 5), and the policy helpers are borrowed from App
+   so the two portals cannot drift on how a document renders.
+
+   Every string rendered here is org- or worker-supplied plain
+   text and goes through esc(); the hub carries no HTML path.
+   ============================================================ */
+
+const Hub = (() => {
+
+  const $ = id => document.getElementById(id);
+  /* Same escaper as app.js/admin.js: both quote styles and the backtick. */
+  const esc = s => String(s ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/`/g,"&#96;");
+
+  const orgName = () => (Store.branding && Store.branding.orgName) || "";
+  const hubName = () => orgName() ? `${orgName()} Hub` : "Provider Hub";
+
+  function view(html){
+    const el = $("hubView");
+    if (!el) return;
+    el.innerHTML = html;
+    window.scrollTo(0, 0);
+  }
+  const visible = () => { const h = $("hub"); return !!h && !h.classList.contains("hidden"); };
+
+  /* ---- the message board (Card P-02) ----
+     One open feed with replies — the first worker-authored free text
+     broadcast to the whole organisation, so every string here goes through
+     esc() and NOTHING a worker wrote ever rides an inline handler: buttons
+     carry data-act/data-id only and a delegated listener does the work.
+     Identity and permissions are the server's (the Remove button is a
+     courtesy; the server enforces regardless). */
+  function relTime(iso){
+    const t = Date.parse(iso || "");
+    if (!Number.isFinite(t)) return "";
+    const s = Math.max(0, (Date.now() - t) / 1000);
+    if (s < 60) return "just now";
+    if (s < 3600) return Math.floor(s / 60) + " min ago";
+    if (s < 86400) return Math.floor(s / 3600) + " h ago";
+    if (s < 7 * 86400) return Math.floor(s / 86400) + " d ago";
+    const d = new Date(t);
+    return d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  }
+  const canModerate = () => {
+    const u = App.currentUser();
+    return Store.mode === "remote" && !!u && (u.role === "manager" || u.role === "owner");
+  };
+  const mayRemove = e => {
+    const u = App.currentUser();
+    return (u && e.user === u.username) || canModerate();
+  };
+
+  function feedSection(){
+    const org = orgName() || "your organisation";
+    const lim = Store.feedLimits;
+    const posts = ((Store.feed || {}).posts || []);
+    const remove = (e, pid, rid) => mayRemove(e)
+      ? `<button class="feed-remove" data-act="remove" data-id="${esc(pid)}"${rid ? ` data-rid="${esc(rid)}"` : ""} type="button">Remove</button>`
+      : "";
+    const replyHTML = (r, pid) => `
+      <div class="feed-reply">
+        <p class="feed-meta"><strong>${esc(r.name)}</strong> · ${esc(relTime(r.at))} ${remove(r, pid, r.id)}</p>
+        <p class="feed-body">${esc(r.body)}</p>
+      </div>`;
+    const postHTML = p => `
+      <article class="feed-post" data-post="${esc(p.id)}">
+        <p class="feed-meta"><strong>${esc(p.name)}</strong> · ${esc(relTime(p.at))} ${remove(p, p.id)}</p>
+        <p class="feed-body">${esc(p.body)}</p>
+        ${p.replies.length ? `<div class="feed-replies">${p.replies.map(r => replyHTML(r, p.id)).join("")}</div>` : ""}
+        <div class="feed-replybox">
+          <input class="feed-replyinput" data-reply-for="${esc(p.id)}" maxlength="${lim.reply}" placeholder="Reply…">
+          <button class="btn-ghost" data-act="reply" data-id="${esc(p.id)}" type="button">Reply</button>
+        </div>
+      </article>`;
+    return `
+      <section class="feed" aria-label="Message board">
+        <h3 class="board-h">${Icons.icon("board")} Message board</h3>
+        <p class="feed-standing">This board is read by everyone at ${esc(org)}. Never post a participant's name or details, or anything about another worker's training.</p>
+        <div class="feed-composer">
+          <textarea id="feedBody" maxlength="${lim.post}" rows="3" placeholder="Share something with your team…"></textarea>
+          <div class="feed-composer-row">
+            <p class="feed-err hidden" id="feedErr"></p>
+            <button class="btn-primary" data-act="post" type="button">Post</button>
+          </div>
+        </div>
+        ${posts.length ? posts.map(postHTML).join("")
+                       : `<p class="board-empty">Nothing here yet — say g'day, ask a question, swap a shift.</p>`}
+      </section>`;
+  }
+
+  function feedError(msg){
+    const el = $("feedErr");
+    if (!el) return;
+    el.textContent = msg || "";
+    el.classList.toggle("hidden", !msg);
+  }
+
+  async function onFeedAction(btn){
+    const act = btn.getAttribute("data-act");
+    const id = btn.getAttribute("data-id") || "";
+    if (act === "post"){
+      const ta = $("feedBody");
+      const r = await Store.addFeedPost(ta ? ta.value : "");
+      if (r && r.error) return feedError(r.error);
+      return home();
+    }
+    if (act === "reply"){
+      /* Find the input by comparing attributes, never by building a selector
+         from the id — a planted id must not become selector syntax. */
+      const input = Array.from(document.querySelectorAll("#hubView .feed-replyinput"))
+        .find(i => i.getAttribute("data-reply-for") === id);
+      const r = await Store.addFeedReply(id, input ? input.value : "");
+      if (r && r.error) return feedError(r.error);
+      return home();
+    }
+    if (act === "remove"){
+      const r = await Store.removeFeedPost(id, btn.getAttribute("data-rid") || "");
+      if (r && r.error) return feedError(r.error);
+      return home();
+    }
+  }
+
+  /* ---- the noticeboard (moved here from app.js by Card P-01) ----
+     Events & team meetings on ONE side, important information on the
+     OTHER. Both sides always render (Card S12: "have them always showing to
+     encourage usage") — an empty side shows its heading and one line saying
+     what will appear there, because an invisible noticeboard reads as a
+     broken one. Every field is org-supplied free text and goes through
+     esc(); posts carry no HTML by design. */
+  function boardAside(kind){
+    const posts = ((Store.board || {}).posts || []).filter(p =>
+      kind === "event" ? p.kind === "event" : p.kind !== "event");
+    const item = p => `
+      <div class="board-post">
+        <h4>${esc(p.title)}</h4>
+        ${p.when ? `<p class="board-when">${esc(p.when)}</p>` : ""}
+        ${p.body ? `<p class="board-body">${esc(p.body)}</p>` : ""}
+        ${p.author ? `<p class="board-author">— ${esc(p.author)}</p>` : ""}
+      </div>`;
+    const icon  = kind === "event" ? "calendar" : "board";
+    const title = kind === "event" ? "Events & team meetings" : "Important information";
+    const empty = kind === "event"
+      ? "Nothing scheduled yet — your organisation's meetings and events will appear here."
+      : "Nothing posted yet — updates from your organisation will appear here.";
+    return `
+      <aside class="noticeboard board-${kind === "event" ? "events" : "info"}" aria-label="${title}">
+        <h3 class="board-h">${Icons.icon(icon)} ${esc(title)}</h3>
+        ${posts.length ? posts.map(item).join("") : `<p class="board-empty">${esc(empty)}</p>`}
+      </aside>`;
+  }
+
+  /* ---- the org's policies & procedures ----
+     Same library, same grouping and the same tag-INDEX rule as the Academy
+     dashboard (Card C-01: an org-supplied tag must never ride an inline
+     handler). Deliberately unlike the board, no docs means no frame. */
+  function policySection(){
+    const docs = App.orgDocs();
+    if (!docs.length) return "";
+    const org = orgName() || "Your organisation";
+    const cards = App.policyTags(docs).map((t, i) => {
+      const n = docs.filter(d => (d.tag || "") === t).length;
+      return `
+      <div class="module-card policy-card" onclick="Hub.openPolicyTag(${i})">
+        <div class="mod-head"><span class="mod-icon">${Icons.icon("folder")}</span>
+          <div><div class="mod-code">PROCEDURES</div><h3>${esc(App.policyTagLabel(t))}</h3></div></div>
+        <p class="blurb">${n} document${n === 1 ? "" : "s"} from ${esc(org)} — tap to read.</p>
+      </div>`;
+    }).join("");
+    return `
+      <section class="stream policy-stream">
+        <div class="stream-head">
+          <div>
+            <h3 class="stream-name">${esc(org)} — policies &amp; procedures</h3>
+            <p class="stream-blurb">Your organisation's own ways of working — reference material, not assessed modules.</p>
+          </div>
+        </div>
+        <div class="module-grid">${cards}</div>
+      </section>`;
+  }
+
+  function openPolicyTag(idx){
+    const docs0 = App.orgDocs();
+    const tags = App.policyTags(docs0);
+    const tag = tags[Number(idx)];
+    if (tag === undefined) return home();
+    const docs = docs0.filter(d => (d.tag || "") === tag);
+    if (!docs.length) return home();
+    const org = orgName() || "Your organisation";
+    const items = docs.map((d, i) => `
+      <details class="learn-card" ${i === 0 ? "open" : ""}>
+        <summary>${esc(d.title)}</summary>
+        <div class="learn-body policy-body">${App.policyBodyHTML(d.body)}</div>
+      </details>`).join("");
+    view(`
+      <div class="crumb"><a onclick="Hub.home()">Hub home</a> › ${esc(App.policyTagLabel(tag))}</div>
+      <div class="mod-hero">
+        <h2><span>${Icons.icon("folder")}</span> ${esc(App.policyTagLabel(tag))}</h2>
+        <p>${esc(org)}'s own procedures — reference material from your organisation, not an assessed module.</p>
+      </div>
+      <div class="learn-section"><h3>${Icons.icon("folder")} Documents</h3>${items}</div>
+    `);
+  }
+
+  /* ---- hub home ---- */
+  function home(){
+    const u = App.currentUser();
+    const first = u && u.name ? esc(String(u.name).split(" ")[0]) : "there";
+    const org = orgName();
+    view(`
+      <div class="dash-hero hub-hero">
+        <h2>G'day, ${first} 👋</h2>
+        <p>${org ? esc(org) + "'s" : "Your organisation's"} message board, noticeboard and procedures, in one place. Talk to your team below; events &amp; team meetings and important information are on the wall${App.orgDocs().length ? ", and your policies &amp; procedures underneath" : ""}. Training lives in the Practice Academy — <a class="hub-link" onclick="App.showChooser()">switch portal</a> any time.</p>
+      </div>
+      ${feedSection()}
+      <div class="hub-boards">
+        ${boardAside("event")}
+        ${boardAside("notice")}
+      </div>
+      ${policySection()}
+    `);
+  }
+
+  /* Paint the org onto the hub's own header. Card B1's applyBranding paints
+     the Academy's; the hub keeps its own name ("Provider Hub") as the
+     strapline under the org's, the same demotion rule. */
+  function paintHeader(){
+    const b = Store.branding || {};
+    const logo = document.querySelector("#hub .hub-logo");
+    if (logo) logo.innerHTML = b.logo ? `<img class="brand-logo" src="${esc(b.logo)}" alt="">` : "◈";
+    const title = document.querySelector("#hub .hub-title");
+    if (title) title.innerHTML = b.orgName
+      ? `${esc(b.orgName)}<span class="brand-sub">Provider Hub</span>`
+      : "Provider Hub";
+    const u = App.currentUser();
+    const hc = $("hubUserChip");
+    if (hc && u) hc.innerHTML = `${esc(u.name)} · ${esc(u.email)}` +
+      (Store.mode === "remote" ? ` <span class="chip-sep">·</span>${Icons.icon("server")} server` : "");
+  }
+
+  /* Card P-02: one delegated listener for every feed button — worker-written
+     strings never ride an inline handler (the S6 rule). Bound once. */
+  let feedWired = false;
+  function wireFeed(){
+    if (feedWired) return;
+    const hv = $("hubView");
+    if (!hv) return;
+    hv.addEventListener("click", e => {
+      const btn = e.target && e.target.closest ? e.target.closest("[data-act]") : null;
+      if (btn) onFeedAction(btn);
+    });
+    feedWired = true;
+  }
+
+  function open(){
+    const hide = id => { const el = $(id); if (el) el.classList.add("hidden"); };
+    hide("chooser"); hide("portal");
+    wireFeed();
+    paintHeader();
+    const h = $("hub"); if (h) h.classList.remove("hidden");
+    home();
+  }
+
+  /* Called by app.js when the board or the library arrives after sign-in
+     (server mode fetches them with the worker's token). Repaint only if the
+     hub is open on its home, so a worker reading a document is not yanked
+     back. */
+  function refresh(){
+    if (visible() && document.querySelector("#hubView .hub-hero")) home();
+  }
+
+  return { open, home, refresh, openPolicyTag, hubName };
+})();
+
+</script>
+<script>
+/* ============================================================
    NDIS Practice Academy — portal logic
    Accounts, progress, certificates and the "email" outbox all
    persist in localStorage on this device.
@@ -6626,6 +7237,8 @@ const App = (() => {
   function showSetPassword(){
     $("authScreen").classList.add("hidden");
     $("portal").classList.add("hidden");
+    const hb = $("hub"); if (hb) hb.classList.add("hidden");
+    const ch = $("chooser"); if (ch) ch.classList.add("hidden");
     $("setPwScreen").classList.remove("hidden");
     $("newPassword").value = ""; $("newPassword2").value = "";
     $("setPwError").classList.add("hidden");
@@ -6647,41 +7260,79 @@ const App = (() => {
     toast("Password saved — you're all set.");
   }
 
+  /* Card P-01: one account, two portals. Signing in lands on the CHOOSER —
+     every time, by David's decision — and each portal's top bar carries
+     "Switch portal", which is this same screen. The chip is painted for both
+     shells here so neither has to know how the other names the worker. */
+  const chip = () => `${esc(user.name)} · ${esc(user.email)}` +
+      (Store.mode === "remote" ? ` <span class="chip-sep">·</span>${Icons.icon("server")} server` : "");
+  const show = (id, on) => { const el = $(id); if (el) el.classList.toggle("hidden", !on); };
+
+  function showChooser(){
+    show("authScreen", false); show("setPwScreen", false);
+    show("portal", false); show("hub", false);
+    /* The chooser is branded the way the sign-in screen is: the org's name
+       above both doors, the academy's own name never removed (Law 3's
+       "delivered for, never issued by" applies to the hub too). */
+    const b = Store.branding || {};
+    const t = $("chooserTitle");
+    if (t) t.textContent = b.orgName ? `${b.orgName} — where to today?` : "Where to today?";
+    const hn = $("chooserHubName");
+    if (hn) hn.textContent = Hub.hubName();     // one naming rule, owned by the hub
+    const lg = $("chooserLogo");
+    if (lg) lg.innerHTML = b.logo ? `<img class="brand-logo" src="${esc(b.logo)}" alt="">` : "◈";
+    show("chooser", true);
+    window.scrollTo(0, 0);
+  }
+
+  function enterAcademy(){
+    show("chooser", false); show("hub", false);
+    show("portal", true);
+    goHome();
+  }
+
   function enterAccount(account){
     user = account;
-    $("authScreen").classList.add("hidden");
-    $("portal").classList.remove("hidden");
-    $("userChip").innerHTML = `${esc(user.name)} · ${esc(user.email)}` +
-      (Store.mode === "remote" ? ` <span class="chip-sep">·</span>${Icons.icon("server")} server` : "");
+    $("userChip").innerHTML = chip();
+    const hc = $("hubUserChip"); if (hc) hc.innerHTML = chip();
     updateMailBadge();
-    goHome();
+    showChooser();
     /* Card S11: in server mode the noticeboard needs a signed-in token, so
-       unlike branding it cannot load at Store.init(). Fetch it now; repaint
-       only if the content actually changed and the worker is still looking
-       at the dashboard. (Local mode loaded it at init, so this is a no-op
-       refresh there.) */
+       unlike branding it cannot load at Store.init(). Fetch it now; from
+       Card P-01 the board lives on the hub, so it is the hub that repaints —
+       only if the content actually changed. (Local mode loaded it at init,
+       so this is a no-op refresh there.) */
     const before = JSON.stringify((Store.board || {}).posts || []);
     Store.loadBoard().then(() => {
-      if (JSON.stringify((Store.board || {}).posts || []) !== before
-          && document.querySelector("#mainView .dash-hero")) goHome();
+      if (JSON.stringify((Store.board || {}).posts || []) !== before) Hub.refresh();
     });
     /* Card C-01: the org's policy library has the same timing as the board —
        in server mode it needs a signed-in token, so fetch it now and repaint
-       the dashboard only if it actually changed. */
+       whichever portal is showing it, only if it actually changed. */
     const pBefore = JSON.stringify((Store.policies || {}).docs || []);
     Store.loadPolicies().then(() => {
-      if (JSON.stringify((Store.policies || {}).docs || []) !== pBefore
-          && document.querySelector("#mainView .dash-hero")) goHome();
+      /* From Card P-02 the policies render on the hub alone, so it is only
+         the hub that repaints when the library arrives. */
+      if (JSON.stringify((Store.policies || {}).docs || []) !== pBefore) Hub.refresh();
+    });
+    /* Card P-02: the message board has the same timing as the board and the
+       library — a signed-in token, then repaint the hub if anything changed. */
+    const fBefore = JSON.stringify((Store.feed || {}).posts || []);
+    Store.loadFeed().then(() => {
+      if (JSON.stringify((Store.feed || {}).posts || []) !== fBefore) Hub.refresh();
     });
   }
 
   function logout(){
     Store.logout();
     user = null;
-    $("portal").classList.add("hidden");
-    const sp = $("setPwScreen"); if (sp) sp.classList.add("hidden");
-    $("authScreen").classList.remove("hidden");
+    show("portal", false); show("hub", false); show("chooser", false);
+    show("setPwScreen", false);
+    show("authScreen", true);
   }
+  /* The hub asks who is signed in (for the chip and, from Card P-02, for
+     authorship); it never reaches into storage itself — Law 5. */
+  const currentUser = () => user;
 
   /* ================= progress helpers ================= */
   function caseState(cid){
@@ -6708,41 +7359,11 @@ const App = (() => {
   /* ================= views ================= */
   function view(html){ $("mainView").innerHTML = html; window.scrollTo(0,0); }
 
-  /* ---- company noticeboard (Cards S11 + S12) ----
-     Org-authored posts flanking the modules: events & team meetings down ONE
-     side of the dashboard, important details & information down the OTHER.
-     The rails render ALWAYS (Card S12 directive: "have them always showing to
-     encourage usage") — an empty side shows its heading and one line saying
-     what will appear there, because an invisible noticeboard reads as a
-     broken one. The off-switch is the worker's own, in Settings
-     (settings.showBoard, default on) — checked in goHome, not here. Every
-     field is org-supplied free text and goes through esc(); posts carry no
-     HTML by design. */
-  function boardAside(kind){
-    const posts = ((Store.board || {}).posts || []).filter(p =>
-      kind === "event" ? p.kind === "event" : p.kind !== "event");
-    const item = p => `
-      <div class="board-post">
-        <h4>${esc(p.title)}</h4>
-        ${p.when ? `<p class="board-when">${esc(p.when)}</p>` : ""}
-        ${p.body ? `<p class="board-body">${esc(p.body)}</p>` : ""}
-        ${p.author ? `<p class="board-author">— ${esc(p.author)}</p>` : ""}
-      </div>`;
-    const icon  = kind === "event" ? "calendar" : "board";
-    const title = kind === "event" ? "Events & team meetings" : "Important information";
-    const empty = kind === "event"
-      ? "Nothing scheduled yet — your organisation's meetings and events will appear here."
-      : "Nothing posted yet — updates from your organisation will appear here.";
-    return `
-      <aside class="noticeboard board-${kind === "event" ? "events" : "info"}" aria-label="${title}">
-        <h3 class="board-h">${Icons.icon(icon)} ${esc(title)}</h3>
-        ${posts.length ? posts.map(item).join("") : `<p class="board-empty">${esc(empty)}</p>`}
-      </aside>`;
-  }
-
-  /* Absent means ON: the flag arrived in v0.2.4, so every account created
-     before it has no field — those workers must keep seeing the board. */
-  const boardHidden = () => !!(user && user.settings && user.settings.showBoard === false);
+  /* ---- company noticeboard ----
+     Cards S11 + S12 flanked the dashboard with it; Card P-01 (David, 3 Sep:
+     "the academy loses the 2 boards, they're moved over to the other
+     portal") moved the whole rendering to hub.js. The dashboard renders no
+     .noticeboard and a gate holds it there. */
 
   /* ---- org policy library (Card C-01) ----
      The tenant layer, rendered: this organisation's OWN procedures (their
@@ -6772,56 +7393,12 @@ const App = (() => {
       `<p>${esc(par).replace(/\n/g, "<br>")}</p>`).join("");
   }
 
-  function policySection(){
-    const docs = orgDocs();
-    if (!docs.length) return "";
-    const org = (Store.branding && Store.branding.orgName) || "Your organisation";
-    /* The tag is org-admin free text and MUST NOT ride an inline handler
-       (the S6 lesson — and encodeURIComponent leaves ' and parens alone).
-       Cards address their group by INDEX into policyTags(), recomputed on
-       click, so no third-party string ever becomes code. */
-    const cards = policyTags(docs).map((t, i) => {
-      const n = docs.filter(d => (d.tag || "") === t).length;
-      return `
-      <div class="module-card policy-card" onclick="App.openPolicyTag(${i})">
-        <div class="mod-head"><span class="mod-icon">${Icons.icon("folder")}</span>
-          <div><div class="mod-code">PROCEDURES</div><h3>${esc(policyTagLabel(t))}</h3></div></div>
-        <p class="blurb">${n} document${n === 1 ? "" : "s"} from ${esc(org)} — tap to read.</p>
-      </div>`;
-    }).join("");
-    return `
-      <section class="stream policy-stream">
-        <div class="stream-head">
-          <div>
-            <h3 class="stream-name">${esc(org)} — policies &amp; procedures</h3>
-            <p class="stream-blurb">Your organisation's own ways of working, kept beside your modules so practice and procedure sit on the same shelf.</p>
-          </div>
-        </div>
-        <div class="module-grid">${cards}</div>
-      </section>`;
-  }
-
-  function openPolicyTag(idx){
-    const tags = policyTags(orgDocs());
-    const tag = tags[Number(idx)];
-    if (tag === undefined) return goHome();
-    const docs = orgDocs().filter(d => (d.tag || "") === tag);
-    if (!docs.length) return goHome();
-    const org = (Store.branding && Store.branding.orgName) || "Your organisation";
-    const items = docs.map((d, i) => `
-      <details class="learn-card" ${i === 0 ? "open" : ""}>
-        <summary>${esc(d.title)}</summary>
-        <div class="learn-body policy-body">${policyBodyHTML(d.body)}</div>
-      </details>`).join("");
-    view(`
-      <div class="crumb"><a onclick="App.goHome()">Dashboard</a> › ${esc(policyTagLabel(tag))}</div>
-      <div class="mod-hero">
-        <h2><span>${Icons.icon("folder")}</span> ${esc(policyTagLabel(tag))}</h2>
-        <p>${esc(org)}'s own procedures — reference material from your organisation, not an assessed module.</p>
-      </div>
-      <div class="learn-section"><h3>${Icons.icon("folder")} Documents</h3>${items}</div>
-    `);
-  }
+  /* Card P-02 (David's 3 Sep amendment): the policies section LEFT the
+     Academy dashboard — the hub is the only place a worker reads the org's
+     procedures. The helpers above stay, exported, because the hub borrows
+     them (P-01's no-second-copy rule); the dashboard render and its reader
+     went, and gates hold both (dashboard DOM free of .policy-stream, hub
+     still rendering the library). */
 
   /* ---- dashboard ---- */
   /* Card P-5 (C-05): the topbar says where you are. Four real views carry
@@ -6875,20 +7452,10 @@ const App = (() => {
         </section>`;
     }
 
-    /* The two board sides are grid siblings of the main column, so on wide
-       screens events sit down one side and important information down the
-       other; on narrow screens CSS drops them below the modules. Both rails
-       always render (empty sides carry an invitation) unless this worker has
-       turned the board off in Settings — then the dashboard is full-width. */
-    const evAside = boardHidden() ? "" : boardAside("event");
-    const infoAside = boardHidden() ? "" : boardAside("notice");
     view(`
-      <div class="dash-layout${evAside ? " has-events" : ""}${infoAside ? " has-info" : ""}">
-      ${evAside}
-      <div class="dash-main">
       <div class="dash-hero">
         <h2>G'day, ${esc(user.name.split(" ")[0])} 👋</h2>
-        <p>Each module teaches the theory, then hands you six real support scenarios. You write the game plan — your AI coach names what works in your plan and gives you a few things to think about — no pass or fail, ever. Complete all six to earn that module's Certificate of Completion, emailed to <strong>${esc(user.email)}</strong>. Finish every module in a stream and its stream certificate is issued too.</p>
+        <p>Each module teaches the theory, then hands you six real support scenarios. You write the game plan — your AI coach ticks what your plan covers and coaches you on the rest until the case is complete — never marked wrong, always shown what to add. Complete all six to earn that module's Certificate of Completion, emailed to <strong>${esc(user.email)}</strong>. Finish every module in a stream and its stream certificate is issued too.</p>
         <div class="progress-strip">
           <div class="stat-card"><div class="num">${totalPassed()}/${totalCases()}</div><div class="lbl">case studies completed</div></div>
           <div class="stat-card"><div class="num">${certCount}/${certsOnOffer()}</div><div class="lbl">certificates earned</div></div>
@@ -6896,10 +7463,6 @@ const App = (() => {
         </div>
       </div>
       ${sections}
-      ${policySection()}
-      </div>
-      ${infoAside}
-      </div>
     `);
   }
 
@@ -6914,7 +7477,7 @@ const App = (() => {
     const cases = m.cases.map((c,i)=>{
       const st = caseState(c.id);
       const status = st.passed ? `<span class="case-status st-passed">Completed ✓</span>`
-        : st.attempts ? `<span class="case-status st-progress">${st.attempts} attempt${st.attempts>1?"s":""}</span>`
+        : st.attempts ? `<span class="case-status st-progress">Not there yet · ${st.attempts} attempt${st.attempts>1?"s":""}</span>`
         : `<span class="case-status st-new">Not started</span>`;
       return `<div class="case-row ${st.passed?"passed":""}" onclick="App.openCase('${m.id}','${c.id}')">
         <div class="case-num">${i+1}</div>
@@ -6961,9 +7524,9 @@ const App = (() => {
             oninput="App.updateWordCount()">${st.draft ? esc(st.draft) : ""}</textarea>
           <div class="answer-meta">
             <span id="wordCount">0 words</span>
-            <span>${st.original ? "✅ Revised — your first plan is kept too" :
+            <span>${st.original && st.passed ? "✅ Revised — your first plan is kept too" :
               st.passed ? "✅ Completed — resubmit any time" :
-              st.attempts ? `Attempt ${st.attempts+1}` : "First attempt"}</span>
+              st.attempts ? `Attempt ${st.attempts+1} — not there yet` : "First attempt"}</span>
           </div>
           ${Store.mode === "remote" ? `<p class="hint answer-privacy">Your supervisor can open what you write here. Each time they do is recorded.</p>` : ""}
           <button id="submitBtn" class="btn btn-primary" onclick="App.submitAnswer()">Submit to my AI coach</button>
@@ -6998,9 +7561,12 @@ const App = (() => {
     // small human pause so it feels considered
     await new Promise(r=>setTimeout(r, 600));
 
-    // Submitting always completes the case — coaching is feedback, never a gate.
-    const firstComplete = !st.passed;
-    st.passed = true;
+    /* Card C-07: a case completes when the plan covers enough of the rubric
+       (CertRules.caseComplete — the engine applies it and reports `tier`).
+       Completion never goes backwards: a case once complete stays complete
+       whatever a later resubmission scores. */
+    const firstComplete = !st.passed && fb.tier === "complete";
+    if (fb.tier === "complete") st.passed = true;
     st.best = Math.max(st.best||0, fb.score||0);
     /* Card C-02: persist the per-criterion assessment record the engine now
        returns — the response as assessed, each rubric concept by name with
@@ -7031,7 +7597,9 @@ const App = (() => {
         </div>
         ${fb.html}
         <details class="model-answer"><summary>📘 Coach's worked example</summary><p>${esc(c.model)}</p></details>
-        <p class="fb-note">Edit your plan above and resubmit any time.</p>
+        <p class="fb-note">${fb.tier === "complete"
+          ? "Edit your plan above and resubmit any time."
+          : `Add the missing parts to your plan above and resubmit — this case completes at ${fb.need} of ${fb.n}.`}</p>
       </div>`;
     $("submitBtn").disabled = false;
 
@@ -7359,8 +7927,8 @@ const App = (() => {
         <p>Every module maps to named capabilities from the <strong>${esc(src.name)}</strong> —
         the ${esc(src.owner)}'s shared language for what good support looks like
         (${esc(src.url)}). This page is descriptive: it shows where each module and case study
-        gives you written, coached practice in a capability. It is not a score, it never affects
-        your progress or certificates, and there is no pass or fail, ever.</p>
+        gives you written, coached practice in a capability. It is not a score, and it never affects
+        your progress or certificates.</p>
         <p class="hint">${esc(src.level)} The academy remains non-accredited professional
         development — not nationally recognised training — and this map does not imply any
         endorsement by the NDIS Commission.</p>
@@ -7438,8 +8006,6 @@ const App = (() => {
     });
     $("apiKeyInput").value = user.settings.apiKey || "";
     $("apiKeyRow").classList.toggle("hidden", mode!=="claude");
-    /* Card S12: absent = on, so only an explicit false unticks it. */
-    if ($("showBoardChk")) $("showBoardChk").checked = user.settings.showBoard !== false;
     const e = user.settings.ejs || {};
     $("ejsPublic").value = e.pub || "";
     $("ejsService").value = e.svc || "";
@@ -7454,12 +8020,8 @@ const App = (() => {
       svc: $("ejsService").value.trim(),
       tpl: $("ejsTemplate").value.trim()
     };
-    if ($("showBoardChk")) user.settings.showBoard = $("showBoardChk").checked;
     await persist();
     closeSettings();
-    /* Card S12: the toggle must bite immediately — if the dashboard is the
-       current view, repaint it so the rails appear or vanish on Save. */
-    if (document.querySelector("#mainView .dash-hero")) goHome();
     const bits = [mode==="claude" ? "AI coach: Claude (live), built-in as backup" : "AI coach: built-in"];
     bits.push(ejsConfig() ? "real email delivery: ON" : "email delivery: in-app only");
     toast("Saved — " + bits.join(" · ") + ".");
@@ -7541,13 +8103,18 @@ const App = (() => {
     if (r && r.mustSetPassword) return showSetPassword(null);
     if (r && r.account){
       enterAccount(r.account);
-      if (location.hash === "#certificates") showCertificates();
-      else if (location.hash === "#framework") showFramework();
-      else if (location.hash === "#mail") showMail();
-      else if (location.hash === "#settings") showSettings();
-      else if (/^#m\d$/.test(location.hash)){
-        const mid = location.hash.slice(1);
-        if (MODULES.some(m=>m.id===mid)) openModule(mid);
+      /* A hash names a destination inside one portal, so it skips the
+         chooser for that visit — the chooser is for people, deep links are
+         for bookmarks. `#hub` opens the Provider Hub the same way. */
+      const h = location.hash;
+      if (h === "#hub") Hub.open();
+      else if (h === "#certificates"){ enterAcademy(); showCertificates(); }
+      else if (h === "#framework"){ enterAcademy(); showFramework(); }
+      else if (h === "#mail"){ enterAcademy(); showMail(); }
+      else if (h === "#settings"){ enterAcademy(); showSettings(); }
+      else if (/^#m\d$/.test(h)){
+        const mid = h.slice(1);
+        if (MODULES.some(m=>m.id===mid)){ enterAcademy(); openModule(mid); }
       }
     }
   }
@@ -7557,7 +8124,11 @@ const App = (() => {
            updateWordCount, submitAnswer, showCertificates, printCert, showMail, showFramework,
            showSettings, saveSettings, closeSettings, resendMail, sendTestEmail,
            applyBranding,        // Card B1: admin.js repaints the live page after a change
-           openPolicyTag,        // Card C-01: the org procedures reader
+           showChooser, enterAcademy, currentUser,   // Card P-01: the two-portal shell
+           /* Card P-01: the hub renders the same policy library; it borrows
+              these helpers rather than carrying a second copy of the rules
+              (the tag-index rule above included). Pure, no view side-effects. */
+           orgDocs, policyTags, policyTagLabel, policyBodyHTML,
            certificateHTML };
 })();
 
