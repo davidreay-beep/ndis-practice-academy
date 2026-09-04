@@ -211,6 +211,109 @@ h1,h2,h3{line-height:1.25}
 .org-case-card .mod-icon .icon{width:1.4rem;height:1.4rem;color:var(--accent, currentColor)}
 .org-hero h2 .icon{width:1.2em;height:1.2em}
 
+/* ---- Card P-09: the Provider Hub calendar ----
+   A month grid that marks the days carrying something, with the day's
+   entries (or what's coming up) beneath it. The accent is the org's own
+   wattle-gold, like every other piece of provider content. */
+/* No .board-h rule here: the pre-existing one further down already makes the
+   header a flex row, and a second at equal specificity would read as the
+   source of truth while losing to it (Referee). The link's right-alignment
+   rides that older rule's flex. */
+.board-cal-link{
+  margin-left:auto;background:none;border:1px solid var(--line);border-radius:var(--radius-sm);
+  color:var(--gold-text);font:inherit;font-size:.78rem;font-weight:600;
+  padding:.2rem .55rem;cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;
+}
+.board-cal-link:hover{border-color:var(--gold-deep);background:var(--gold-soft)}
+.board-cal-link .icon{width:.95em;height:.95em}
+/* Card P-10: the month IS the page. The grid takes the whole content column
+   and the boxes are big enough to read the day out of; what's coming up sits
+   underneath; a tapped day opens in a panel over the right, which is why the
+   panel is NOT inside .cal-wrap — a panel in the flow would resize the month
+   under the finger that tapped it. Columns are fractions, never fixed pixels:
+   seven 150px cells overflow a 1280 laptop. */
+.cal-wrap{margin-top:1.4rem}
+/* Centred, not space-between: across a 1100px grid the arrows ended up at
+   the extreme edges of the page and stopped reading as one control. */
+.cal-head{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-bottom:.7rem}
+.cal-head h3{font-size:1.05rem;margin:0;min-width:11ch;text-align:center}
+.cal-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;
+  /* The scroll the owner asked for: when the month is taller than the room,
+     the GRID scrolls, not the page — so the weekday header and what's coming
+     up stay where they are. */
+  max-height:min(64vh,760px);overflow-y:auto;overscroll-behavior:contain;padding-right:.2rem;
+}
+.cal-cell{min-height:2.4rem;display:flex;align-items:center;justify-content:center}
+.cal-dayname{
+  position:sticky;top:0;z-index:2;background:var(--bg);
+  font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);min-height:1.6rem;
+}
+.cal-day{
+  position:relative;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:.25rem;
+  min-height:clamp(64px,10.5vw,148px);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  font:inherit;font-size:.85rem;color:var(--ink);cursor:pointer;
+  padding:.35rem .4rem;text-align:left;overflow:hidden;
+}
+.cal-day:hover{border-color:var(--gold-deep)}
+.cal-day.has .cal-num{font-weight:700}
+.cal-day.today{outline:2px solid var(--teal);outline-offset:-2px}
+.cal-day.picked{background:var(--gold-soft);border-color:var(--gold-deep)}
+.cal-num{font-variant-numeric:tabular-nums;line-height:1.1}
+.cal-dot{position:absolute;top:.4rem;right:.4rem;width:.35rem;height:.35rem;border-radius:50%;background:var(--gold-deep)}
+/* Card P-11 lands its thumbnail above these chips; the box's minimum height
+   already carries the room, so nothing reflows when it arrives. */
+.cal-chips{display:flex;flex-direction:column;gap:.15rem;overflow:hidden}
+.cal-chip{
+  display:block;font-size:.72rem;line-height:1.3;
+  background:var(--gold-soft);color:var(--gold-text);border-radius:3px;padding:.08rem .28rem;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.cal-more{font-size:.68rem;color:var(--ink-soft);padding-left:.28rem}
+.cal-list{margin-top:1.5rem}
+.cal-list-h{font-size:.95rem;margin:0 0 .6rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.cal-entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold-deep);
+  border-radius:var(--radius-sm);padding:.7rem .9rem;margin-bottom:.6rem}
+.cal-entry h4{font-size:.95rem;margin:0 0 .2rem}
+.cal-when{font-size:.82rem;color:var(--ink-soft);margin:0}
+.cal-notes{font-size:.88rem;margin:.4rem 0 0;white-space:pre-wrap}
+.admin-past td{opacity:.55}
+/* The pop-out. Full height on purpose: pinning it below the top bar would
+   need a number, and that number is 54px on a desktop and 153px on a phone —
+   the trap P-08's sticky nav fell into. */
+.cal-panel{
+  position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);z-index:60;
+  background:var(--card);border-left:3px solid var(--gold-deep);
+  box-shadow:-10px 0 30px rgba(0,0,0,.18);display:flex;flex-direction:column;
+}
+.cal-panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:1rem 1.1rem .7rem;border-bottom:1px solid var(--line);
+}
+.cal-panel-head h3{margin:0;font-size:1rem}
+.cal-panel-x{
+  background:none;border:none;font:inherit;font-size:1.05rem;line-height:1;cursor:pointer;
+  color:var(--ink-soft);padding:.2rem .4rem;border-radius:var(--radius-sm);
+}
+.cal-panel-x:hover{background:var(--gold-soft);color:var(--gold-text)}
+.cal-panel-body{padding:.9rem 1.1rem 1.6rem;overflow-y:auto}
+.cal-entry-full{border-left-width:4px}
+@media(max-width:820px){
+  .cal-day{min-height:clamp(56px,12vw,104px)}
+  .cal-chip{font-size:.68rem}
+}
+@media(max-width:700px){
+  /* A 48px column cannot hold a title: the dot marks the day and the panel
+     carries the detail. The page scrolls here rather than the grid — a
+     scroller inside a phone page is a trap for a thumb. */
+  .cal-chips{display:none}
+  .cal-day{align-items:center;justify-content:center;padding:.25rem;min-height:44px}
+  .cal-num{font-size:.9rem}
+  .cal-grid{max-height:none;overflow:visible}
+  .cal-panel{width:100%;border-left:none}
+}
+
 /* ---- the Field Guide (Card P-04) ---- */
 .guide-ask{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
@@ -803,6 +906,28 @@ details.model-answer[open] summary{margin-bottom:.5rem}
 }
 .admin-tab:hover{background:rgba(255,255,255,.08);color:var(--white)}
 .admin-tab.active{background:var(--gold);color:var(--gold-ink)}
+/* ---- Card P-08: the nav reads by portal ----
+   Three headed groups in the one strip, so a supervisor knows which portal a
+   setting belongs to before reading the label. The divider is the heading's
+   own left border — no extra element, nothing to keep in step. */
+.admin-navgroup{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap}
+.admin-navlabel{
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;font-weight:700;
+  color:var(--foam);opacity:.68;padding:.1rem .45rem .1rem .85rem;
+  margin-left:.5rem;border-left:1px solid rgba(255,255,255,.22);
+}
+@media(max-width:700px){
+  /* Groups stack; each heading takes its own line and its tabs wrap beneath
+     it, so the nav reads as three short lists instead of one long wrap.
+     It is NOT sticky at this width (Referee): three stacked lists are ~445px
+     tall, and pinning that plus a 153px top bar would leave a phone barely
+     300px of the 812 for the actual page. It also puts the pre-existing
+     `top:54px` overlap — written for a 54px desktop bar — out of reach here. */
+  .admin-nav{position:static;flex-direction:column;align-items:stretch;gap:.45rem;padding:.55rem .9rem}
+  .admin-navgroup{align-items:flex-start;gap:.25rem}
+  .admin-navlabel{width:100%;border-left:none;margin:0;padding:0 0 .1rem}
+  .admin-tab{padding:.4rem .7rem}
+}
 /* Card P-06: the settings forms moved into the panel, so its plain
    `<label>text <input>` pairs need to stack the way the modal's did.
    Scoped to direct children so the radio rows and the P-05 concept grids
@@ -900,6 +1025,14 @@ details.model-answer[open] summary{margin-bottom:.5rem}
 .ev-cert{font-size:.82rem;margin-top:.45rem}
 .ev-serial{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:nowrap}
 .ev-none{color:var(--ink-soft);font-style:italic}
+/* ---- Card P-07: the organisation's own case studies, supervisor-side ----
+   The same wattle-gold the org's own content answers to on the dashboard and
+   the hub, so a supervisor and an auditor read "this is the provider's, not
+   the academy's" from the colour before they reach the label. No new token:
+   if the org accent moves, these move with it. */
+.admin-orgrow{border-left:4px solid var(--gold-deep)}
+.ev-org{border-left:3px solid var(--gold-deep);padding-left:.7rem}
+.ev-orgnote{font-size:.82rem;color:var(--ink-soft);margin-top:1.5rem;max-width:78ch}
 @media print{
   body>*{display:none !important}
   #printCert{display:block !important;position:static;padding:0}
@@ -1135,6 +1268,9 @@ details.model-answer[open] summary{margin-bottom:.5rem}
     <nav class="topbar-nav">
       <button class="nav-btn active" id="hubNavHome" onclick="Hub.home()">Hub home</button>
       <button class="nav-btn" id="hubNavGuide" onclick="Hub.guide()"><span data-icon="compass"></span>Field guide</button>
+      <!-- Card P-09: the organisation's calendar. The events box on the hub's
+           noticeboard links here too. -->
+      <button class="nav-btn" id="hubNavCalendar" onclick="Hub.calendar()"><span data-icon="calendar"></span>Calendar</button>
     </nav>
     <div class="topbar-user">
       <span id="hubUserChip" class="user-chip"></span>
@@ -1178,7 +1314,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.8.1";
+const ACADEMY_VERSION = "0.12.0";
 
 </script>
 <script>
@@ -3982,7 +4118,7 @@ const PolicyLib = {
   SCOPE_CORE: "core",
   TENANT_RE: /^[a-z0-9][a-z0-9-]{0,31}$/,
   ID_RE: /^[a-z0-9][a-z0-9-]{0,39}$/,
-  KINDS: ["policy", "guide", "case"],
+  KINDS: ["policy", "guide", "case", "event"],
   KIND_DEFAULT: "policy",
   LIMITS: { maxDocs: 200, title: 120, tag: 40, body: 8000 },
   /* Card P-05: a tenant-authored case study is a doc of kind "case" —
@@ -3995,6 +4131,24 @@ const PolicyLib = {
   /* The progress key a tenant case writes under. The prefix is what keeps
      a crafted doc id ("m1c1") from colliding with a core case's progress. */
   CASE_PREFIX: "t:",
+  /* Card P-09: a calendar entry is a doc of kind "event" — title, `date`
+     (ISO YYYY-MM-DD), optional `start`/`end` (HH:MM), optional `where`, and
+     the doc's own `body` as the notes. Its notes are OPTIONAL: "Team meeting,
+     Tuesday 2pm" is a complete entry, and requiring a body would only teach
+     people to type filler. The date is not free text — it is validated as a
+     real calendar day, because the grid indexes on it. */
+  EVENT_LIMITS: { body: 600, where: 80 },
+  DATE_RE: /^\d{4}-\d{2}-\d{2}$/,
+  TIME_RE: /^([01][0-9]|2[0-3]):[0-5][0-9]$/,
+  /* A real day, not merely a well-shaped string: 2026-02-31 matches the
+     regex and is not a date. Round-tripping through Date is the cheap check
+     that catches it, and it is UTC-safe (no local-midnight drift). */
+  validDate(v){
+    if (typeof v !== "string" || !PolicyLib.DATE_RE.test(v)) return false;
+    const d = new Date(v + "T00:00:00Z");
+    return !isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
+  },
+  validTime(v){ return typeof v === "string" && PolicyLib.TIME_RE.test(v); },
 
   /* ---- scopes ---- */
   scopeFor(tenantId){
@@ -4090,7 +4244,7 @@ const PolicyLib = {
     const L = PolicyLib.LIMITS;
     const title = typeof raw.title === "string" ? raw.title.slice(0, L.title).trim() : "";
     const body  = typeof raw.body  === "string" ? raw.body.slice(0, L.body).trim()  : "";
-    if (!title || !body) return null;
+    if (!title) return null;
     const sc = scope !== undefined ? scope : raw.scope;
     if (!PolicyLib.validScope(sc)) return null;
     /* The kind is forced by the write path (the slice being replaced) or,
@@ -4098,6 +4252,10 @@ const PolicyLib = {
        absent kind reads as a policy, never as anything with more reach. */
     const kd = kind !== undefined ? kind : PolicyLib.kindOf(raw);
     if (!PolicyLib.validKind(kd)) return null;
+    /* Every kind but an event needs a body: a procedure with no text is not
+       a procedure, an answer with no answer is not an answer. An EVENT is
+       carried by its title and its date (Card P-09). */
+    if (kd !== "event" && !body) return null;
     const id = typeof raw.id === "string" && PolicyLib.ID_RE.test(raw.id) ? raw.id : PolicyLib.makeId();
     const doc = {
       id, scope: sc, kind: kd, title,
@@ -4108,6 +4266,20 @@ const PolicyLib = {
     /* Card P-05: a case carries its rubric — rebuilt field by field, caps
        applied, terms lowercased; a case with no task, no model or no usable
        concept is not a case and is dropped. */
+    /* Card P-09: a calendar entry. A doc with no usable date is not an
+       event and is dropped — the grid indexes on that field, and a bad one
+       would sit in the library rendering nowhere. Times are optional but
+       must be well-formed if present; a start after an end is left alone
+       (an overnight shift is a real thing). */
+    if (kd === "event"){
+      const E = PolicyLib.EVENT_LIMITS;
+      if (!PolicyLib.validDate(raw.date)) return null;
+      doc.date = raw.date;
+      doc.start = PolicyLib.validTime(raw.start) ? raw.start : "";
+      doc.end = PolicyLib.validTime(raw.end) ? raw.end : "";
+      doc.where = typeof raw.where === "string" ? raw.where.slice(0, E.where).trim() : "";
+      doc.body = body.slice(0, E.body);
+    }
     if (kd === "case"){
       const C = PolicyLib.CASE_LIMITS;
       doc.task = typeof raw.task === "string" ? raw.task.trim().slice(0, C.task) : "";
@@ -5498,8 +5670,24 @@ const Store = (() => {
     if (docs.length > PolicyLib.LIMITS.maxDocs)
       return { error: "the library holds up to " + PolicyLib.LIMITS.maxDocs + " documents per organisation — remove one first" };
     for (const d of docs){
-      if (!d || typeof d !== "object" || !String(d.title || "").trim() || !String(d.body || "").trim())
+      if (!d || typeof d !== "object" || !String(d.title || "").trim())
+        return { error: "every document needs a title" };
+      /* Card P-09: an event is carried by its title and its DATE — its notes
+         are optional. Every other kind still needs a body. */
+      if (kd !== "event" && !String(d.body || "").trim())
         return { error: "every document needs a title and a body" };
+      if (kd === "event"){
+        if (!PolicyLib.validDate(d.date))
+          return { error: "every event needs a date, as YYYY-MM-DD (a real day — 2026-02-31 is not one)" };
+        for (const f of ["start", "end"]){
+          if (d[f] && !PolicyLib.validTime(d[f]))
+            return { error: "the " + f + " time must be HH:MM on a 24-hour clock" };
+        }
+        if (typeof d.where === "string" && d.where.length > PolicyLib.EVENT_LIMITS.where)
+          return { error: "the place can be up to " + PolicyLib.EVENT_LIMITS.where + " characters" };
+        if (typeof d.body === "string" && d.body.length > PolicyLib.EVENT_LIMITS.body)
+          return { error: "the notes can be up to " + PolicyLib.EVENT_LIMITS.body + " characters" };
+      }
       for (const f of ["title", "tag", "body"]){
         if (typeof d[f] === "string" && d[f].length > PolicyLib.LIMITS[f])
           return { error: "the " + f + " can be up to " + PolicyLib.LIMITS[f] + " characters" };
@@ -6004,8 +6192,35 @@ const Admin = (() => {
   }
   /* Card P-05: the roster's counts stay CORE-only — an org's own cases
      (progress keys with the "t:" prefix) are practice, not curriculum, and
-     "cases completed of 84" must keep meaning what it meant. */
+     "cases completed of 84" must keep meaning what it meant. Card P-07 shows
+     those cases to a supervisor but does NOT fold them into this number: the
+     count is a goalpost, and re-denominating it would restate every worker's
+     progress overnight. Their own figure is carried beside them. */
   const isOrgCase = cid => PolicyLib.isCaseKey(cid);
+  /* ---- Card P-07: the organisation's own case studies, supervisor-side ----
+     The Academy's OWN grouping, borrowed rather than copied — P-01's
+     no-second-copy rule, the way the hub borrows the policy render helpers.
+     One definition of which case sits in which group, and in what order, so
+     what a supervisor reads is what the worker practised. `App` is a
+     top-level `const`, so it is never a property of `window` (the P-03 find);
+     read it bare, guarded. Empty until the library has loaded, which is why
+     the panel loads it on open. */
+  const orgGroups = () => {
+    try {
+      return (typeof App !== "undefined" && App && typeof App.orgGroups === "function")
+        ? App.orgGroups().filter(g => g && Array.isArray(g.cases)) : [];
+    } catch (e) { return []; }
+  };
+  const orgCaseById = cid => {
+    for (const g of orgGroups()){
+      const c = g.cases.find(x => x && x.id === cid);
+      if (c) return c;
+    }
+    return null;
+  };
+  /* Every org case the library can currently resolve, as a Set — built once
+     per roster render rather than per row (Referee, v0.9.0). */
+  const orgCaseIds = () => new Set(orgGroups().flatMap(g => g.cases.map(c => c.id)));
   function studentSummary(a){
     const prog = a.progress || {};
     let passed = 0, attempts = 0, last = "";
@@ -6191,7 +6406,11 @@ const Admin = (() => {
      reader's name — the confirmation exists so nobody does it absent-mindedly. */
   async function viewSubmission(username, caseId){
     if (!remote()){ note("Submissions are only readable on an academy server."); return false; }
-    const c = MODULES.flatMap(m => m.cases).find(x => x.id === caseId);
+    /* Card P-07: a tenant case is named from the library, exactly as the
+       worker saw it — without this the confirm and the modal would fall back
+       to the raw progress key. The server decides whether the read is allowed
+       (this tenant's visible cases only); this is only the name. */
+    const c = MODULES.flatMap(m => m.cases).find(x => x.id === caseId) || orgCaseById(caseId);
     if (!confirm(`Open this worker's written answer?\n\n${(c && c.title) || caseId}\n\nThis is recorded in the audit trail against your name. Their answers may include personal reflections — read them for supervision, not out of curiosity.`)) return false;
     const r = await Store.adminSubmission(username, caseId);
     if (r.error){ note("⚠ Couldn't open that submission: " + r.error); return false; }
@@ -6340,6 +6559,9 @@ const Admin = (() => {
      3. It says what it is. Law 3 in prompt.md — never imply accreditation —
         binds hardest on the one document that goes to an auditor. */
 
+  /* Card P-07: the CSV's label for a provider-written group. One constant,
+     because a gate reads it and an auditor filters on it. */
+  const ORG_CSV_STREAM = "Organisation's own case studies";
   const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
   const own = (o, k) => Object.prototype.hasOwnProperty.call(o || {}, k);
 
@@ -6348,8 +6570,12 @@ const Admin = (() => {
   function evidenceForAccount(a){
     const prog = a.progress || {};
     const certs = a.certs || {};
-    const modules = MODULES.map(m => {
-      const cases = m.cases
+    /* Card P-07: the completed-case entry is built ONCE and used by the
+       curriculum's modules and by the organisation's own groups alike — a
+       record is a record. One path means the answer-text promise, the names
+       and the growth line are proven for both by the same sentinels rather
+       than by a second implementation nobody re-tests. */
+    const completed = list => list
         .filter(c => own(prog, c.id) && prog[c.id] && prog[c.id].passed)
         .map(c => {
           const st = prog[c.id] || {};
@@ -6391,6 +6617,8 @@ const Admin = (() => {
           }
           return entry;
         });
+    const modules = MODULES.map(m => {
+      const cases = completed(m.cases);
       const cert = own(certs, m.id) ? certs[m.id] : null;
       const st = CertRules.streamOf(m.id);
       return {
@@ -6401,6 +6629,17 @@ const Admin = (() => {
         serial: cert ? cert.serial : "", certDate: cert ? cert.date : ""
       };
     });
+    /* Card P-07: the organisation's own case studies as their own list —
+       never inside `modules`, so nothing that sums the curriculum picks them
+       up by accident, and `casesDone` keeps meaning what it has always meant.
+       A group the worker has not touched still appears with 0 of n, the way
+       an untouched module does; a group whose cases were offboarded is gone
+       from the library and so from here (a stale progress key shows nothing). */
+    const orgs = orgGroups().map(g => {
+      const cases = completed(g.cases);
+      return { name: g.title, cases, totalCases: g.cases.length,
+               complete: g.cases.length > 0 && cases.length === g.cases.length };
+    }).filter(g => g.totalCases);
     /* Every stream certificate the worker holds, not just the original
        capstone — an evidence pack that silently omitted one would understate
        the very thing the pack exists to prove. */
@@ -6410,8 +6649,9 @@ const Admin = (() => {
                    serial: certs[s.key].serial, date: certs[s.key].date }));
     return {
       name: a.name || "", username: a.username || "", created: a.created || "",
-      modules, streams,
+      modules, streams, orgGroups: orgs,
       casesDone: modules.reduce((n, m) => n + m.cases.length, 0),
+      orgCasesDone: orgs.reduce((n, g) => n + g.cases.length, 0),
       certCount: Object.keys(certs).length,
       capstone: streams.length ? { serial: streams[0].serial, date: streams[0].date } : null
     };
@@ -6456,8 +6696,10 @@ const Admin = (() => {
        build did, and across a roster it buries the evidence under its own
        table of contents — the opposite of what this document is for. */
     const untouched = ev.modules.filter(m => !m.cases.length);
-    const blocks = ev.modules.filter(m => m.cases.length).map(m => {
-      const rows = m.cases.map(c => `<tr>
+    /* Card P-07: ONE row renderer, used by the curriculum's modules and by
+       the organisation's own groups — so the names, the growth line and the
+       no-answer-text promise are the same code on both, not two that drift. */
+    const caseRows = cases => cases.map(c => `<tr>
           <td>${esc(c.title)}</td>
           <td class="ev-num">${fmtDate(c.date)}</td>
           <td class="ev-num">${c.attempts}</td>
@@ -6469,6 +6711,9 @@ const Admin = (() => {
               c.demoNames.length ? c.demoNames.map(esc).join(", ") : "—"}${
               c.exploreNames.length ? ` · to explore: ${c.exploreNames.map(esc).join(", ")}` : ""}${
               c.growth ? `<br><span class="ev-growth">Revised — first ${c.growth.firstHits} of ${c.growth.firstTotal} (${fmtDate(c.growth.firstAt)}) → latest ${c.growth.latestHits} of ${c.growth.total} (${fmtDate(c.growth.latestAt)}) concepts demonstrated</span>` : ""}</td></tr>` : ""}`).join("");
+    const CASE_HEAD = `<thead><tr><th>Case study</th><th>Completed</th><th>Submissions</th><th>Concepts demonstrated</th></tr></thead>`;
+    const blocks = ev.modules.filter(m => m.cases.length).map(m => {
+      const rows = caseRows(m.cases);
       /* Falls back on m.complete, not on the serial alone: an imported or
          hand-edited dataset can hold every case complete with no certificate
          record, and "not yet complete — 6 of 6 done" is self-contradictory on
@@ -6482,24 +6727,48 @@ const Admin = (() => {
       return `<div class="ev-module">
         <h4>${esc(m.code)} — ${esc(m.title)}${m.stream ? ` <span class="ev-stream">${esc(m.stream)} stream</span>` : ""}</h4>
         <table class="ev-table">
-          <thead><tr><th>Case study</th><th>Completed</th><th>Submissions</th><th>Concepts demonstrated</th></tr></thead>
+          ${CASE_HEAD}
           <tbody>${rows}</tbody>
         </table>
         ${cert}</div>`;
     }).join("");
+    /* Card P-07: the organisation's own case studies get their own blocks,
+       after the curriculum and labelled as what they are — an auditor must
+       never have to work out which of these the academy set and which the
+       provider wrote. No certificate line, because none is issued (P-05's
+       decision, said out loud on the document that goes out of the building). */
+    const orgBlocks = (ev.orgGroups || []).filter(g => g.cases.length).map(g => `<div class="ev-module ev-org">
+        <h4>${esc(g.name)} <span class="ev-stream">this organisation's own</span></h4>
+        <table class="ev-table">
+          ${CASE_HEAD}
+          <tbody>${caseRows(g.cases)}</tbody>
+        </table>
+        <p class="ev-cert ev-none">${g.complete
+          ? `All ${g.totalCases} case ${g.totalCases === 1 ? "study" : "studies"} in this group complete.`
+          : `${g.cases.length} of ${g.totalCases} case studies done.`}
+          No certificate is issued for an organisation's own case studies.</p>
+      </div>`).join("");
+    const orgSection = orgBlocks
+      ? `<p class="ev-orgnote">Case studies written by this organisation against its own
+           procedures, practised with the same coaching engine and the same rule. They carry
+           no certificate.</p>${orgBlocks}`
+      : "";
     const capstone = (ev.streams || []).map(s =>
       `<p class="ev-cert"><strong>${esc(s.title)}</strong> —
          serial <span class="ev-serial">${esc(s.serial)}</span>, awarded ${fmtDate(s.date)}.</p>`).join("");
     const remaining = untouched.length
-      ? `<p class="ev-module ev-none">${blocks ? "Not yet started" : "No case studies completed yet"}:
+      ? `<p class="ev-module ev-none">${blocks || orgBlocks ? "Not yet started" : "No case studies completed yet"}:
            ${untouched.map(m => esc(m.code)).join(", ")}.</p>`
       : "";
     return `<section class="ev-worker">
       <h3>${esc(ev.name)}</h3>
       <p class="ev-meta">Username ${esc(ev.username)} · registered ${fmtDate(ev.created)} ·
          ${ev.casesDone} case ${ev.casesDone === 1 ? "study" : "studies"} completed ·
-         ${ev.certCount} certificate${ev.certCount === 1 ? "" : "s"}</p>
+         ${ev.certCount} certificate${ev.certCount === 1 ? "" : "s"}${
+         /* Card P-07: counted beside the curriculum figure, never inside it. */
+         ev.orgCasesDone ? ` · ${ev.orgCasesDone} of this organisation's own case ${ev.orgCasesDone === 1 ? "study" : "studies"} completed` : ""}</p>
       ${blocks}
+      ${orgSection}
       ${remaining}
       ${capstone}
     </section>`;
@@ -6511,8 +6780,12 @@ const Admin = (() => {
     const org = scope === "org";
     const generated = new Date();
     const totals = list.reduce((t, ev) => {
-      t.cases += ev.casesDone; t.certs += ev.certCount; return t;
-    }, { cases: 0, certs: 0 });
+      t.cases += ev.casesDone; t.certs += ev.certCount;
+      /* Card P-07: its own figure on the cover, for the same reason it has its
+         own blocks below — curriculum and provider practice are different
+         claims and this document must not blur them. */
+      t.orgCases += ev.orgCasesDone || 0; return t;
+    }, { cases: 0, certs: 0, orgCases: 0 });
     /* Card B1 on the audit document: whose workers these are belongs at the top
        of a pack that goes to an auditor. Same Law 3 rule as the certificate —
        the academy's own name stays, in the line directly beneath. */
@@ -6538,6 +6811,7 @@ const Admin = (() => {
         <span><strong>${list.length}</strong> worker${list.length === 1 ? "" : "s"}</span>
         <span><strong>${totals.cases}</strong> case ${totals.cases === 1 ? "study" : "studies"} completed</span>
         <span><strong>${totals.certs}</strong> certificate${totals.certs === 1 ? "" : "s"} issued</span>
+        ${totals.orgCases ? `<span><strong>${totals.orgCases}</strong> of this organisation's own case ${totals.orgCases === 1 ? "study" : "studies"} completed</span>` : ""}
       </div>
       <p class="ev-note">${esc(EVIDENCE_BASIS)}</p>
       <p class="ev-note">${esc(EVIDENCE_DISCLAIMER)}</p>
@@ -6561,27 +6835,49 @@ const Admin = (() => {
       [EVIDENCE_BASIS],
       [EVIDENCE_DISCLAIMER],
       [],
-      ["Worker", "Username", "Stream", "Module code", "Module", "Cases completed",
+      ["Worker", "Username", "Stream / group", "Module code", "Module", "Cases completed",
        "Concepts demonstrated (completed cases)", "Concepts assessed (completed cases)",
        "Concepts demonstrated (names)", "Growth (revised cases)",
        "Module complete", "Certificate serial", "Awarded"]];
+    /* Card C-04: distinct demonstrated concept NAMES across a block's
+       record-bearing cases (rubric content, not student text), and a growth
+       aggregate for its revised cases. Pre-record blocks leave both cells
+       empty rather than pretending.
+       Card P-07: computed ONCE, for the curriculum's modules and the
+       organisation's own groups alike — the same reason the pack shares its
+       row renderer. */
+    const agg = cases => {
+      const grown = cases.filter(c => c.growth);
+      return {
+        dem: cases.reduce((n, c) => n + c.demonstrated, 0),
+        tot: cases.reduce((n, c) => n + c.concepts, 0),
+        names: [...new Set(cases.flatMap(c => c.demoNames || []))].join("; "),
+        growth: grown.length
+          ? `${grown.length} revised; first ${grown.reduce((n, c) => n + c.growth.firstHits, 0)} → latest ${grown.reduce((n, c) => n + c.growth.latestHits, 0)} concepts`
+          : ""
+      };
+    };
     for (const ev of evidenceScope(scope, src)){
       for (const m of ev.modules){
-        const dem = m.cases.reduce((n, c) => n + c.demonstrated, 0);
-        const tot = m.cases.reduce((n, c) => n + c.concepts, 0);
-        /* Card C-04: distinct demonstrated concept NAMES across the module's
-           record-bearing cases (rubric content, not student text), and a
-           growth aggregate for its revised cases. Pre-record modules leave
-           both cells empty rather than pretending. */
-        const names = [...new Set(m.cases.flatMap(c => c.demoNames || []))].join("; ");
-        const grown = m.cases.filter(c => c.growth);
-        const growthCell = grown.length
-          ? `${grown.length} revised; first ${grown.reduce((n, c) => n + c.growth.firstHits, 0)} → latest ${grown.reduce((n, c) => n + c.growth.latestHits, 0)} concepts`
-          : "";
+        const g = agg(m.cases);
         rows.push([ev.name, ev.username, m.stream, m.code, m.title,
-                   `${m.cases.length}/${m.totalCases}`, dem, tot,
-                   names, growthCell,
+                   `${m.cases.length}/${m.totalCases}`, g.dem, g.tot,
+                   g.names, g.growth,
                    m.complete ? "yes" : "no", m.serial, m.certDate ? fmtDate(m.certDate) : ""]);
+      }
+      /* Card P-07: the organisation's own case studies. The stream column
+         names them, which is what lets a spreadsheet separate provider
+         practice from curriculum — they are deliberately NOT folded into the
+         module rows, and they carry no serial because none is issued. */
+      for (const g0 of ev.orgGroups || []){
+        /* Every group, touched or not — a core module with nothing done still
+           emits its 0/6 row, and an auditor's spreadsheet should not have to
+           guess which groups are missing (Referee). */
+        const g = agg(g0.cases);
+        rows.push([ev.name, ev.username, ORG_CSV_STREAM, "", g0.name,
+                   `${g0.cases.length}/${g0.totalCases}`, g.dem, g.tot,
+                   g.names, g.growth,
+                   g0.complete ? "yes" : "no", "", ""]);
       }
       /* Stream certificates get their own rows — they are the strongest single
          line of evidence in the pack and were invisible in the CSV before. */
@@ -6773,7 +7069,7 @@ const Admin = (() => {
   async function supervisorSubmit(ev){
     ev.preventDefault();
     const err = $("supLoginErr");
-    const r = await Store.managerLogin($("supId").value.trim().toLowerCase(), $("supPw").value);
+    const r = await supervisorLoginWith($("supId").value.trim().toLowerCase(), $("supPw").value);
     $("supPw").value = "";
     if (r.error){
       err.textContent = r.error === "notasupervisor"
@@ -6784,6 +7080,16 @@ const Admin = (() => {
       err.classList.remove("hidden");
       return;
     }
+    return;
+  }
+  /* The credential half of the supervisor sign-in, without the form — the
+     remote e2e signs in as a manager to prove what a manager's panel shows
+     (Card P-08's Referee: criterion 3 cited a gate that did not exist).
+     Same precedent as loginWith() for the PIN. On success the panel is
+     rendered at that rank; on failure the caller renders the message. */
+  async function supervisorLoginWith(id, password){
+    const r = await Store.managerLogin(id, password);
+    if (r.error) return r;
     /* The student token doubles as the supervisor token: the server reads the
        account's role off it and gates every route at that rank. */
     Store.setAdminToken(r.token);
@@ -6791,6 +7097,7 @@ const Admin = (() => {
     viewerName = (r.account && r.account.name) || "";
     await refreshData();
     renderPanel("overview");
+    return r;
   }
   let viewerRole = "owner";      // PIN sign-in is owner; a supervisor sets their own
   let viewerName = "";           // Card S11: signs noticeboard posts; PIN admin posts unsigned
@@ -6834,6 +7141,13 @@ const Admin = (() => {
       const r = await Store.adminLogin(pin);
       if (r.error) return false;
       Store.setAdminToken(r.token);
+      /* The PIN sign-in IS the owner, and this seam must say so exactly as
+         loginSubmit() does — without it, a PIN sign-in taken after a manager
+         sign-in in the same tab kept the manager's narrower panel. Found by
+         P-08's own role fixture; the divergence between a test seam and the
+         path a person takes is this project's recurring bug. */
+      viewerRole = "owner";
+      viewerName = "";
       await refreshData();
       renderPanel("overview");
       return true;
@@ -6873,6 +7187,7 @@ const Admin = (() => {
        the button did nothing. Found while wiring P-05's; both now dispatch. */
     guideremove:  (b) => removeGuideDoc(b.dataset.id),
     caseremove:   (b) => removeCaseDoc(b.dataset.id),
+    eventremove:  (b) => removeEventDoc(b.dataset.id),
     caseconceptdel: (b) => removeConceptRow(b.dataset.idx),
     caseflagdel:    (b) => removeFlagRow(b.dataset.idx)
   });
@@ -6902,9 +7217,32 @@ const Admin = (() => {
   }
 
   /* ---- main panel ---- */
+  /* Card P-07: Students, the student detail and Evidence all name the
+     organisation's own case studies, so the policy library has to be here
+     before they paint — a supervisor must never see an org section that is
+     merely late. Loaded once, then the tab they are ACTUALLY on repaints:
+     never a different one, and never over a form they have begun (the library
+     tabs each load it for themselves as before). Local mode already has it
+     from Store.init(); this is idempotent and cheap either way. */
+  let libLoaded = false, libLoading = false, currentTab = "overview";
+  function ensureLibrary(){
+    if (libLoaded || libLoading) return;
+    libLoading = true;
+    Promise.resolve(Store.loadPolicies())
+      /* Referee: mark it loaded only when it IS — a 401 or a dropped
+         connection used to mean no supervisor saw an org section again for
+         the life of the panel, silently. And repaint whatever tab is on
+         screen now, not the one that happened to ask: a click landing during
+         the fetch used to leave Students painted without the library. */
+      .then(() => { libLoaded = true; if (hasSession()) renderPanel(currentTab); })
+      .catch(() => {})
+      .then(() => { libLoading = false; });
+  }
   function renderPanel(tab){
     bindRowActions();
     if (!hasSession()){ renderLogin(); return; }
+    currentTab = tab || "overview";
+    ensureLibrary();
     let detailUser = null;
     if (tab && tab.startsWith("student:")){ detailUser = tab.slice(8); tab = "studentDetail"; }
     /* The audit trail only exists on a server — a local device has no shared
@@ -6923,21 +7261,53 @@ const Admin = (() => {
       ["guide", "Field guide", "compass"],
       /* Card P-05: the organisation's own case studies — same rank. */
       ["cases", "Case studies", "capstone"],
+      /* Card P-09: the hub's calendar — org content, manager+, same library. */
+      ["calendar", "Calendar", "calendar"],
       ["data", "Data & backup", "backup"], ["security", "Security", "security"]
     ];
     /* Owner-only surfaces are hidden from a manager for tidiness — the server
        refuses them regardless, which is where the actual control lives.
        Branding is organisation-wide configuration, so it follows the same rule;
        in local mode there are no roles and the PIN-holder is the owner. */
-    if (!remote() || viewerRole === "owner") tabs.push(["branding", "Organisation", "settings"]);
+    /* Card P-08 (Referee): "Name & logo" rather than "Organisation" — under
+       the ORGANISATION heading the old label was the one place a reader had to
+       read the same word twice, and this says what the tab actually does. */
+    if (!remote() || viewerRole === "owner") tabs.push(["branding", "Name & logo", "settings"]);
     /* Card P-06: the Academy's settings moved here whole. Owner-only in server
        mode, like branding — and for a sharper reason: these values never reach
        the server, so no role gate can refuse them there. The PIN IS the
        control, which is exactly why they may not sit on a worker's screen. */
     if (!remote() || viewerRole === "owner") tabs.push(["coach", "AI coach & email", "compass"]);
     if (remote() && viewerRole === "owner") tabs.push(["audit", "Audit", "audit"]);
-    const navBtns = tabs.map(([id, label, ico]) =>
-      `<button class="admin-tab ${tab===id || (tab==="studentDetail" && id==="students") ? "active":""}" onclick="Admin.show('${id}')">${Icons.icon(ico)}${label}</button>`).join("");
+    /* ---- Card P-08: administrator mode reads by portal ----
+       David's word: *"split the settings in administrator mode for each
+       separate portal … ergonomic and clean, not confusing."* Thirteen flat
+       tabs became three headed groups, everything still one click away.
+
+       Which portal a destination belongs to is DATA, not layout: P-09 adds the
+       calendar by adding one id to the hub row and the renderer does not
+       change. A tab in `tabs` but in no group here would NOT render — that is
+       deliberate (a leftover bucket would make the "nothing went missing"
+       mutation impossible to red), and the harness compares the rendered set
+       against the declared one on every run. */
+    const NAV_GROUPS = [
+      { label: "", ids: ["overview"] },
+      { label: "Academy", ids: ["students", "certs", "evidence", "cases"] },
+      { label: "Provider Hub", ids: ["board", "policies", "guide", "calendar"] },
+      { label: "Organisation", ids: ["branding", "coach", "security", "data", "audit"] }
+    ];
+    const byId = new Map(tabs.map(t => [t[0], t]));
+    const navBtn = ([id, label, ico]) =>
+      `<button class="admin-tab ${tab===id || (tab==="studentDetail" && id==="students") ? "active":""}" onclick="Admin.show('${id}')">${Icons.icon(ico)}${label}</button>`;
+    const navBtns = NAV_GROUPS.map(g => {
+      const btns = g.ids.filter(id => byId.has(id)).map(id => navBtn(byId.get(id))).join("");
+      /* An empty group renders NO heading. A manager must not be shown the
+         outline of a room they cannot enter — the owner-only tabs are already
+         absent for them, and their heading would put the absence on screen. */
+      if (!btns) return "";
+      return `<div class="admin-navgroup">${
+        g.label ? `<span class="admin-navlabel">${esc(g.label)}</span>` : ""}${btns}</div>`;
+    }).join("");
     let body = "";
     if (tab === "overview") body = viewOverview();
     else if (tab === "students") body = viewStudents();
@@ -6948,6 +7318,7 @@ const Admin = (() => {
     else if (tab === "policies") body = viewPolicies();
     else if (tab === "guide") body = viewGuide();
     else if (tab === "cases") body = viewCases();
+    else if (tab === "calendar") body = viewCalendar();
     else if (tab === "data") body = viewData();
     else if (tab === "branding") body = viewBranding();
     else if (tab === "coach") body = viewCoach();
@@ -7045,12 +7416,23 @@ const Admin = (() => {
      revised and how far the demonstrated-concept count moved, first to
      latest. Malformed records contribute nothing; a negative delta renders
      as its true value, because the evidence is honest or it is nothing. */
-  function growthSummary(a){
+  function growthSummary(a, live){
     let revised = 0, delta = 0;
-    /* v0.7.1 (Referee): org cases are not shown in the detail or the pack,
-       so they must not count in the Growth column either — core-only. */
+    /* Offboarding (Referee's must-fix on v0.9.0): a `t:` record outlives the
+       case doc — the sync only trims it on the worker's next save, and in
+       local mode never. The detail, the pack and the CSV all go clean when
+       the library does, so this column must too: a number a supervisor cannot
+       open is exactly what v0.7.1's Referee objected to. `live` is the set of
+       cases the library still resolves. */
+    const shown = live || orgCaseIds();
+    /* v0.7.1 (Referee) kept org cases OUT of this column, for one stated
+       reason: they were not shown in the detail or the pack, so counting them
+       would have been a number a supervisor could not open. Card P-07 shows
+       them, so that reasoning inverts and they count — a decision, not drift.
+       (The completion counts above stay core-only; those are a goalpost, this
+       is a measure of revision.) */
     for (const [cid, st] of Object.entries(a.progress || {})){
-      if (isOrgCase(cid)) continue;
+      if (isOrgCase(cid) && !shown.has(cid)) continue;
       const rec = st && st.assessed, orig = st && st.original;
       if (rec && typeof rec === "object" && Array.isArray(rec.criteria) && rec.criteria.length
           && orig && typeof orig === "object" && Array.isArray(orig.criteria) && orig.criteria.length){
@@ -7061,8 +7443,8 @@ const Admin = (() => {
     }
     return { revised, delta };
   }
-  function growthCell(a){
-    const g = growthSummary(a);
+  function growthCell(a, live){
+    const g = growthSummary(a, live);
     return g.revised
       ? `${g.revised} revised · ${g.delta >= 0 ? "+" : ""}${g.delta} concept${Math.abs(g.delta) === 1 ? "" : "s"}`
       : `<span class="hint">—</span>`;
@@ -7071,6 +7453,7 @@ const Admin = (() => {
     const accounts = Object.values(getData())
       .sort((a,b)=> (studentSummary(b).last||"").localeCompare(studentSummary(a).last||""));
     const total = allCaseIds().length;
+    const live = orgCaseIds();
     const rows = accounts.length ? accounts.map(a=>{
       const s = studentSummary(a);
       const pct = Math.round(s.passed/total*100);
@@ -7079,7 +7462,7 @@ const Admin = (() => {
         <td><div class="prog-bar" style="min-width:90px"><div class="prog-fill" style="width:${pct}%"></div></div>
             <span class="hint">${s.passed}/${total} cases</span></td>
         <td>${s.certs}</td>
-        <td class="hint">${growthCell(a)}</td>
+        <td class="hint">${growthCell(a, live)}</td>
         <td class="hint">${fmtDate(s.last)}</td>
         <td class="admin-actions">
           <button class="btn" data-act="view" data-user="${esc(a.username)}">View</button>
@@ -7098,15 +7481,26 @@ const Admin = (() => {
     const a = getData()[username];
     if (!a) return `<h2>Student not found</h2><p class="hint">They may have been deleted.</p>`;
     const s = studentSummary(a);
-    const modRow = m => {
+    /* Card P-07: ONE row renderer, two kinds. A core module names its code
+       and its certificate; an organisation's own group names the group, counts
+       its own completions, and says plainly that no certificate is issued for
+       it — P-05's decision, stated where a supervisor reads the record instead
+       of only in the backlog. Everything below (chips, records, growth, the
+       audited-read button) is identical for both, which is the point: a
+       tenant case's record is a record. */
+    const modRow = (m, org) => {
       const chips = m.cases.map((c,i)=>{
         const st = (a.progress||{})[c.id];
         /* A supervisor never receives the answer text with the roster — the
            server redacts it. Reading one is a deliberate, recorded act. */
         const canRead = remote() && st && (st.hasDraft || st.draft);
-        const chip = st && st.passed ? `<span class="case-status st-passed" title="${esc(c.title)}">${i+1} ✓ ${num(st.best)}%</span>`
-                   : st && st.attempts ? `<span class="case-status st-progress" title="${esc(c.title)}">${i+1} · ${num(st.attempts)} tries</span>`
-                   : `<span class="case-status st-new" title="${esc(c.title)}">${i+1} —</span>`;
+        /* Card P-07: a core case is numbered inside its module (the code
+           carries the meaning); one of the organisation's own is NAMED — a
+           provider writes two or three, and "1." tells a supervisor nothing. */
+        const tag = org ? esc(c.title) : String(i + 1);
+        const chip = st && st.passed ? `<span class="case-status st-passed" title="${esc(c.title)}">${tag} ✓ ${num(st.best)}%</span>`
+                   : st && st.attempts ? `<span class="case-status st-progress" title="${esc(c.title)}">${tag} · ${num(st.attempts)} tries</span>`
+                   : `<span class="case-status st-new" title="${esc(c.title)}">${tag} —</span>`;
         return chip + (canRead
           ? ` <button class="btn admin-readsub" title="Opens ${esc(c.title)}. This is recorded in the audit trail."
                  data-act="submission" data-user="${esc(a.username)}" data-case="${esc(c.id)}">${Icons.icon("view")}View submission (recorded)</button>`
@@ -7132,6 +7526,8 @@ const Admin = (() => {
         const st = (a.progress||{})[c.id];
         const rec = st && st.assessed;
         if (!rec || !Array.isArray(rec.criteria) || !rec.criteria.length) return "";
+        /* Same reason as the chip: the org's rows lead with the case's name. */
+        const lbl = org ? esc(c.title) + ":" : (i + 1) + ".";
         /* Card C-03: a revised case shows its retained FIRST attempt above
            the latest — dates and criteria side by side, so growth is visible
            without a word of either answer (the server strips both texts from
@@ -7143,17 +7539,24 @@ const Admin = (() => {
              from the records themselves, never from `best`. */
           const fh = orig.criteria.filter(x => x && x.hit).length;
           const lh = rec.criteria.filter(x => x && x.hit).length;
-          return `<p class="admin-assessed admin-growth">${i+1}. Growth: first ${fh} of ${orig.criteria.length} → latest ${lh} of ${rec.criteria.length} concepts demonstrated</p>`
-            + recordLine(orig, `${i+1}. First attempt —`) + recordLine(rec, `${i+1}. Latest —`);
+          return `<p class="admin-assessed admin-growth">${lbl} Growth: first ${fh} of ${orig.criteria.length} → latest ${lh} of ${rec.criteria.length} concepts demonstrated</p>`
+            + recordLine(orig, `${lbl} First attempt —`) + recordLine(rec, `${lbl} Latest —`);
         }
-        return recordLine(rec, `${i+1}.`);
+        return recordLine(rec, lbl);
       }).filter(Boolean).join("");
-      const cert = (a.certs||{})[m.id];
-      return `<div class="admin-modrow">
-        <div><strong>${esc(m.code)}</strong> ${esc(m.title)}</div>
+      const cert = org ? null : (a.certs||{})[m.id];
+      const done = m.cases.filter(c => ((a.progress||{})[c.id] || {}).passed).length;
+      const head = org
+        ? `<div><strong>${esc(m.title)}</strong> <span class="hint">${done} of ${m.cases.length} complete</span></div>`
+        : `<div><strong>${esc(m.code)}</strong> ${esc(m.title)}</div>`;
+      const foot = org
+        ? `<div class="hint">Practice against your organisation's own procedures — no certificate is issued for these.</div>`
+        : `<div class="hint">${cert ? `${Icons.icon("certificate")} Certificate ${esc(cert.serial)} · ${fmtDate(cert.date)}` : "No certificate yet"}</div>`;
+      return `<div class="admin-modrow${org ? " admin-orgrow" : ""}">
+        ${head}
         <div class="admin-chips">${chips}</div>
         ${assessedLines ? `<div class="admin-assessed-block">${assessedLines}</div>` : ""}
-        <div class="hint">${cert ? `${Icons.icon("certificate")} Certificate ${esc(cert.serial)} · ${fmtDate(cert.date)}` : "No certificate yet"}</div>
+        ${foot}
       </div>`;
     };
     /* Card C-04: the records block opens with the trust caveat, once — the
@@ -7167,8 +7570,25 @@ const Admin = (() => {
     const moduleBlocks = CertRules.STREAMS.map(st => {
       const mods = CertRules.streamModules(st, MODULES);
       if (!mods.length) return "";
-      return `<h3 class="admin-streamhead">${esc(st.name)}</h3>` + mods.map(modRow).join("");
+      /* modRow takes (m, org) and Array.map passes the INDEX as the second
+         argument — `mods.map(modRow)` rendered every module after the first
+         as one of the organisation's groups. Caught by P-07's offboarding
+         gate; never point map straight at a two-argument renderer. */
+      return `<h3 class="admin-streamhead">${esc(st.name)}</h3>` + mods.map(m => modRow(m)).join("");
     }).join("");
+    /* Card P-07: the organisation's own case studies, in their own section
+       under the organisation's name — beside the curriculum, never mixed into
+       it. Absent when the org has written none, and absent when the library
+       has not loaded (the panel loads it on open and repaints). Groups are
+       rendered by index off App.orgGroups(); no org string reaches an
+       attribute except through esc(). */
+    const orgSection = (() => {
+      const gs = orgGroups().filter(g => g.cases.length);
+      if (!gs.length) return "";
+      const on = (Store.branding || {}).orgName;
+      const head = on ? esc(on) + " — its own case studies" : "Your organisation's own case studies";
+      return `<h3 class="admin-streamhead">${head}</h3>` + gs.map(g => modRow(g, true)).join("");
+    })();
     const streamCerts = CertRules.STREAMS
       .filter(st => own(a.certs || {}, st.key))
       .map(st => `<p class="cert-ribbon" style="margin-bottom:1rem">${Icons.icon("capstone")}
@@ -7190,7 +7610,8 @@ const Admin = (() => {
       </p>
       ${streamCerts}
       ${caveat}
-      ${moduleBlocks}`;
+      ${moduleBlocks}
+      ${orgSection}`;
   }
 
   function viewCerts(query){
@@ -7900,6 +8321,165 @@ const Admin = (() => {
     note("Downloaded " + docs.length + " case stud" + (docs.length === 1 ? "y" : "ies") + " as JSON.");
   }
 
+  /* ================= the organisation's calendar (Card P-09) =================
+     Shifts, training, team meetings and events for the Provider Hub's
+     Calendar tab. Same library, same rules as the procedures, the field
+     guide and the case studies — a doc of kind "event", tenant-scoped,
+     offboarded with the rest, plain text forever — with a date the ingestion
+     service validates as a REAL day, because the hub's grid indexes on it.
+     Entries are broadcast to every signed-in worker of the org, so the
+     participant-information prohibition rides this form like the others. */
+  const ownEventDocs = () => ownDocsOfKind("event");
+  const evSorted = () => ownEventDocs().slice()
+    .sort((a, b) => (a.date + (a.start || "99:99")).localeCompare(b.date + (b.start || "99:99")));
+
+  function viewCalendar(){
+    loadCalendarAdmin();
+    const lim = Store.policyLimits;
+    const E = PolicyLib.EVENT_LIMITS;
+    const tenant = (Store.policies || {}).tenant || "";
+    return `
+      <h2>Calendar — what's on for your workers</h2>
+      <p class="hint" style="max-width:74ch">What you put here appears on the Provider Hub's
+        <strong>Calendar</strong> tab: a month at a glance, with what's coming up underneath, and
+        a link from the events box on the hub's noticeboard. Shifts, training, team meetings,
+        audits, social days. <strong>Never include participant details or information about
+        individual workers</strong> — every signed-in worker of your organisation sees this.</p>
+      ${tenant ? "" : `<p class="hint"><strong>Set your organisation id first</strong> (Admin → Policies) — entries are scoped to it.</p>`}
+      <h3 class="admin-h3">Add an entry</h3>
+      <form onsubmit="Admin.addEventDoc(event)" style="max-width:560px">
+        <label>What is it <span class="hint">(up to ${lim.title})</span>
+          <input type="text" id="evTitle" maxlength="${lim.title}" placeholder="e.g. Team meeting — Rosebud house">
+        </label>
+        <label>Date <span class="hint">(the day it happens)</span>
+          <input type="date" id="evDate">
+        </label>
+        <label>Starts <span class="hint">(optional, 24-hour)</span>
+          <input type="time" id="evStart">
+        </label>
+        <label>Ends <span class="hint">(optional)</span>
+          <input type="time" id="evEnd">
+        </label>
+        <label>Where <span class="hint">(optional, up to ${E.where})</span>
+          <input type="text" id="evWhere" maxlength="${E.where}" placeholder="e.g. Rosebud office, upstairs">
+        </label>
+        <label>Notes <span class="hint">(optional, plain text, up to ${E.body})</span>
+          <textarea id="evBody" rows="4" maxlength="${E.body}"></textarea>
+        </label>
+        <p id="evErr" class="auth-error hidden"></p>
+        <div class="modal-actions" style="justify-content:flex-start">
+          <button type="submit" class="btn btn-primary">Add to the calendar</button>
+        </div>
+      </form>
+      <h3 class="admin-h3">Load a whole set</h3>
+      <p class="hint" style="max-width:74ch">Paste a JSON array —
+        <code>[{"title":"Team meeting","date":"2026-09-10","start":"14:00","end":"15:00","where":"…","body":"…"}]</code>
+        — and it <strong>replaces</strong> your organisation's current calendar (up to ${lim.maxDocs}
+        entries). Your procedures, field guide and case studies are separate sets and are not
+        touched. Dates are <code>YYYY-MM-DD</code>; times are <code>HH:MM</code> on a 24-hour clock.</p>
+      <textarea id="evImport" rows="4" style="max-width:560px;width:100%" placeholder='[{"title":"…","date":"2026-09-10"}]'></textarea>
+      <p id="evImportErr" class="auth-error hidden"></p>
+      <div class="modal-actions" style="justify-content:flex-start">
+        <button class="btn" onclick="Admin.importEvents()">${Icons.icon("backup")}Import (replaces the calendar)</button>
+        <button class="btn" onclick="Admin.exportEvents()">${Icons.icon("download")}Download JSON</button>
+      </div>
+      <h3 class="admin-h3">On the calendar now</h3>
+      <div id="calAdminBody"><p class="hint">Loading…</p></div>`;
+  }
+  async function loadCalendarAdmin(){
+    await Store.loadPolicies();
+    const box = $("calAdminBody");
+    if (!box) return;
+    const docs = evSorted();
+    const tenant = (Store.policies || {}).tenant || "";
+    if (!docs.length){
+      box.innerHTML = `<p class="hint">${tenant
+        ? "Nothing on the calendar yet — add an entry above, or paste a set as JSON."
+        : "Set your organisation id first, then fill in the calendar."}</p>`;
+      return;
+    }
+    const today = new Date();
+    const todayISO = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0")
+                   + "-" + String(today.getDate()).padStart(2, "0");
+    box.innerHTML = `
+      <p class="hint">${docs.length} entr${docs.length === 1 ? "y" : "ies"}, scoped
+        <code>tenant:${esc(tenant)}</code> — on the Provider Hub's Calendar for every worker
+        who signs in. Past entries stay until you remove them.</p>
+      <table class="admin-table"><thead><tr><th>Date</th><th>Time</th><th>What</th><th>Where</th><th></th></tr></thead>
+      <tbody>${docs.map(d => `
+        <tr${d.date < todayISO ? ' class="admin-past"' : ""}>
+          <td>${esc(d.date)}</td>
+          <td>${esc(d.start ? (d.end ? d.start + "\u2013" + d.end : d.start) : "\u2014")}</td>
+          <td>${esc(d.title)}</td>
+          <td>${esc(d.where || "\u2014")}</td>
+          <td><button class="btn btn-small" data-act="eventremove" data-id="${esc(d.id)}">${Icons.icon("trash")}Remove</button></td>
+        </tr>`).join("")}</tbody></table>`;
+  }
+  async function addEventDoc(ev){
+    ev.preventDefault();
+    const err = $("evErr");
+    const doc = {
+      title: $("evTitle").value.trim(),
+      date: $("evDate").value,
+      start: $("evStart").value,
+      end: $("evEnd").value,
+      where: $("evWhere").value.trim(),
+      body: $("evBody").value.trim(),
+      updated: new Date().toISOString()
+    };
+    if (!doc.title || !PolicyLib.validDate(doc.date)){
+      err.textContent = "An entry needs a name and a real date.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const r = await Store.setPolicies([...ownEventDocs(), doc], "event");
+    if (r && r.error){ err.textContent = "Couldn't add it: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    for (const id of ["evTitle", "evDate", "evStart", "evEnd", "evWhere", "evBody"]) $(id).value = "";
+    note("Added — workers see it on the Provider Hub's Calendar.");
+    loadCalendarAdmin();
+  }
+  async function removeEventDoc(id){
+    const docs = ownEventDocs().filter(d => d.id !== id);
+    const r = await Store.setPolicies(docs, "event");
+    if (r && r.error){ note("Couldn't remove it: " + r.error); return; }
+    note("Entry removed.");
+    loadCalendarAdmin();
+  }
+  async function importEvents(){
+    const err = $("evImportErr");
+    let parsed;
+    try { parsed = JSON.parse($("evImport").value); }
+    catch(e){ err.textContent = "That isn't valid JSON."; err.classList.remove("hidden"); return; }
+    if (!Array.isArray(parsed)){
+      err.textContent = "Expected a JSON array of calendar entries.";
+      err.classList.remove("hidden");
+      return;
+    }
+    const docs = parsed.map(d => ({
+      title: String((d && d.title) || "").trim(),
+      date: String((d && d.date) || "").trim(),
+      start: String((d && d.start) || "").trim(),
+      end: String((d && d.end) || "").trim(),
+      where: String((d && d.where) || "").trim(),
+      body: String((d && d.body) || "").trim(),
+      updated: new Date().toISOString()
+    }));
+    const r = await Store.setPolicies(docs, "event");
+    if (r && r.error){ err.textContent = "Couldn't import: " + r.error; err.classList.remove("hidden"); return; }
+    err.classList.add("hidden");
+    $("evImport").value = "";
+    note("Imported " + docs.length + " calendar entr" + (docs.length === 1 ? "y" : "ies") + ".");
+    loadCalendarAdmin();
+  }
+  function exportEvents(){
+    const docs = evSorted().map(d => ({ title: d.title, date: d.date, start: d.start,
+                                        end: d.end, where: d.where, body: d.body }));
+    const tenant = (Store.policies || {}).tenant || "org";
+    download("calendar-" + tenant + ".json", JSON.stringify(docs, null, 2), "application/json");
+    note("Downloaded " + docs.length + " calendar entr" + (docs.length === 1 ? "y" : "ies") + " as JSON.");
+  }
+
   /* ================= AI coach & email — this device (Card P-06) =================
      David's word, 3 Sep: "important settings and image upload shouldn't be
      accessed by employees". The Academy's Settings modal moved here whole.
@@ -8136,7 +8716,7 @@ const Admin = (() => {
   }
 
   return { open, exit, show, renderPanel,
-           setupSubmit, loginSubmit, supervisorSubmit, loginWith, setupPin, verifyPin,
+           setupSubmit, loginSubmit, supervisorSubmit, loginWith, supervisorLoginWith, setupPin, verifyPin,
            computeStats, findSerial, allCerts, buildStudentsCSV, buildCertsCSV,
            exportJSON, exportStudentsCSV, exportCertsCSV, importData,
            deleteStudent, resetStudent, resetPassword, viewSubmission, editEmail, wipeAll, loadAudit,
@@ -8152,6 +8732,9 @@ const Admin = (() => {
            viewEvidence, openEvidencePack, exportEvidenceCSV,
            viewGuide, addGuideDoc, removeGuideDoc, importGuide, exportGuide,   // Card P-04
            bindRowActions,       // Referee (v0.6.0): the harness clicks admin rows without a session
+           refreshData,          // Card P-07: the remote e2e fills the panel cache the way open() does
+           viewCalendar, loadCalendarAdmin, addEventDoc, removeEventDoc,   // Card P-09
+           importEvents, exportEvents,
            viewCases, saveCase, draftCase, addConceptRow, addFlagRow, clearCaseForm,   // Card P-05
            caseCoverageLive, fillCaseForm, caseFromForm, removeCaseDoc, importCases, exportCases,
            viewBranding, pickLogo, saveBranding, clearBranding,
@@ -8325,9 +8908,16 @@ const Hub = (() => {
     const empty = kind === "event"
       ? "Nothing scheduled yet — your organisation's meetings and events will appear here."
       : "Nothing posted yet — updates from your organisation will appear here.";
+    /* Card P-09: the events box carries a small link to the calendar, top
+       right — David's word. Nothing else on the box moves, and the info box
+       does not get one (there is nothing for it to link to). */
+    const link = kind === "event"
+      ? `<button type="button" class="board-cal-link" onclick="Hub.calendar()"
+           title="Open the calendar">${Icons.icon("calendar")}Calendar</button>`
+      : "";
     return `
       <aside class="noticeboard board-${kind === "event" ? "events" : "info"}" aria-label="${title}">
-        <h3 class="board-h">${Icons.icon(icon)} ${esc(title)}</h3>
+        <h3 class="board-h">${Icons.icon(icon)} ${esc(title)}${link}</h3>
         ${posts.length ? posts.map(item).join("") : `<p class="board-empty">${esc(empty)}</p>`}
       </aside>`;
   }
@@ -8537,6 +9127,220 @@ const Hub = (() => {
      gate. P-03's gates were re-aimed at the admin surface, none deleted. */
 
   /* ---- hub home ---- */
+  /* ================= the calendar (Card P-09) =================
+     A worker opens the hub and sees what is coming. Entries are library docs
+     of kind "event" — the org's own content, tenant-scoped, offboarded with
+     the rest, plain text forever — written in administrator mode.
+
+     A month grid marks the days that carry something and opens one on click;
+     underneath, either that day's entries or what is coming up next. Days are
+     addressed by their NUMBER, months by a signed step: no org-supplied
+     string ever rides an inline handler (the C-01 rule), and the only strings
+     in an attribute are ones this file generated.
+
+     All date arithmetic is LOCAL — `toISOString()` would shift a Sydney
+     evening into the next day and put an event on the wrong square. */
+  const isoOf = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0")
+                   + "-" + String(d.getDate()).padStart(2, "0");
+  const todayISO = () => isoOf(new Date());
+  const MONTHS = ["January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December"];
+  const DAYNAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  let calCursor = null;     // {y, m} — the month on screen; null means this one
+  let calPicked = "";       // the ISO day whose entries are open, or ""
+
+  /* This tenant's events, cleanest first: by date, then by start time, then
+     by title so the order never depends on library order. */
+  const calEvents = () => App.orgDocsOfKind("event")
+    .filter(d => d && PolicyLib.validDate(d.date))
+    .slice()
+    .sort((a, b) => (a.date + (a.start || "99:99") + a.title)
+      .localeCompare(b.date + (b.start || "99:99") + b.title));
+
+  const calMonthOf = () => {
+    if (calCursor) return calCursor;
+    const n = new Date();
+    return { y: n.getFullYear(), m: n.getMonth() };
+  };
+  const evTime = e => e.start ? (e.end ? e.start + "\u2013" + e.end : e.start) : "";
+  /* Deliberately not toLocaleDateString: the harness and the server may run
+     in any locale, and an evidence-grade product should read the same on
+     every device. */
+  function longDay(iso){
+    const d = new Date(iso + "T00:00:00");
+    if (isNaN(d.getTime())) return iso;
+    return DAYNAMES[(d.getDay() + 6) % 7] + " " + d.getDate() + " " + MONTHS[d.getMonth()];
+  }
+  function calEntryHTML(e){
+    const when = [evTime(e), e.where].filter(Boolean);
+    return `
+      <div class="cal-entry">
+        <h4>${esc(e.title)}</h4>
+        <p class="cal-when">${esc(longDay(e.date))}${when.length ? " · " + esc(when.join(" · ")) : ""}</p>
+        ${e.body ? `<p class="cal-notes">${esc(e.body)}</p>` : ""}
+      </div>`;
+  }
+  function calGrid(evs){
+    const { y, m } = calMonthOf();
+    const first = new Date(y, m, 1);
+    const lead = (first.getDay() + 6) % 7;             // Monday-first
+    const days = new Date(y, m + 1, 0).getDate();
+    const today = todayISO();
+    const counts = Object.create(null);                 // ISO -> n (a map keyed by data)
+    for (const e of evs){
+      if (!Object.prototype.hasOwnProperty.call(counts, e.date)) counts[e.date] = 0;
+      counts[e.date] += 1;
+    }
+    /* Card P-10: the entries themselves, per day, so a box can be READ rather
+       than only counted. Built from the same sorted list, so the two chips a
+       box shows are the day's first two by time. */
+    const onDay = Object.create(null);
+    for (const e of evs){
+      if (!Object.prototype.hasOwnProperty.call(onDay, e.date)) onDay[e.date] = [];
+      onDay[e.date].push(e);
+    }
+    const CHIPS = 2;
+    const cells = [];
+    for (let i = 0; i < lead; i++) cells.push(`<span class="cal-cell cal-blank"></span>`);
+    for (let d = 1; d <= days; d++){
+      const iso = y + "-" + String(m + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+      const list = Object.prototype.hasOwnProperty.call(onDay, iso) ? onDay[iso] : [];
+      const n = list.length;
+      const cls = ["cal-cell", "cal-day", n ? "has" : "", iso === today ? "today" : "",
+                   iso === calPicked ? "picked" : ""].filter(Boolean).join(" ");
+      /* The dot stays for the phone layout, where a 48px column cannot hold a
+         title and the chips are display:none — the panel carries the detail
+         there. Card P-11's picture lands above the chips; the box's minimum
+         height already leaves it room, so nothing reflows when it arrives. */
+      const chips = list.slice(0, CHIPS).map(e =>
+        `<span class="cal-chip">${e.start ? `<b>${esc(e.start)}</b> ` : ""}${esc(e.title)}</span>`).join("");
+      const more = n > CHIPS ? `<span class="cal-more">+${n - CHIPS} more</span>` : "";
+      cells.push(`<button type="button" class="${cls}" onclick="Hub.calPick(${d})"
+        aria-label="${esc(longDay(iso))}${n ? ", " + n + " entr" + (n === 1 ? "y" : "ies") : ""}">
+        <span class="cal-num">${d}</span>${n ? `<span class="cal-dot" aria-hidden="true"></span>` : ""}
+        <span class="cal-chips">${chips}${more}</span></button>`);
+    }
+    /* ONE element back, not two: `.cal-wrap` is a grid, and returning the
+       header and the squares as siblings put the month header in one column
+       and the calendar in the other. Green tests, wrong page — caught by
+       looking at it (v0.11.0). */
+    return `
+      <div class="cal-month">
+      <div class="cal-head">
+        <button type="button" class="btn btn-small" onclick="Hub.calShift(-1)" aria-label="Previous month">‹</button>
+        <h3>${MONTHS[m]} ${y}</h3>
+        <button type="button" class="btn btn-small" onclick="Hub.calShift(1)" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-grid" role="grid">
+        ${DAYNAMES.map(d => `<span class="cal-cell cal-dayname">${d}</span>`).join("")}
+        ${cells.join("")}
+      </div>
+      </div>`;
+  }
+  /* Opening the calendar from the nav or from the noticeboard's link always
+     lands on THIS month with nothing picked — a stale day left selected from
+     an earlier visit reads as "there is nothing on", which is the one thing a
+     calendar must never say by accident. calShift and calPick repaint through
+     paintCalendar instead, keeping their own state. */
+  function calendar(){
+    calCursor = null;
+    calPicked = "";
+    paintCalendar();
+  }
+  /* Card P-10: the day's own panel. It is rendered OUTSIDE `.cal-wrap` and
+     positioned over the page, which is the structural half of the owner's
+     choice — "the grid stays put": a panel inside the wrap would resize the
+     month the instant a day was tapped, and the square you aimed at would
+     move out from under your finger. Empty string when no day is open, so
+     there is no hidden element to mis-measure. */
+  function calPanelHTML(evs){
+    if (!calPicked) return "";
+    const list = evs.filter(e => e.date === calPicked);
+    return `
+      <aside class="cal-panel" id="calPanel" aria-label="What's on ${esc(longDay(calPicked))}">
+        <div class="cal-panel-head">
+          <h3>${esc(longDay(calPicked))}</h3>
+          <button type="button" class="cal-panel-x" onclick="Hub.calPick(0)"
+                  aria-label="Close">✕</button>
+        </div>
+        <div class="cal-panel-body">
+          ${list.length
+            ? list.map(e => `
+              <div class="cal-entry cal-entry-full">
+                <h4>${esc(e.title)}</h4>
+                ${(evTime(e) || e.where)
+                  ? `<p class="cal-when">${esc([evTime(e), e.where].filter(Boolean).join(" · "))}</p>` : ""}
+                ${e.body ? `<p class="cal-notes">${esc(e.body)}</p>` : ""}
+              </div>`).join("")
+            : `<p class="board-empty">Nothing on this day.</p>`}
+        </div>
+      </aside>`;
+  }
+  function paintCalendar(){
+    setNav("hubNavCalendar");
+    const evs = calEvents();
+    const org = orgName();
+    const today = todayISO();
+    /* The list beneath the month is ALWAYS what's coming up now. Before P-10 a
+       picked day replaced it; the day has its own panel now, and a list that
+       changed meaning under the calendar was one thing too many on the page. */
+    const soon = evs.filter(e => e.date >= today).slice(0, 8);
+    const empty = evs.length
+      ? "Nothing coming up — everything on the calendar has been and gone."
+      : "Nothing on the calendar yet — your organisation's shifts, meetings and training will appear here.";
+    view(`
+      <div class="crumb"><a onclick="Hub.home()">Hub home</a> › Calendar</div>
+      <div class="dash-hero hub-hero">
+        <h2>${Icons.icon("calendar")} ${org ? esc(org) + "'s calendar" : "Calendar"}</h2>
+        <p>What's on: shifts, training, team meetings and events, put up by your organisation.
+           Tap a day to open it.</p>
+      </div>
+      <section class="cal-wrap">
+        ${calGrid(evs)}
+      </section>
+      <div class="cal-list">
+        <h3 class="cal-list-h">Coming up</h3>
+        ${soon.length ? soon.map(calEntryHTML).join("") : `<p class="board-empty">${esc(empty)}</p>`}
+      </div>
+      ${calPanelHTML(evs)}`);
+    bindCalKeys();
+  }
+  /* Escape closes the panel. Bound once on the document rather than per paint:
+     paintCalendar runs on every month step and every tap, and a listener added
+     each time would stack up. */
+  let calKeysBound = false;
+  function bindCalKeys(){
+    if (calKeysBound) return;
+    calKeysBound = true;
+    document.addEventListener("keydown", ev => {
+      /* The panel being ON SCREEN is the condition — not whether the hub shell
+         is marked visible, which is a different question and was false in the
+         harness's stub document (the P-01 lesson, again). */
+      if (ev.key !== "Escape" || !calPicked) return;
+      if (!document.getElementById("calPanel")) return;
+      calPicked = "";
+      paintCalendar();
+    });
+  }
+  function calShift(step){
+    const { y, m } = calMonthOf();
+    const d = new Date(y, m + Number(step), 1);
+    calCursor = { y: d.getFullYear(), m: d.getMonth() };
+    calPicked = "";
+    paintCalendar();
+  }
+  /* `day` is a NUMBER from this file's own grid; 0 clears the selection.
+     Tapping the day that is already open closes it — the same control that
+     opened it, which is what a finger expects of a panel. */
+  function calPick(day){
+    const n = Number(day);
+    if (!n){ calPicked = ""; paintCalendar(); return; }
+    const { y, m } = calMonthOf();
+    const iso = y + "-" + String(m + 1).padStart(2, "0") + "-" + String(n).padStart(2, "0");
+    calPicked = (calPicked === iso) ? "" : iso;
+    paintCalendar();
+  }
+
   function home(){
     setNav("hubNavHome");
     const u = App.currentUser();
@@ -8605,7 +9409,9 @@ const Hub = (() => {
   }
 
   return { open, home, refresh, openPolicyTag, hubName,
-           guide, ask };                                                     // Card P-04
+           guide, ask,                                                       // Card P-04
+           calendar, calShift, calPick,                                      // Card P-09
+           __calEvents: calEvents };   // the harness reads the ordering without parsing HTML
 })();
 
 </script>
