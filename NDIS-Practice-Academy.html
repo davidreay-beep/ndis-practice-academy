@@ -246,7 +246,13 @@ h1,h2,h3{line-height:1.25}
 }
 .cal-cell{min-height:2.4rem;display:flex;align-items:center;justify-content:center}
 .cal-dayname{
-  position:sticky;top:0;z-index:2;background:var(--bg);
+  /* --paper is the ground the page actually sits on (body, styles.css:80).
+     This said var(--bg), and --bg is declared NOWHERE in the project: an
+     unresolvable var() with no fallback computes to transparent, so the day
+     cells scrolled visibly THROUGH the weekday row. It slipped every gate
+     because the palette gate counts hex literals outside :root, and a var()
+     naming a token that does not exist satisfies it perfectly (Referee). */
+  position:sticky;top:0;z-index:2;background:var(--paper);
   font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);min-height:1.6rem;
 }
 .cal-day{
@@ -1314,7 +1320,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.12.0";
+const ACADEMY_VERSION = "0.12.1";
 
 </script>
 <script>
@@ -9186,11 +9192,6 @@ const Hub = (() => {
     const lead = (first.getDay() + 6) % 7;             // Monday-first
     const days = new Date(y, m + 1, 0).getDate();
     const today = todayISO();
-    const counts = Object.create(null);                 // ISO -> n (a map keyed by data)
-    for (const e of evs){
-      if (!Object.prototype.hasOwnProperty.call(counts, e.date)) counts[e.date] = 0;
-      counts[e.date] += 1;
-    }
     /* Card P-10: the entries themselves, per day, so a box can be READ rather
        than only counted. Built from the same sorted list, so the two chips a
        box shows are the day's first two by time. */
@@ -9276,7 +9277,19 @@ const Hub = (() => {
         </div>
       </aside>`;
   }
-  function paintCalendar(){
+  /* `keepScroll` is the whole of the owner's "the grid stays put".
+     `view()` sets innerHTML and scrolls the window to the top — the hub's
+     repaint convention since P-01, and near enough a no-op while the grid was
+     43px rows with no scroller. P-10 gave the grid a 576px viewport over an
+     800px month AND made the page taller than the screen, so that inherited
+     line started throwing the reader back to the top of both: scroll to the
+     last week, tap a day, and the square you aimed at moved 521px and left
+     the grid entirely (Referee, measured). A fresh entry to the tab still
+     lands at the top — that is calendar()'s job; a month step or a tap must
+     not move anything. */
+  function paintCalendar(keepScroll){
+    const prevGrid = keepScroll ? ((document.querySelector("#hubView .cal-grid") || {}).scrollTop || 0) : 0;
+    const prevPage = keepScroll ? (window.pageYOffset || window.scrollY || 0) : 0;
     setNav("hubNavCalendar");
     const evs = calEvents();
     const org = orgName();
@@ -9303,6 +9316,11 @@ const Hub = (() => {
         ${soon.length ? soon.map(calEntryHTML).join("") : `<p class="board-empty">${esc(empty)}</p>`}
       </div>
       ${calPanelHTML(evs)}`);
+    if (keepScroll){
+      const g = document.querySelector("#hubView .cal-grid");
+      if (g) g.scrollTop = prevGrid;
+      if (prevPage) window.scrollTo(0, prevPage);
+    }
     bindCalKeys();
   }
   /* Escape closes the panel. Bound once on the document rather than per paint:
@@ -9313,11 +9331,14 @@ const Hub = (() => {
     if (calKeysBound) return;
     calKeysBound = true;
     document.addEventListener("keydown", ev => {
-      /* The panel being ON SCREEN is the condition — not whether the hub shell
-         is marked visible, which is a different question and was false in the
-         harness's stub document (the P-01 lesson, again). */
+      /* Both conditions, and the hub one is not optional: nothing ever clears
+         #hubView, so without `visible()` an Escape pressed in the Academy —
+         after switching portal with a day still open — scrolled that page to
+         the top and silently repainted a hidden hub (Referee). The harness's
+         stub keeps #hub hidden, so its calendar block un-hides it rather than
+         this guard being weakened to suit the test. */
       if (ev.key !== "Escape" || !calPicked) return;
-      if (!document.getElementById("calPanel")) return;
+      if (!visible() || !document.getElementById("calPanel")) return;
       calPicked = "";
       paintCalendar();
     });
@@ -9327,18 +9348,18 @@ const Hub = (() => {
     const d = new Date(y, m + Number(step), 1);
     calCursor = { y: d.getFullYear(), m: d.getMonth() };
     calPicked = "";
-    paintCalendar();
+    paintCalendar(true);
   }
   /* `day` is a NUMBER from this file's own grid; 0 clears the selection.
      Tapping the day that is already open closes it — the same control that
      opened it, which is what a finger expects of a panel. */
   function calPick(day){
     const n = Number(day);
-    if (!n){ calPicked = ""; paintCalendar(); return; }
+    if (!n){ calPicked = ""; paintCalendar(true); return; }
     const { y, m } = calMonthOf();
     const iso = y + "-" + String(m + 1).padStart(2, "0") + "-" + String(n).padStart(2, "0");
     calPicked = (calPicked === iso) ? "" : iso;
-    paintCalendar();
+    paintCalendar(true);
   }
 
   function home(){
