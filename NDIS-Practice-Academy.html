@@ -1320,7 +1320,7 @@ details.model-answer[open] summary{margin-bottom:.5rem}
    of the same name is a SyntaxError that kills that whole block.
    ============================================================ */
 
-const ACADEMY_VERSION = "0.12.1";
+const ACADEMY_VERSION = "0.14.1";
 
 </script>
 <script>
@@ -1741,7 +1741,7 @@ const MODULES = [
         <li>The <strong>least restrictive</strong> option, used for the <strong>shortest time</strong>, as a <strong>last resort</strong>, and</li>
         <li>Recorded and reported every time it's used.</li>
       </ul>
-      <p>Emergency physical restraint to prevent imminent serious harm may be defensible — but it must be minimal, brief, and always followed by first aid checks, incident reporting and review. <strong>Any use outside a BSP/authorisation is an unauthorised restrictive practice and is reportable to the Commission.</strong> Good behaviour support looks upstream: what need is the behaviour communicating, and how do we meet it earlier?</p>`}
+      <p>Emergency physical restraint to prevent imminent serious harm may be defensible — but <strong>only where you are trained in your employer's approved method and its policy permits it</strong>, and it must be minimal, brief, and always followed by first aid checks, incident reporting and review. Some holds are never safe, however urgent the moment: <strong>never a prone (face-down) hold, never pressure on the neck, chest, face or abdomen, never weight on someone's back</strong> — that is how restrained people stop breathing. If anyone is injured or stops responding normally, call <strong>000</strong>. <strong>Any use outside a BSP/authorisation is an unauthorised restrictive practice and is reportable to the Commission.</strong> Good behaviour support looks upstream: what need is the behaviour communicating, and how do we meet it earlier?</p>`}
   ],
   cases:[
     {
@@ -1800,8 +1800,8 @@ const MODULES = [
       scenario:"You're supporting Will, 19, autistic, at a busy shopping centre when a fire alarm test blasts overhead. Will screams, drops, then bolts toward the car park exit — which opens onto a service road. A security guard yells “Grab him!” You're two metres behind him.",
       task:"Write your game plan for these ten seconds and the following hour. When would you use physical contact, and what must happen afterwards?",
       concepts:[
-        {name:"Imminent-danger test for restraint", terms:["last resort","imminent","serious harm","danger","emergency","only if","traffic","road","life-threatening"], hint:"Physical restraint has one narrow justification. What has to be true for hands-on to be defensible in this moment?"},
-        {name:"Minimum force, minimum time", terms:["minimum","least force","briefly","shortest","guide rather than grab","release as soon"], hint:"If you do make contact, what are the rules about how much and how long?"},
+        {name:"Imminent-danger test for restraint — and the training and policy gate", terms:["last resort","imminent","serious harm","danger","emergency","only if","traffic","road","life-threatening","are trained","am trained","i'm trained","been trained","not trained","untrained","my training","approved method","approved approach"], hint:"Physical restraint has one narrow justification, and two gates on top of it. What has to be true about the moment — and about you and your employer — for hands-on to be defensible?"},
+        {name:"Minimum force, minimum time — and the holds that are never safe", terms:["minimum","least force","briefly","shortest","guide rather than grab","release as soon","never prone","not on the ground","no pressure on his chest","airway"], hint:"If you do make contact, what are the rules about how much and how long — and which holds are never used, whatever the situation?"},
         {name:"De-escalation and environment first", terms:["calm","quiet","low voice","space","reduce stimul","move away from the noise","block the path","position myself","get between","non-physical"], hint:"What non-contact options exist — voice, positioning, environment — before and instead of grabbing?"},
         {name:"Afterwards: check and reassure Will", terms:["check for injur","first aid","reassure","comfort","recover","calm him","debrief with will","wellbeing"], hint:"The alarm stops and Will is safe. What does he need from you in the next few minutes?"},
         {name:"Report and document any restraint", terms:["incident report","report","document","record","supervisor","notify","restrictive practice","reportable"], hint:"If physical restraint was used — even briefly, even to save him — what must happen on paper and up the line?"},
@@ -1811,7 +1811,7 @@ const MODULES = [
         {terms:["tackle","pin him","hold him down until he calms","restrain him because the guard said"], warn:"Force beyond the minimum needed to prevent imminent serious harm — or restraint on a bystander's instruction — is assault, not support."},
         {terms:["do nothing and let him run onto the road"], warn:"Duty of care doesn't vanish — imminent life-threatening danger is the one scenario where brief physical intervention is defensible."}
       ],
-      model:"A strong plan: the service road makes this an imminent-serious-harm emergency — brief physical intervention (blocking his path, guiding him back, the minimum hold necessary, released the moment danger passes) is defensible here, and only here. Prefer non-contact where possible: move ahead to block the exit, low calm voice, reduce demands. Ignore the guard's instructions; your duty is to Will, not crowd management. Afterwards: check him for injury, get to a quiet space, reassure without rehashing. Then report — any physical restraint, even emergency, is documented in an incident report, told to your supervisor, and reviewed (emergency use of a restrictive practice has reporting obligations). Finally, prevention: sensory plan, noise-cancelling headphones, exit strategies, quieter shopping times, behaviour support input."
+      model:"A strong plan: the service road makes this an imminent-serious-harm emergency — brief physical intervention (blocking his path, guiding him back) is defensible here, and only here. Prefer non-contact first: move ahead to block the exit, low calm voice, reduce demands. Then, only if you are trained in your employer's approved approach and its policy authorises it, and there is no other way, use the minimum contact necessary — never a prone hold, never pressure on his neck, chest, face or abdomen, never weight on his back — released the moment the danger passes. If you are not trained, use position and voice, call 000, and do not follow him onto the road. Don't take instructions from a bystander: the guard can hold traffic or open a gate, but he can't direct a restraint, and your duty is to Will, not crowd management. Call 000 straight away if Will or anyone else is injured or stops responding normally. Afterwards: check him for injury, get to a quiet space, reassure without rehashing. Then report — any use outside an authorised behaviour support plan, an emergency included, is an unauthorised restrictive practice: it goes in an incident report, to your supervisor, and the provider must notify the Commission within 5 business days, or 24 hours if anyone was harmed. Finally, prevention: sensory plan, noise-cancelling headphones, exit strategies, quieter shopping times, behaviour support input."
     },
     {
       id:"m3c5", title:"The house nobody visits",
@@ -2072,9 +2072,9 @@ MODULES.push(
         {name:"Report and document as an incident", terms:["incident","report","document","record","medication error","near miss","notify supervisor"], hint:"Even if no harm occurs, a packing discrepancy is a reportable event. What's it called, and where does it get logged?"}
       ],
       redFlags:[
-        {terms:["give her the tablets","she'll be fine","give four and skip","remove the odd one and give the rest without checking","guess which"], warn:"Administering from a discrepant pack — or self-selecting which tablets to give — is playing pharmacist with someone's body. Nothing is given until it's verified."}
+        {terms:["give her the tablets","she'll be fine","give four and skip","remove the odd one and give the rest without checking","guess which"], warn:"Administering from a discrepant pack — or self-selecting which tablets to give — is playing pharmacist with someone's body. Nothing is given until it's verified and written on the chart."}
       ],
-      model:"A strong plan: stop — nothing is given while the discrepancy exists. Re-check the blister against the current medication chart. Contact the pharmacy (or RN/on-call per policy) to verify: is there a new medication not yet on the chart, or a packing error? Explain honestly and warmly to Lily why her tablets are a few minutes late — her safety is worth missing the opening credits. Secure the pack untouched as evidence. Follow the advice given (give, or withhold and arrange correction), then report it as a medication incident/near miss to your supervisor and document: what you found, who you called, what they advised, what was given and when."
+      model:"A strong plan: stop — nothing is given while the discrepancy exists. Re-check the blister against the current medication chart. Contact the pharmacy (or RN/on-call per policy) to verify: is there a new medication not yet on the chart, or a packing error? Explain honestly and warmly to Lily why her tablets are a few minutes late — her safety is worth missing the opening credits. Secure the pack untouched as evidence. Follow the advice you are given — but nothing outside the chart is given today: if the pharmacy says a new medicine was added, the dose waits until the chart is updated and signed by the prescriber, or your supervisor gives you written authorisation. Verbal advice explains the discrepancy; it does not authorise a dose. Then report it as a medication incident/near miss to your supervisor and document: what you found, who you called, what they advised, what was given and when."
     },
     {
       id:"m5c3", title:"Sausage rolls and love",
@@ -2488,7 +2488,7 @@ MODULES.push(
     {h:"Child safety, protective practices & mandatory reporting", html:`
       <p>Children with disability face significantly higher rates of abuse and neglect than other children — and are less likely to be believed. This is the sharpest edge of the job.</p>
       <ul>
-        <li><strong>Mandatory reporting:</strong> in every state and territory, certain workers must report a reasonable belief that a child is being abused or neglected to the child protection authority. Know your state's scheme and your organisation's policy — and remember the threshold is <em>reasonable belief</em>, not proof. Reporting is the investigator's trigger, not the verdict.</li>
+        <li><strong>Mandatory reporting:</strong> whether you are a mandated reporter is set by your state or territory's law and your role — in every state and territory certain workers must report a reasonable belief that a child is being abused or neglected to the child protection authority. Know your state's scheme and your organisation's policy — and remember the threshold is <em>reasonable belief</em>, not proof. Reporting is the investigator's trigger, not the verdict.</li>
         <li>The NDIS Commission's <strong>reportable incidents</strong> rules apply in parallel for incidents connected with supports.</li>
         <li><strong>Protective practices protect everyone:</strong> personal care for children follows an authorised care plan; avoid unobservable one-to-one intimate situations wherever possible; no secret-keeping with children, no gifts outside policy, no private online contact. These practices shield children from harm and workers from allegation.</li>
         <li>If a child discloses harm: stay calm, listen, believe, don't interrogate, don't promise secrecy, tell them it's not their fault, report immediately, record their words verbatim.</li>
@@ -2565,7 +2565,7 @@ MODULES.push(
       concepts:[
         {name:"Recognise the cluster of indicators", terms:["indicator","cluster","pattern","bruising on the thigh","unusual location","behaviour change","regression","wetting","withdrawn","pulls away","doesn't match the explanation"], hint:"List what you've actually observed — the location of the bruises, the pulling away, the wetting. Do these fit 'clumsy climbing', and what do they form together?"},
         {name:"Reasonable belief is the threshold", terms:["reasonable belief","don't need proof","not my job to be certain","suspicion is enough","threshold","don't have to prove"], hint:"You're unsettled but not certain. What's the legal threshold for reporting concerns about a child — proof, or something well short of it?"},
-        {name:"Mandatory reporting obligations", terms:["mandatory report","child protection","report to the authorit","statutory","child safety","obliged to report","legal obligation","my own obligation"], hint:"For a reasonable belief about harm to a child, what obligation sits on you personally — and does anyone else's opinion (parent, supervisor) switch it off?"},
+        {name:"Mandatory reporting obligations", terms:["mandatory report","child protection","report to the authorit","statutory","child safety","obliged to report","legal obligation","my own obligation","my supervisor","our policy"], hint:"You have a reasonable belief about harm to a child. What does your state's scheme and your organisation's policy require of you — and does anyone else's opinion (parent, supervisor) switch it off?"},
         {name:"Report inside the service too", terms:["supervisor","manager","report internally","incident","notify my","organisation's process","reportable incident","commission"], hint:"Alongside any statutory report — who inside your organisation is told, how fast, and what parallel NDIS obligations might apply?"},
         {name:"Don't interrogate, don't investigate", terms:["don't question ruby","won't interrogate","not interview","don't investigate","leave the investigation","not confront the relative","don't quiz her","open listening only"], hint:"Ruby has limited speech and you have big worries. Where's the line between staying open to anything she communicates and becoming an amateur investigator — and who does confronting the relative belong to?"},
         {name:"Record everything verbatim and precisely", terms:["document","record","verbatim","exact words","body map","size and location","date and time","factual","objective","photograph per policy"], hint:"Today's observations may end up in front of investigators. What exactly gets written — and is 'bruising, seemed withdrawn' precise enough?"},
@@ -2575,7 +2575,7 @@ MODULES.push(
         {terms:["accept the climbing explanation","she's clumsy so leave it","parent explained it so move on","wait until next access weekend to see"], warn:"'She's clumsy' plus your unsettled gut plus that cluster of signs is exactly the moment children with limited speech get failed — waiting for certainty means waiting for worse."},
         {terms:["question ruby until","keep asking her what happened","show her the bruises and ask who","confront the relative myself","ring the relative"], warn:"Interrogating a six-year-old or confronting the suspected adult contaminates evidence, endangers Ruby, and is the investigator's job — never the worker's."}
       ],
-      model:"A strong plan: name what you're seeing — bruising in a protected location, new withdrawal from touch, toileting regression — a cluster that doesn't fit the offered explanation, in a child with limited speech who can't tell you directly. Know the threshold: reasonable belief, not proof, and the mandatory reporting obligation is yours personally — a parent's shrug doesn't discharge it. Today: report to your supervisor immediately and make the child protection report as your state and organisational policy require; flag NDIS reportable-incident obligations if the harm may connect to supports. Don't question Ruby, don't confront the relative — record instead: precise descriptions (size, location, colour, body map per policy), her behaviour changes, the parent's exact words, times and dates. And through it all, be her safe person: gentle, warm, following her lead on touch, keeping her day as ordinary and kind as possible."
+      model:"A strong plan: name what you're seeing — bruising in a protected location, new withdrawal from touch, toileting regression — a cluster that doesn't fit the offered explanation, in a child with limited speech who can't tell you directly. The threshold for concern is low — a reasonable belief or suspicion, never proof. Whether you are a mandated reporter is set by your state or territory's law and your role; your organisation's child-safe policy tells you which reports you make and which the organisation makes. Either way you report your concern to your supervisor immediately and follow your policy — a parent's explanation does not close it. Today: make that internal report, and the child protection report as your state's scheme and your organisation's policy require; flag NDIS reportable-incident obligations if the harm may connect to supports. Don't question Ruby, don't confront the relative — record instead: precise descriptions (size, location, colour, body map per policy), her behaviour changes, the parent's exact words, times and dates. And through it all, be her safe person: gentle, warm, following her lead on touch, keeping her day as ordinary and kind as possible."
     },
     {
       id:"m8c5", title:"The dad who can't anymore",
@@ -2764,14 +2764,15 @@ MODULES.push(
         {name:"Route it to the prescriber", terms:["prescriber","psychiatrist","doctor","clinical team","mental health team","gp","appointment","raise it with","review","case manager","recovery coach","support him to tell"], hint:"There's a version of this where the medication changes for good reasons instead of stopping by default. Who makes that possible?"},
         {name:"Dignity of risk and duty of care", terms:["dignity of risk","his choice","his decision","autonomy","choice and control","duty of care","informed","capacity","balance","right to"], hint:"Kwame is an adult making a decision about his own body, and you also have obligations. How do you hold both?"},
         {name:"Escalate on the safety change", terms:["escalate","report","supervisor","urgent","same day","crisis plan","early warning","louder","deteriorat","notify","tell the team"], hint:"Two things changed this week — the injection and the voices. What does that combination mean for how quickly you act?"},
-        {name:"Advance planning / nominated person", terms:["advance statement","advance care","nominated person","nominated support","crisis plan","staying well","what he wanted","when he was well","family","carer","support person"], hint:"Did Kwame write anything down about what he wanted to happen when things got difficult, or name someone to be involved?"}
+        {name:"Advance planning / nominated person", terms:["advance statement","advance care","nominated person","nominated support","crisis plan","staying well","what he wanted","when he was well","family","carer","support person"], hint:"Did Kwame write anything down about what he wanted to happen when things got difficult, or name someone to be involved?"},
+        {name:"If the answer is yes, act now", terms:["000","ambulance","emergency","crisis line","crisis team","immediate","straight away","not leave him alone","stay with him"], hint:"He has told you the voices are telling him to do things. If the answer to what they say is yes, what happens in the next hour?"}
       ],
       redFlags:[
         {terms:["tell him to keep taking","make him have the injection","insist he takes","he has to take","force the injection","threaten","report him so they can force","get him sectioned","have him committed"], warn:"Coercing or threatening someone into treatment isn't a support worker's power to use, and it destroys the trust that makes the next conversation possible. Route it to the people who can actually review the medication with him."},
         {terms:["good idea to stop","agree he should stop","support him stopping","tell him he doesn't need","medication is bad","he's better off without"], warn:"Endorsing a unilateral stop is as far outside your role as forcing it. The side effects are real and deserve a prescriber's attention — that's a different thing from advising him to stop."},
         {terms:["ignore the voices","don't ask about the voices","not my business what they say","change the subject"], warn:"He told you the voices have become louder and are telling him to do things. Not asking what they say is choosing not to know the one fact that determines how urgent this is."}
       ],
-      model:"A strong plan: hear both reasons. Fifteen kilos and sleeping till noon are real, common effects of antipsychotic medication and a legitimate thing to want changed — they belong in front of his prescriber, not dismissed as part of the illness. Ask plainly about the voices: what are they saying, how often, and are they telling him to hurt himself or anyone else. Ask it calmly and directly; asking does not make it worse. Don't police the injection — I can't make him have it and trying would cost me the relationship — but do support him to get a review quickly, because a change of medication is a better outcome than stopping by default. Check whether he has a crisis or staying-well plan, an advance statement, or a nominated support person, and follow what he wrote when he was well. Given two changes in one week — missed depot and louder, commanding voices — I'd treat this as needing same-day contact with his mental health team and my supervisor, and I'd document what he told me in his own words."
+      model:"A strong plan: hear both reasons. Fifteen kilos and sleeping till noon are real, common effects of antipsychotic medication and a legitimate thing to want changed — they belong in front of his prescriber, not dismissed as part of the illness. Ask plainly about the voices: what are they saying, how often, and are they telling him to hurt himself or anyone else. Ask it calmly and directly; asking does not make it worse. If he says yes — that they're telling him to hurt himself or someone else, and especially if he might act on it — that is not a same-day report. I stay with him, contact his mental health team or the state crisis line straight away, and call 000 if anyone is in immediate danger. I don't leave him alone while I sort it out. Don't police the injection — I can't make him have it and trying would cost me the relationship — but do support him to get a review quickly, because a change of medication is a better outcome than stopping by default. Check whether he has a crisis or staying-well plan, an advance statement, or a nominated support person, and follow what he wrote when he was well. And even if the answer is no, two changes in one week — missed depot and louder, commanding voices — still need same-day contact with his mental health team and my supervisor, and I'd document what he told me in his own words."
     },
     {
       id:"m9c5", title:"The tablet that settles him",
@@ -3152,10 +3153,10 @@ MODULES.push(
       scenario:"Gordon, 58, has health anxiety and has called an ambulance fourteen times this year, convinced each time he's having a heart attack. Each time he's been assessed and sent home. In handover you hear a worker say: “Here we go again — he just wants attention. Don't encourage it.” Today Gordon tells you his chest feels tight and his left arm aches, and asks you to sit with him and tell him he's not dying.",
       task:"Write your game plan. What do you do about the chest pain, about the reassurance he's asking for, and about the handover comment?",
       concepts:[
-        {name:"Assess the physical symptoms, every time", terms:["every time","take it seriously","chest","left arm","cardiac","medical","000","ambulance","assess","could be real","not assume","rule out","physical","overshadow","fourteenth could be"], hint:"He's been wrong thirteen times. What does that tell you about today, and what's the specific danger of the team's assumption?"},
+        {name:"Treat the physical symptoms as real, every time", terms:["every time","take it seriously","chest","left arm","cardiac","medical","000","ambulance","get him seen","call an ambulance","medical review","could be real","not assume","physical","overshadow","fourteenth could be"], hint:"He's been wrong thirteen times. What does that tell you about today, and what's the specific danger of the team's assumption?"},
         {name:"Challenge the stigmatising language", terms:["attention","language","challenge","stigma","not attention seeking","unhelpful","raise it","team","respectful","record","code of conduct","speak up","reframe"], hint:"“He just wants attention” was said in handover. What's wrong with it, and what do you do about it having heard it?"},
         {name:"Reassurance-seeking feeds health anxiety", terms:["reassurance","cycle","compulsion","feeds","short term relief","reinforc","doesn't last","accommodat","not information","the loop"], hint:"He's asked you to tell him he's not dying. What does giving that repeatedly do, long term?"},
-        {name:"Follow the agreed plan, not your judgement", terms:["agreed plan","protocol","gp","care plan","clinician","agreed response","in advance","consistent","what the plan says","documented plan","same response"], hint:"How do you reconcile 'assess every time' with 'don't feed the reassurance cycle' without deciding it yourself, on the spot, every time?"},
+        {name:"A consistent agreed response — but never for chest pain", terms:["agreed plan","protocol","gp","care plan","clinician","agreed response","in advance","consistent","what the plan says","documented plan","same response"], hint:"How do you keep the response consistent without deciding it yourself on the spot — and why does no plan override calling 000 for chest pain?"},
         {name:"Compassion — the fear is real", terms:["genuinely frightened","real fear","terrifying","not pretending","distress","he believes","kind","compassion","horrible","suffering"], hint:"Gordon isn't faking. What is he actually experiencing?"},
         {name:"Support access to treatment", terms:["psychologist","cbt","treatment","gp","referral","mental health plan","therapy","health anxiety treatment","clinician","effective treatment"], hint:"Health anxiety responds well to treatment. What's your role in that?"},
         {name:"Document objectively", terms:["document","record","factual","objective","what he said","symptoms","times","note","without judgement","observable"], hint:"What goes in the notes — and what shouldn't?"}
@@ -3165,7 +3166,7 @@ MODULES.push(
         {terms:["he does just want attention","agree he's attention seeking","he's just seeking attention","he's manipulating","he's faking","putting it on for attention","doing it for attention"], warn:"“Attention seeking” is a judgement wearing a clinical costume. It is also the phrase that precedes people with mental illness dying of physical illness in Australian services — challenge it when you hear it."},
         {terms:["tell him he's not dying","promise him he's fine","reassure him again","keep telling him he's ok","guarantee he's not"], warn:"Blanket reassurance buys minutes and strengthens the loop. The answer isn't to refuse coldly — it's an agreed, consistent response worked out in advance with Gordon and his GP."}
       ],
-      model:"A strong plan: today's symptoms get assessed today. Chest tightness with left arm pain is a possible cardiac presentation, and the fact that Gordon has been wrong thirteen times changes nothing about the fourteenth — assuming otherwise is diagnostic overshadowing, which is one of the main reasons people with mental illness die younger of treatable illness. So I follow the agreed plan and, in the absence of one covering these symptoms, I get him medical assessment and call 000 if he deteriorates. Alongside that, I don't hand him blanket reassurance on a loop, because reassurance-seeking is the engine of health anxiety — but I don't refuse coldly either. The right answer is a plan agreed in advance with Gordon and his GP: what gets assessed and how, what I say instead of “you're not dying”, and what we do together while we wait. I'd push for that plan to be written. I'd also take the handover comment up — respectfully, with the worker and then my supervisor — because “he just wants attention” is a judgement, it's in the culture rather than the notes, and it's what will one day stop somebody calling the ambulance. And I'd support access to actual treatment: health anxiety responds well to psychological therapy, so a GP mental health plan and a referral is the thing that changes the pattern. Notes stay factual: what he reported, what I observed, what I did."
+      model:"A strong plan: the fact that Gordon has been wrong thirteen times changes nothing about the fourteenth — assuming otherwise is diagnostic overshadowing, which is one of the main reasons people with mental illness die younger of treatable illness. Chest tightness with left arm pain is a possible heart attack. I call 000 now — I do not wait to see if he gets worse, and no care plan can tell me not to call an ambulance for these symptoms. I stay with him, tell the paramedics his history and that he's been assessed before, and report it to my supervisor. Alongside that, I don't hand him blanket reassurance on a loop, because reassurance-seeking is the engine of health anxiety — but I don't refuse coldly either. The right answer is a plan agreed in advance with Gordon and his GP: what gets assessed and how, what I say instead of “you're not dying”, and what we do together while we wait. I'd push for that plan to be written. I'd also take the handover comment up — respectfully, with the worker and then my supervisor — because “he just wants attention” is a judgement, it's in the culture rather than the notes, and it's what will one day stop somebody calling the ambulance. And I'd support access to actual treatment: health anxiety responds well to psychological therapy, so a GP mental health plan and a referral is the thing that changes the pattern. Notes stay factual: what he reported, what I observed, what I did."
     }
   ]
 }
@@ -3633,7 +3634,7 @@ MODULES.push(
       scenario:"Halfway through a shift, Toby, 27, asks you to drive him to a street two suburbs away and wait ten minutes. When you hesitate he says, straightforwardly, “Mate, I'm going to score. It's easier if you take me — otherwise I'll walk there at night and that's worse.” He's not wrong about that.",
       task:"Write your game plan. What's your answer, how do you give it, and what can you still offer him?",
       concepts:[
-        {name:"Clear no to assisting the purchase", terms:["can't drive you","won't drive","not take you","decline","no","not assist","can't help with that","not able to","clear"], hint:"He's made a reasonable-sounding case. What's the answer, and why isn't it negotiable?"},
+        {name:"Clear no to assisting the purchase", terms:["the answer is no","calm no","decline","can't help him buy","can't help with that","can't drive you","can't drive him","won't drive","not going to drive","not take you","not assist"], hint:"He's made a reasonable-sounding case. What's the answer, and why isn't it negotiable?"},
         {name:"Explain honestly why", terms:["explain","honest","tell him why","my job","policy","legal","not allowed","the line","be straight","because"], hint:"How do you give the answer so it doesn't sound like a moral judgement of him?"},
         {name:"No shaming, keep the relationship", terms:["not shame","not judge","not moralis","respect","relationship","still support","not lecture","warm","without judgement","keep the door open"], hint:"He was honest with you. What does that deserve, and what would happen if you punished it?"},
         {name:"Harm reduction you can still give", terms:["harm reduction","harm minimis","don't use alone","naloxone","safer","information","what's in it","don't mix","overdose signs","needle and syringe","advice"], hint:"You're not driving him. What genuinely useful things can you still say or provide?"},
@@ -4820,25 +4821,128 @@ const FieldGuide = (() => {
   const ESCALATE = [
     { topic: "injury", label: "an injury, a fall or a medical emergency",
       terms: ["injur*", "hurt", "hurts", "fall", "falls", "fell", "fallen", "bleed*", "blood", "burns", "burned",
-              "burnt her", "burnt his", "burnt them", "burnt the", "fracture*", "broken", "unconscious", "not breathing",
+              "burnt her", "burnt his", "burnt them", "burnt the", "fracture*", "unconscious", "not breathing",
               "trouble breathing", "can't breathe", "cannot breathe", "choking", "choke", "choked", "seizure*",
               "chest pain", "chest pains", "overdose*", "collapsed", "collapse", "head knock", "hit their head", "hit his head",
+              /* P-13's referee — "broken" alone fires on "the kettle is
+                 broken"; a broken PERSON is always said with the part. The
+                 past-tense verb goes with it: "he broke his arm" reached
+                 nothing before this card either, and at v0.12.1 "he broke his
+                 wrist getting out of the car" came back with the driving
+                 entry. Both forms, one part list. */
+              "broken arm", "broken leg", "broken bone", "broken bones", "broken wrist", "broken hip",
+              "broken ankle", "broken rib", "broken ribs", "broken nose", "broken finger", "broken toe",
+              "broken collarbone", "broken tooth", "broken his", "broken her", "broken their",
+              "broke his arm", "broke her arm", "broke their arm", "broke his leg", "broke her leg",
+              "broke their leg", "broke his wrist", "broke her wrist", "broke their wrist",
+              "broke his hip", "broke her hip", "broke their hip", "broke his ankle", "broke her ankle",
+              "broke their ankle", "broke his rib", "broke her rib", "broke their rib", "broke his ribs",
+              "broke her ribs", "broke their ribs", "broke his nose", "broke her nose", "broke their nose",
+              "broke his finger", "broke her finger", "broke their finger", "broke his toe", "broke her toe",
+              "broke his collarbone", "broke her collarbone", "broke his tooth", "broke her tooth",
+              "broke a bone", "broke some bones", "broke his shoulder", "broke her shoulder",
               "burnt himself", "burnt herself", "burnt themselves", "burnt myself", "nosebleed", "nose bleed",
               "hit her head", "ambulance", "000", "emergency", "allerg*", "anaphyla*", "stroke", "heart attack",
               "diabetic", "hypo", "hypogly*", "wound", "wounds", "faint*", "passed out", "unresponsive",
               "not responding", "fit", "fits", "deep cut", "cut on", "cut to", "cut her", "cut his", "cut them",
-              "cut their", "bite", "bitten", "sting", "stung", "swallow*", "not waking", "won't wake",
+              "cut their", "bite", "bitten", "bit him", "bit her", "bit me", "sting", "stung", "swallow*",
               "vomiting blood", "dislocat*", "sprain*", "concuss*", "poison*", "electric shock", "drown*",
-              "fire", "smoke inhal*"] },
+              "fire", "smoke inhal*",
+              /* P-13 — BREATHING AND CONSCIOUSNESS in the words a worker uses.
+                 "breathing" cannot be a bare term (it is the panic-attack
+                 entry's own vocabulary and would make that entry unreachable),
+                 so the concept is carried by the phrases for it going wrong. */
+              "stopped breathing", "stop breathing", "isn't breathing", "wasn't breathing",
+              "not breathing properly", "barely breathing", "struggling to breathe", "struggling for breath",
+              "short of breath", "shortness of breath", "catch her breath", "catch his breath",
+              "catch their breath", "gasping", "wheez*", "turning blue", "gone blue", "went blue",
+              "blue lips", "lips are blue", "grey and clammy", "no pulse", "can't feel a pulse",
+              /* P-13 — a seizure, a stroke or a collapse described plainly:
+                 every FAST sign, and the words for going floppy or limp. */
+              "convuls*", "shaking uncontrollably", "shaking all over", "jerking", "gone floppy", "floppy",
+              "gone limp", "went limp", "goes limp", "limp and", "slumped", "slumped over",
+              "slurred", "slurring", "face has dropped", "face dropped", "face is drooping", "droop*",
+              "one side of her face", "one side of his face", "one side of their face",
+              "can't move his", "can't move her", "can't move their", "cannot move his", "cannot move her",
+              "weak on one side", "numb down",
+              /* P-13 — a fall reported WITHOUT the word "fall": slipped,
+                 tripped, on the floor, banged her head, can't get up. */
+              "slipped", "slipped over", "slipped in the", "slipped getting", "tripped", "tripped over",
+              "tripping over", "found him on", "found her on",
+              /* P-13's referee — "on the floor" alone fires on "she's on
+                 the floor doing her exercises"; a FALL says who is on it. */
+              "him on the floor", "her on the floor", "them on the floor", "lying on the floor",
+              "laying on the floor", "collapsed on the floor", "down on the floor", "found on the floor",
+              "on the floor and can't", "on the floor and won't", "on the floor unconscious",
+              "on the bathroom floor", "on the kitchen floor", "him on the ground", "her on the ground",
+              "them on the ground", "lying on the ground", "collapsed on the ground", "down on the ground",
+              "found them on", "went down", "banged her head", "banged his head", "banged their head",
+              "bumped her head", "bumped his head", "bumped their head", "knocked her head",
+              "knocked his head", "can't get up", "cannot get up", "couldn't get up",
+              /* P-13 — the unrousable participant. The sleep idioms are only
+                 stripped when none of the rousing words is present (see
+                 SLEEP_IDIOMS / ROUSE_GUARD below); the old unconditional
+                 allow-list deleted this topic's only signal before matching. */
+              "not waking", "won't wake", "wouldn't wake", "can't wake", "cannot wake", "can not wake",
+              "didn't wake", "won't wake up", "can't rouse", "cannot rouse", "won't rouse", "not rousing",
+              "unrousable", "can't be woken", "asleep in the bath", "asleep in the water",
+              "asleep in the pool",
+              /* P-13 — an overdose disclosed as a quantity, not as a word. */
+              /* P-13's referee — "took too many" alone fires on "i took too
+                 many things in one load"; a disclosure names the person. */
+              "he took too many", "she took too many", "they took too many", "took too many of",
+              "took too many tablets", "took too many pills", "taken too many of",
+              "taken too many tablets", "taken too many pills", "take too many of",
+              "too many tablets", "too many pills",
+              /* P-13 — high-intensity daily personal activities. A dislodged
+                 catheter or feeding tube is a clinical emergency, and none of
+                 these reached any topic at all before this card. */
+              "catheter", "peg tube", "peg feed", "peg site", "stoma", "tracheostomy", "trache",
+              "ng tube", "nasogastric", "feeding tube", "ventilator"] },
     { topic: "medication", label: "medication",
-      terms: ["medication*", "medicine*", "meds", "med chart", "tablet*", "pill", "pills", "dose", "doses", "dosage",
+      terms: ["medication*", "medicat*", "medicine*", "meds", "med chart", "tablet*", "pill", "pills", "dose", "doses", "dosage",
               "prn", "webster", "blister pack", "insulin", "prescri*", "pharmac*", "injection*", "inhaler*", "drug",
               "drugs", "panadol", "paracetamol", "nurofen", "ibuprofen", "painkiller*", "puffer", "ventolin",
               "epipen", "chemist", "script", "scripts", "ointment", "eye drops", "ear drops", "laxative*",
-              "antibiotic*", "sedat*", "melatonin", "capsule*", "syringe*", "patch"] },
+              "antibiotic*", "sedat*", "melatonin", "capsule*", "syringe*", "patch",
+              /* P-13 — a medication ERROR is reported with a pronoun ("I gave
+                 the wrong one", "I gave it twice"), never with the word
+                 "medication". A noun inventory could not see any of it. */
+              "gave the wrong", "gave him the wrong", "gave her the wrong", "gave them the wrong",
+              "given the wrong", "wrong dose", "wrong tablet", "gave it twice", "given it twice",
+              "gave them twice", "double dose", "twice by mistake",
+              "spat it out", "spat them out", "spat out", "spits it out",
+              "refuses to take", "refused to take", "won't take them", "won't take his", "won't take her",
+              "sign the chart", "signed the chart", "signing the chart", "forgot to sign",
+              "sign the med chart", "sign the medication chart", "sign the webster",
+              "missed the lunchtime", "missed the morning", "missed the evening", "missed a dose",
+              "missed his", "missed her", "missed their",
+              /* P-13 — crushing or hiding a medicine: the most asked question
+                 on shift, and fatal with a controlled-release tablet. */
+              "crush*", "hide it in", "hide them in", "hidden in his", "hidden in her",
+              "mix it in", "mix it into", "mix them in", "in her yoghurt", "in his yoghurt",
+              "in her juice", "in his juice", "in her food", "in his food",
+              "covert", "covertly", "without him knowing", "without her knowing",
+              /* P-13 — over-the-counter, topical and brand-name medicines.
+                 They are medication too, and none of them was listed. */
+              /* P-13's referee — "cream" and "vitamin*" alone fire on
+                 sunscreen and on a delivery question. A MEDICINE is named
+                 with what it is for, or with whose it is. */
+              "put some cream on", "cream on her rash", "cream on his rash", "cream on their rash",
+              "cream for her rash", "cream for his rash", "prescription cream", "steroid cream",
+              "antifungal cream", "barrier cream", "medicated cream", "hydrocortisone",
+              "his vitamins", "her vitamins", "their vitamins", "his vitamin", "her vitamin",
+              "their vitamin", "vitamin tablet", "vitamin tablets", "vitamin supplement", "vitamin d",
+              "his supplements", "her supplements", "their supplements", "nutritional supplement",
+              "lotion", "syrup", "cough syrup", "cough medicine", "lozenge*",
+              "fish oil", "deep heat", "voltaren", "dencorub", "liniment",
+              "antihistamine*", "phenergan", "imodium", "aspirin", "codeine",
+              "valium", "diazepam", "endone", "oxycodone", "oxycontin", "methadone", "suboxone",
+              "clozapine", "clopine", "lithium", "warfarin", "midazolam", "olanzapine", "risperidone",
+              "quetiapine", "seroquel", "epilim", "tegretol", "keppra", "lyrica", "targin"] },
     { topic: "restrictive", label: "a restrictive practice",
       terms: ["restrain*", "restrictive", "restrict", "restricted", "restricting", "restriction*", "seclu*",
-              "lock the", "locked in", "lock them", "lock him", "lock her", "locking", "hold them", "hold him",
+              "lock the", "locked in", "lock them", "lock him", "lock her", "hold them", "hold him",
               "hold her", "held down", "hold down", "take away their", "take away his", "take away her",
               "confiscat*", "stop them leaving", "stop him leaving", "stop her leaving", "not allowed to leave",
               "can't leave", "cannot leave", "prevent them", "prevent him", "prevent her", "block the door",
@@ -4852,22 +4956,143 @@ const FieldGuide = (() => {
               "locked door", "lock the gate", "lock the door", "take his cigarettes", "take her cigarettes",
               "take their cigarettes", "keep him inside", "keep her inside", "keep them inside",
               "tie him", "tie her", "tie them", "not let him out", "not let her out", "not let them out",
-              "shut in", "shut him in", "shut her in", "shut them in"] },
+              "shut in", "shut him in", "shut her in", "shut them in",
+              /* P-13 — a PHYSICAL RESTRAINT disclosed as an act of care. "I
+                 had to grab him to stop him running onto the road" came back
+                 with rostering advice. */
+              /* P-13's referee — bare "grab him"/"grab her" fire on "can i
+                 grab him a sandwich" and "grab her cardigan". A restraint is
+                 disclosed in the past tense, or as something you HAD to do. */
+              "had to grab", "grab him to stop", "grab her to stop", "grab them to stop",
+              "grab him back", "grab her back", "grab him before", "grab her before",
+              "grabbed him", "grabbed her", "grabbed them",
+              "grab his arm", "grab her arm", "grab their arm", "grabbed his arm", "grabbed her arm",
+              "grab hold of", "grabbed hold of", "pulled him back", "pulled her back", "pulled them back",
+              "held his arm", "held her arm", "wrestl*", "pinned him", "pinned her", "pinned them",
+              /* P-13 — seclusion in plain words: time out, a bedroom used as a
+                 consequence, a doorway blocked by a body. */
+              /* P-13's referee — bare "time out" fires on "he wants some time
+                 out before we go"; SECLUSION is time out somewhere, or given. */
+              "give him a time out", "give her a time out", "give them a time out",
+              "time out in his", "time out in her", "time out in their", "time out in the room",
+              "time out as a", "time out until", "put him in time out", "put her in time out",
+              "put them in time out", "time-out in", "timeout in",
+              "put him in his room", "put her in her room",
+              "put them in their room", "put him in the room", "put her in the room",
+              "in his room until", "in her room until", "in the doorway", "stood in the doorway",
+              "blocked the door", "blocking the door", "stand in the way", "stood in the way",
+              /* P-13 — environmental restraint: a shut door, a keypad, a gate
+                 a participant cannot open for themselves. */
+              /* P-13's referee — "door shut"/"gate shut" fire on "should i
+                 shut the front door when we leave". Which door, or why. */
+              "front door shut", "back door shut", "keep the door shut", "door shut so",
+              "door shut at night", "door shut all", "front door closed", "keep the door closed",
+              "door closed so", "front gate shut", "back gate shut", "keep the gate shut",
+              "gate shut so", "keep the gate closed", "gate closed so", "keep the door", "keep the gate",
+              "keypad", "key pad", "coded lock", "combination lock", "digital lock", "code on the door",
+              "swipe card", "child lock", "childproof",
+              /* P-13 — a withheld thing used as leverage: food, wifi, the TV,
+                 a phone. All four are restrictive practices; none was listed. */
+              /* P-13's referee — "ration", "tv off" and "wifi off" fire on
+                 "we ration the milk" and "can i turn the tv off". A
+                 restrictive practice is done TO someone, or as a consequence. */
+              "ration his", "ration her", "ration their", "rationing his", "rationing her",
+              "rationing their", "we ration his", "we ration her", "we ration their",
+              "withhold", "withholding", "as a consequence", "as a punishment",
+              "as punishment", "wifi off him", "wifi off her", "wifi off them", "wifi off as",
+              "wifi off when", "wi-fi off him", "wi-fi off her", "take the wifi", "take the wi-fi",
+              "internet off him", "internet off her", "tv off as", "tv off when", "tv off until",
+              "tv off him", "tv off her", "take the tv off",
+              "turned off as", "not allowed her", "not allowed his", "not allowed their",
+              "isn't allowed her", "isn't allowed his", "isn't allowed their", "allowed her phone",
+              "allowed his phone", "allowed their phone", "earns it back", "earn it back"] },
+    /* P-13 — THE DEATH OF A PARTICIPANT, a topic that did not exist. Before
+       this card only the bare adjective "dead" fired, under safeguarding, so
+       a worker who had found someone deceased was told their question touched
+       "abuse, neglect, violence". It is built from PHRASES, and the bare
+       "die"/"dead" stay with safeguarding's ideation cluster below, so "she'd
+       be better off dead" still reaches the right desk. It sits AHEAD of
+       safeguarding for the same reason. */
+    { topic: "death", label: "the death of a participant",
+      terms: ["died", "dying", "deceased", "passed away", "passed on", "he's dead", "she's dead",
+              "they're dead", "is dead", "was dead", "are dead", "found him dead", "found her dead",
+              "found them dead", "death of", "his death", "her death", "their death", "the death",
+              "has died", "have died", "no longer with us", "coroner", "undertaker", "funeral director",
+              /* P-13's referee — bare "palliative"/"end of life" fire on "a
+                 palliative care module in training". Said of a PERSON. */
+              "is palliative", "he's palliative", "she's palliative", "they're palliative",
+              "gone palliative", "on palliative", "palliative now", "palliative stage",
+              "end of life now", "end of life plan", "end of life pathway", "end of life stage",
+              "at the end of his life", "at the end of her life", "nearing the end of"] },
     { topic: "safeguarding", label: "abuse, neglect, violence or someone's safety",
       terms: ["abuse*", "abusive", "assault*", "neglect*", "exploit*", "sexual*", "hit me", "hits me", "hit them",
               "hit him", "hit her", "hits him", "hits her", "hits them", "hitting", "punch*", "slap*", "kick", "kicks",
               "kicked", "kicking", "threat*", "violen*", "unsafe", "grooming", "self-harm*", "self harm*",
+              "self-injur*", "self injur*",
               "harming", "suicid*", "kill", "kills", "killed", "killing", "weapon*", "knife", "knives", "bruise*",
               "bruising", "police", "scared of", "afraid of", "frightened", "bullying", "bullied", "bully",
               "harass*", "touching", "touched", "inappropriate*", "molest*", "rape*", "cutting themselves",
               "cutting herself", "cutting himself", "end their life", "end her life", "end his life",
               "hurt themselves", "hurt herself", "hurt himself", "hurting", "push", "pushed", "pushes", "shove*",
-              /* suicidal ideation — the plainest words a worker repeats */
-              "wants to die", "want to die", "wanted to die", "better off dead", "end it all", "die", "dead",
+              /* suicidal ideation — the plainest words a worker repeats. The
+                 bare "die" and "dead" live HERE, not in the death topic, so
+                 that "she'd be better off dead" is heard as ideation. */
+              "wants to die", "want to die", "wanted to die", "better off dead", "end it all", "die",
               "kill herself", "kill himself", "kill themselves", "not want to be here", "doesn't want to be here",
               "take her own life", "take his own life", "take their own life", "cut herself", "cut himself",
               "cut themselves", "hang herself", "hang himself", "hang themselves",
-              /* financial abuse and touching, in the words used */
+              /* P-13 — ideation in its commonest INDIRECT forms: the ones a
+                 worker actually repeats back, none of which name suicide. */
+              "better off without him", "better off without her", "better off without me",
+              "better off without them", "want to wake up", "wake up tomorrow", "never wake up",
+              "no point going on", "no point in going on", "no point anymore", "no point any more",
+              /* P-13's referee — "what's the point" fires on "what's the point
+                 of the goal setting meeting" and "said goodbye" on an ordinary
+                 farewell. Ideation says the point of WHAT, and goodbye to WHOM. */
+              "what's the point of living", "what's the point in living", "what's the point of going on",
+              "what's the point anymore", "what's the point any more", "what is the point of living",
+              "what's the point of it all", "giving away her things", "giving away his things",
+              "giving away their things", "goodbye to everyone", "saying goodbye to everyone",
+              "said goodbye to everyone", "saying his goodbyes", "saying her goodbyes", "goodbye note",
+              "written a note", "wrote a note", "left a note", "suicide note",
+              "can't do this anymore", "can't do this any more", "can't go on", "cannot go on",
+              /* "end things" bare fires on "end things with her housemate
+                 arrangement". Narrowed to the wanting forms, which still
+                 collide with that one sentence — a DEFENDED over-fire: "she
+                 wants to end things" with nothing after it is ambiguous, and
+                 this file errs toward a person. */
+              "can't cope anymore", "wants to end things", "want to end things", "wanted to end things",
+              "going to end things", "end things tonight", "end things for good",
+              "thinking of ending things", "talking about ending things", "had enough of everything",
+              /* P-13 — self-injurious behaviour, described as the behaviour it
+                 is. The bare gerund "biting" is NOT listed: it stems to "bit"
+                 and would fire on "he was a bit quiet today" (measured). The
+                 silent-e stream below reaches it through the injury table's
+                 own "bite" instead, which is where a bite belongs. */
+              "biting herself", "biting himself", "biting themselves",
+              "scratching at his", "scratching at her", "scratching at their", "scratching himself",
+              "scratching herself", "scratching themselves", "picks at her skin", "picks at his skin",
+              "picks at their skin", "picking at herself", "picking at himself", "digs his nails",
+              "digs her nails", "digs their nails", "nails into his", "nails into her", "nails into their",
+              "pinches herself", "pinches himself", "pinches themselves", "head banging",
+              "bangs his head against", "bangs her head against", "hitting himself", "hitting herself",
+              "hitting themselves",
+              /* P-13's referee, audit row 1 — NEGLECT disclosed as an absence.
+                 "he hasn't had a shower in two weeks and no one has helped him"
+                 was read as the participant's own refusal and answered with the
+                 shower entry, which is the audit's headline row. */
+              "no one has helped", "nobody has helped", "no one is helping", "nobody is helping",
+              "no one has washed", "no one has been in", "nobody has been in",
+              "hasn't had a shower in", "hasn't been showered", "hasn't washed in",
+              "hasn't eaten in", "hasn't been fed", "hasn't been changed", "hasn't been out of",
+              "left in soiled", "left in wet", "sitting in his own", "sitting in her own",
+              /* financial abuse and touching, in the words used. P-13's
+                 referee, audit row 2 — the PAST tense was missing, so "his
+                 brother took his bank card" reached the shopping-money entry. */
+              "took his bank card", "took her bank card", "took their bank card",
+              "took his money", "took her money", "took their money",
+              "took his pension", "took her pension", "took their pension",
+              "took his wallet", "took her wallet", "took their wallet",
               "takes his money", "takes her money", "takes their money", "takes his pension", "takes her pension",
               "takes their pension", "his pension", "her pension", "touches her", "touches him", "touches them",
               "cigarettes off",
@@ -4890,7 +5115,43 @@ const FieldGuide = (() => {
               "is gone", "has gone", "he's gone", "she's gone", "they've gone", "nowhere to be found",
               "didn't come home", "did not come home", "ran off", "run off", "lost sight of", "slipped out",
               "got out of the", "gone from the", "not in his room", "not in her room", "not in their room",
-              "not at the", "didn't turn up", "hasn't turned up", "unaccounted"] }
+              "didn't turn up", "hasn't turned up", "unaccounted",
+              /* P-13 — a missing participant as it is ACTUALLY reported. The
+                 word "missing" almost never appears in the first sentence. */
+              "was gone", "were gone", "he was gone", "she was gone", "they were gone",
+              /* P-13's referee — "don't know where" alone fires on "i don't
+                 know where the spare linen is kept". A missing PERSON. */
+              "don't know where he", "don't know where she", "don't know where they",
+              "don't know where the participant", "dont know where he", "dont know where she",
+              "dont know where they", "do not know where he", "do not know where she",
+              "do not know where they", "no idea where he", "no idea where she", "no idea where they",
+              "can't see him", "can't see her", "can't see them", "cannot see him", "cannot see her",
+              "see him anywhere", "see her anywhere", "see them anywhere", "anywhere in the house",
+              "nobody has seen", "no one has seen", "hasn't been seen", "not been seen",
+              "seen her since", "seen him since", "seen them since",
+              "hasn't shown up", "haven't shown up", "didn't show up", "not shown up", "hasn't showed up",
+              "house was empty", "house is empty", "unit was empty", "flat was empty", "place was empty",
+              "no one was there", "nobody was there",
+              "answer when i knocked", "didn't answer the door", "no answer at the door",
+              "nobody answered the door", "no one answered the door",
+              /* "not at the" fires on "notes at the end" — stem("notes") is
+                 "not" — so it names where, not just the preposition. */
+              "not at the meeting", "not at the pick up", "not at the bus stop", "not at the house",
+              "not at the centre", "not at the door", "not at the shops", "not at the address",
+              "meeting point", "pick up point", "wasn't at the", "weren't at the", "wasn't there when"] },
+    /* P-13 — AN ALLEGATION AGAINST A WORKER, a topic that did not exist, and
+       both a reportable-incident pathway and a natural-justice matter. It is
+       LAST, so a question that is also about the thing alleged (a push, a
+       missing wallet) still reaches that topic first. Every term is a phrase
+       carrying "me": the bare "complaint" is the complaints entry's own
+       search term, and listing it would make that entry unreachable. */
+    { topic: "allegation", label: "an allegation or a complaint about you",
+      terms: ["accused me", "accused of", "accuse me", "accusing me", "accusation about me",
+              "accusation against me", "allegation about me", "allegation against me",
+              "allegation has been made", "made an allegation", "complaint about me", "complaint against me",
+              "complaint has been made", "made a complaint about me", "against me", "blamed me",
+              "blaming me", "blame me", "stood down", "suspended pending", "under investigation",
+              "being investigated", "investigating me", "reportable conduct about me", "said i did"] }
   ];
 
   /* ---- the core field guide ----
@@ -5118,28 +5379,123 @@ const FieldGuide = (() => {
      phrases on that stemmed stream; a trailing "*" marks a prefix. A few
      named idioms that carry a topic word but mean something else are
      removed first ("falling asleep", "burnt out") — the only allow-list,
-     and it is a list of idioms, not of topics. */
-  const IDIOMS = ["fall asleep", "falling asleep", "falls asleep", "fell asleep", "fallen asleep",
-                  "burnt out", "burn out", "burned out", "burning out", "burnout"];
+     and it is a list of idioms, not of topics.
+
+     Card P-13: THE ALLOW-LIST IS CONDITIONAL NOW, because an unconditional
+     one deleted a live trigger. "burnt out" is always an idiom — nobody
+     reports a burn that way. "fell asleep" is only an idiom while nobody is
+     trying to WAKE the person: "he keeps falling asleep during the day" is
+     a sleep-hygiene question, "he fell asleep and I can't wake him" is a
+     medical emergency whose only signal was the phrase the allow-list threw
+     away before any term was tested. So the sleep family is stripped ONLY
+     when the question carries none of the rousing / consciousness /
+     immersion words below. The guard entries are matched as prefixes of the
+     normalised question ("wak" reaches wake, wakes, waking), and a guard
+     word does not itself escalate — it only stops the deletion. */
+  /* P-13's referee — "dying to go to the concert" and "dying for a cuppa"
+     are the same shape as "burnt out": a topic word inside an idiom. */
+  const IDIOMS = ["burnt out", "burn out", "burned out", "burning out", "burnout",
+                  "dying to", "dying for"];
+  const SLEEP_IDIOMS = ["fall asleep", "falling asleep", "falls asleep", "fell asleep", "fallen asleep"];
+  const ROUSE_GUARD = ["wak", "woke", "rous", "unrous", "respons", "respond", "conscious", "unconscious",
+                       "breath", "bath", "drown", "limp", "floppy", "slump", "blue", "snor", "overdos",
+                       "chok", "pulse", "cold and", "clammy"];
+  /* Card P-13 — the silent "e" that English drops before "-ing" and "-ed".
+     stem("biting") is "bit" while stem("bite") is "bite", so a whole-word
+     term could never see the gerund. "bit" cannot simply be read as "bite":
+     "he was a bit quiet today" is not a bite, and listing the bare gerund
+     routed exactly that sentence to a person (measured, 2 of 49 ordinary
+     questions). Porter's rule is the one that separates them — put the "e"
+     back only on a word the suffix was actually stripped FROM, and only when
+     what is left ends consonant-vowel-consonant. So "biting" -> "bit" ->
+     "bite" and matches, while "a bit" is never stripped and stays "bit".
+     This feeds a THIRD matching stream used by the escalation table alone;
+     the ranker's own tokens are untouched.
+
+     P-13's REFEREE — THE CLASS THE FIX OPENED. Porter's rule is right about
+     spelling and blind about meaning, so two ordinary English words started
+     reaching the table: "fired"/"firing" restores to "fire" (the injury term
+     for an actual fire) and "stroking" restores to "stroke" (the medical
+     event). "he got fired from his job" is not exotic — employment support is
+     core NDIS work — and neither is "he likes stroking the cat". These are
+     idioms in the same sense as "burnt out": a surface form that carries a
+     topic word and means something else, so they are named in a list beside
+     IDIOMS rather than patched into the rule. The e-restore is SKIPPED for
+     them; their base forms ("fire", "stroke") still match as themselves. */
+  const VOWEL = "aeiou";
+  const ESTEM_IDIOMS = new Set(["fired", "firing", "stroking", "stroked"]);
+  function estem(w){
+    const s = stem(w);
+    if (s === w || s.length < 3) return s;
+    if (!(w.endsWith("ing") || w.endsWith("ed"))) return s;
+    if (ESTEM_IDIOMS.has(w)) return s;
+    const a = s[s.length - 3], b = s[s.length - 2], c = s[s.length - 1];
+    const cvc = VOWEL.indexOf(a) === -1 && VOWEL.indexOf(b) !== -1 && VOWEL.indexOf(c) === -1 && "wxy".indexOf(c) === -1;
+    return cvc ? s + "e" : s;
+  }
   function streams(text){
     let q = norm(text);
     for (const i of IDIOMS) q = q.split(" " + i + " ").join(" ");
+    if (!ROUSE_GUARD.some(g => q.indexOf(" " + g) !== -1)){
+      for (const i of SLEEP_IDIOMS) q = q.split(" " + i + " ").join(" ");
+    }
     const words = q.trim().split(" ").filter(Boolean);
     /* raw: for prefix terms ("abuse*" must see "abused", which stems to
-       "abus"); stemmed: for whole words and phrases. */
-    return { raw: " " + words.join(" ") + " ", stemmed: " " + words.map(stem).join(" ") + " " };
+       "abus"); stemmed: for whole words and phrases; estem: the same stream
+       with the silent "e" restored, so "bite" reaches "biting". */
+    return { raw: " " + words.join(" ") + " ",
+             stemmed: " " + words.map(stem).join(" ") + " ",
+             estem: " " + words.map(estem).join(" ") + " " };
   }
+  /* Card P-13 — the stem class, one bug and not four, closed in ONE place.
+     A prefix term was tested against the RAW stream only, so "abuse*" saw
+     "abused" and missed "abusing"; and a whole-word term was tested against
+     the plain stemmed stream only, so "bite" could never see "biting". Both
+     halves are the same silent "e", so both are answered by the same third
+     stream: every term, prefix or phrase, is now tried against the e-restored
+     stream as well. That is deliberately the only mechanism — a second,
+     independent patch (an e-trimmed prefix, say) would make either one
+     removable while the fixture stayed green. */
   function termHit(qs, t){
     if (t.endsWith("*")){
       const prefix = norm(t.slice(0, -1)).trim();
-      return !!prefix && qs.raw.indexOf(" " + prefix) !== -1;
+      if (!prefix) return false;
+      return qs.raw.indexOf(" " + prefix) !== -1
+          || qs.stemmed.indexOf(" " + prefix) !== -1
+          || qs.estem.indexOf(" " + prefix) !== -1;
     }
-    const text = norm(t).trim().split(" ").filter(Boolean).map(stem).join(" ");
-    return !!text && qs.stemmed.indexOf(" " + text + " ") !== -1;
+    const words = norm(t).trim().split(" ").filter(Boolean);
+    if (!words.length) return false;
+    if (qs.stemmed.indexOf(" " + words.map(stem).join(" ") + " ") !== -1) return true;
+    return qs.estem.indexOf(" " + words.map(estem).join(" ") + " ") !== -1;
   }
+  /* P-13's referee, audit row 3 — THE TOPIC ORDER HAS ONE EXCEPTION, and it
+     is named here rather than hidden in the ordering. Medication is scanned
+     before safeguarding on purpose (a dose question must not be read as
+     ideation), but "how many tablets would it take" is not a dose question:
+     it escalated, and the card it produced named MEDICATION on a suicide
+     disclosure, which is CRITICAL 7's exact complaint. A QUANTITY question
+     about a medicine is ideation, so the handful of phrasings that can only
+     mean that outrank the scan. Kept as a list, not a special case in the
+     loop, so a later exception is one row rather than a second mechanism. It
+     carries no label of its own — the label is read from the topic it belongs
+     to, so renaming a topic cannot leave a second copy behind. */
+  const OUTRANK = [
+    { topic: "safeguarding",
+      terms: ["how many tablets", "how many pills", "how many of these would", "how many would it take",
+              "how many paracetamol", "how many panadol", "enough tablets to", "enough pills to",
+              "enough of them to", "would it take to kill", "would it take to die"] }
+  ];
   function escalation(question){
     const qs = streams(question);
     if (qs.raw.trim() === "") return null;
+    for (const e of OUTRANK){
+      const home = ESCALATE.find(x => x.topic === e.topic);
+      if (!home) continue;
+      for (const t of e.terms){
+        if (termHit(qs, t)) return { topic: home.topic, label: home.label, term: t };
+      }
+    }
     for (const e of ESCALATE){
       for (const t of e.terms){
         if (termHit(qs, t)) return { topic: e.topic, label: e.label, term: t };
@@ -5148,23 +5504,117 @@ const FieldGuide = (() => {
     return null;
   }
 
+  /* A CONTENT word is a question word that could name a subject. The stop
+     list drops most of the rest, but three families survive it and they are
+     pure noise: personal pronouns ("she", "him"), the fragments contraction
+     stemming leaves behind ("he'" from "he's", "don't" -> "don"), and
+     possessives ("participant'" from "participant's", whose base IS a stop
+     word). The floor below counts content words, so they are excluded from
+     that count. Scoring is deliberately untouched — this changes what is
+     ADMITTED, not what ranks first. */
+  const NO_CONTENT = new Set(("he she him her hers his himself herself itself themselves themselv myself yourself " +
+    "ourselves ourselv don doesn didn won wouldn shouldn couldn isn wasn aren weren hasn haven hadn ain mustn").split(" "));
+  function isContent(w){
+    const base = w.replace(/'.*$/, "");
+    return !!base && !STOP.has(base) && !NO_CONTENT.has(base) && !NO_CONTENT.has(w);
+  }
+
+  /* ...and how DISTINCTIVE a content word is, MEASURED against the guide
+     rather than guessed. "taxi", "cigarette", "filthy" and "gp" are each
+     named by one entry and name a subject on their own; "take", "tell",
+     "house" and "know" are spread across the guide and name nothing. That is
+     document frequency, so it is computed from the corpus once: title, body,
+     tag and search terms of every core entry. Weighting the floor by it is
+     what lets a one-word question be answered without letting a generic verb
+     in the same question outvote the one word that matters.
+     The map is keyed by words that came from a worker's question, so it is
+     built with Object.create(null) (the project's whitelist rule): on a plain
+     object "__proto__" and "constructor" are truthy members of every map. */
+  const DF = (() => {
+    const df = Object.create(null);
+    for (const e of CORE){
+      const seen = new Set(tokens(e.title).concat(tokens(e.body), tokens(e.tag || ""),
+        (e.terms || []).reduce((a, t) => a.concat(tokens(t)), [])));
+      for (const w of seen) df[w] = (df[w] || 0) + 1;
+    }
+    return df;
+  })();
+  const RARE_WEIGHT = 3;
+  const weigh = w => ((DF[w] || 0) <= 1 ? RARE_WEIGHT : 1);
+
   /* Score one guide entry against a question. Phrase terms hit the whole
-     normalised question; word hits weigh title over body. Requires a real
-     signal (a term or title hit, or two body hits) — noise scores zero. */
+     normalised question; word hits weigh title over body.
+
+     Card P-13 — THE CONFIDENCE FLOOR. The old rule returned a score on ONE
+     signal of any kind, and the hub renders the top entry already expanded
+     under "General NDIS guidance", so a single incidental word was served as
+     an authoritative answer: "she wants me to record the show for her" came
+     back with "How do I write good shift notes?" on the strength of the word
+     "record" alone. (scoreDoc is deliberately untouched: a procedure listed
+     as "read alongside" is offered, not asserted.)
+
+     P-13's REFEREE — THE FLOOR MEASURED THE WRONG THING, and it was wrong in
+     both directions. The first cut counted CHANNEL HITS and treated a term's
+     LENGTH as its specificity: a multi-word term was evidence on its own. But
+     seven core terms tokenise to no content at all ("wants to go", "go out",
+     "can i do", "on my own"), so "she wants to go to church on sunday" was
+     answered with "something risky, like a night out", while "he wants a
+     cigarette" — whose one word is a term its author listed precisely so that
+     a worker who types it finds the entry — came back EMPTY and rendered a
+     bold call-000 banner. Measured: 22 of 40 short natural questions lost
+     their answer, and 181 of the 376 core search terms typed alone (48%)
+     stopped reaching their own entry.
+
+     So the floor measures CONTENT EVIDENCE instead: not how long the matched
+     term was, but how much of what the worker actually ASKED ABOUT this entry
+     can account for. Three clauses, each doing one job:
+
+       A. A question made entirely of filler ("go out", "shift notes",
+          "support for me" — terms whose every word is a stop or domain word)
+          has no content to cover, and the only evidence possible is that the
+          entry NAMED the exact words typed. Keep the score.
+       B. Otherwise the entry's evidence, WEIGHTED by how distinctive each
+          covered word is, must outweigh half the question's content words.
+          "cigarette" covers the whole of "he wants a cigarette" and answers;
+          "record" covers half of "record the show" and does not; "making"
+          covers a quarter of "the heater in the lounge is making a noise" and
+          does not; "wants to go" covers none of "church on sunday" and does
+          not. The two sides are deliberately asymmetric — the evidence is
+          weighted, the question is counted — because a plain majority of a
+          flat count refuses "can i take him in a taxi" over the word "take",
+          and it is "taxi" that says what the question is about.
+       C. At least one covered word must come from a STRONG channel — a search
+          term or the title. A body mention alone is context, not an answer,
+          and the tag is not counted at all (it scores, as it always did, but a
+          group name is not a licence to answer).
+
+     Each clause is mutation-provable on its own in test-harness.html; that is
+     the point of splitting them, because the first cut's four clauses could
+     be removed one at a time with every gate staying green. */
   function scoreEntry(entry, qNorm, qTok){
-    let s = 0, strong = 0, bodyHits = 0;
+    let s = 0;
+    const covered = new Set(), strongCovered = new Set();
     for (const t of (entry.terms || [])){
       const tn = norm(t).trim();
       if (!tn) continue;
-      if (qNorm.indexOf(" " + tn + " ") !== -1 || (tn.indexOf(" ") === -1 && qTok.indexOf(stem(tn)) !== -1)){ s += 4; strong++; }
+      if (qNorm.indexOf(" " + tn + " ") !== -1 || (tn.indexOf(" ") === -1 && qTok.indexOf(stem(tn)) !== -1)){
+        s += 4;
+        for (const w of tokens(tn)) if (qTok.indexOf(w) !== -1){ covered.add(w); strongCovered.add(w); }
+      }
     }
     const tt = tokens(entry.title), bt = tokens(entry.body), gt = tokens(entry.tag || "");
     for (const w of qTok){
-      if (tt.indexOf(w) !== -1){ s += 2; strong++; }
-      if (bt.indexOf(w) !== -1){ s += 1; bodyHits++; }
+      if (tt.indexOf(w) !== -1){ s += 2; covered.add(w); strongCovered.add(w); }
+      if (bt.indexOf(w) !== -1){ s += 1; covered.add(w); }
       if (gt.indexOf(w) !== -1) s += 1;
     }
-    return (strong > 0 || bodyHits >= 2) ? s : 0;
+    const content = qTok.filter(isContent);
+    if (!content.length) return s;                                        /* clause A */
+    let have = 0;
+    for (const w of content) if (covered.has(w)) have += weigh(w);
+    if (have * 2 <= content.length) return 0;                             /* clause B */
+    if (!content.some(w => strongCovered.has(w))) return 0;               /* clause C */
+    return s;
   }
   /* A procedure document: title over body, two hits or a title hit. */
   function scoreDoc(doc, qTok){
@@ -5223,7 +5673,20 @@ const FieldGuide = (() => {
     for (const r of result.core)   mats.push({ n: ++n, id: r.item.id, kind: "GENERAL NDIS GUIDANCE", title: r.item.title, text: r.item.body });
     for (const r of result.docs)   mats.push({ n: ++n, id: r.item.id, kind: "ORGANISATION DOCUMENT (excerpt)", title: r.item.title, text: String(r.item.body || "").slice(0, 1200) });
     if (!mats.length) throw new Error("nothing to compose from");
-    const sys = "You are a field reference for Australian NDIS support workers on shift. Answer the worker's question ONLY from the numbered material provided — the organisation's own answers come first and take precedence over general guidance where they differ. If the material does not answer the question, say so plainly and tell the worker to ask their supervisor; never invent a procedure, a rule or a phone number. Give no medical, medication or legal advice. Plain Australian English, under 120 words, second person, no headings. Respond ONLY with JSON: {\"answer\":\"...\",\"sources\":[<material numbers used>]}";
+    /* Card P-13 — THE COMPOSER'S SAFETY FLOOR. The direction of this product
+       is that a provider uploads all of its procedures and this model answers
+       from them, so the composer becomes the primary path and it answers MORE
+       as the library grows. Until this card the prompt told the model that the
+       organisation's own answers "take precedence", with nothing underneath
+       that: tenant content is provider-authored plain text that nobody
+       screens, and the hard escalation guard only fires when the term table
+       already caught the question. Two clauses sit under it now — a residual
+       escalation clause for the question the table missed, and a floor under
+       provider content itself. Both are asserted on this source string by the
+       harness, because compose() does network I/O and cannot be run there. */
+    const sys = "You are a field reference for Australian NDIS support workers on shift. Answer the worker's question ONLY from the numbered material provided — the organisation's own answers come first and take precedence over general guidance where they differ, except where the safety floor below applies. If the material does not answer the question, say so plainly and tell the worker to ask their supervisor; never invent a procedure, a rule or a phone number. Give no medical, medication or legal advice. " +
+      "SAFETY FLOOR, above everything else. First: if the question suggests that anyone is hurt, unwell, at risk or missing, or that medication or a restrictive practice is involved, do not answer it from the material at all — say that this one needs a person now, their supervisor or the on-call manager, and 000 if anyone is in danger. Second: never relay material that describes withholding medication, a restrictive practice or a physical intervention as if it were an instruction to follow; the law, the NDIS Code of Conduct and the participant's own plan override any organisation document, and where a document appears to conflict with them, say so and send the worker to their supervisor. " +
+      "Plain Australian English, under 120 words, second person, no headings. Respond ONLY with JSON: {\"answer\":\"...\",\"sources\":[<material numbers used>]}";
     const user = "QUESTION: " + question + "\n\nMATERIAL:\n" +
       mats.map(m => `[${m.n}] ${m.kind} — ${m.title}\n${m.text}`).join("\n\n");
     const model = (typeof Coach !== "undefined" && Coach.MODEL) ? Coach.MODEL : "claude-opus-4-8";
@@ -6693,8 +7156,8 @@ const Admin = (() => {
   const EVIDENCE_DISCLAIMER =
     "NDIS Practice Academy is non-accredited professional development. It is not " +
     "nationally recognised training and does not replace the NDIS Quality and Safeguards " +
-    "Commission's mandatory Worker Orientation Module — it evidences a worker's ability " +
-    "to apply that learning in written practice scenarios.";
+    "Commission's mandatory Worker Orientation Module — it records how a worker applied " +
+    "that learning in written practice scenarios.";
 
   function evidenceWorkerHTML(ev){
     /* Untouched modules are collapsed into ONE line rather than getting a
@@ -9030,9 +9493,14 @@ const Hub = (() => {
   }
   function resultHTML(res, composed, fallbackNote){
     const org = orgName() || "Your organisation";
+    /* Card P-13: the empty state leads with the safety floor. A worker who
+       gets nothing back may have typed the worst thing that can happen on a
+       shift in words the term table did not know, so 000 and a person come
+       BEFORE the suggestion to try other words. */
     if (res.empty) return `
       <div class="guide-card guide-empty">
-        <p>Nothing in the guide matches that yet. Try other words, or ask your supervisor — and if it comes up often, ${esc(org)} can add its own answer in Admin → Field guide.</p>
+        <p><strong>If someone is hurt, unwell, missing or in danger, do not keep typing — call 000 if it is an emergency, and ring your supervisor or the on-call manager now.</strong></p>
+        <p>Otherwise: nothing in the guide matches that yet. Try other words, or ask your supervisor — and if it comes up often, ${esc(org)} can add its own answer in Admin → Field guide.</p>
       </div>`;
     if (res.escalate) return escalationHTML(res);
     let h = "";
